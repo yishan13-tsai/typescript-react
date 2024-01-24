@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
+import Order from './Order.tsx'
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import './index.css'
 import { ConfigProvider } from "antd";
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
     element: <Rooms />,
   },
   {
+    path: "/order",
+    element: <Order />,
+  },
+  {
     path: "*",
     element: <h1>Not Found</h1>,
   },
@@ -43,7 +48,19 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           "fontSize": 16,
           "borderRadius": 8,
           "colorError": "#da3e51",
-          "colorSuccess": "#52dd7e"
+          "colorSuccess": "#52dd7e",
+          "fontFamily": "'Noto Serif TC', serif, 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace",
+          "controlPaddingHorizontal": 16,
+          "controlHeight": 56,
+          "lineHeight": 1.5,
+          "paddingSM": 16,
+          "colorText": "rgb(75, 75, 75)",
+          "colorTextPlaceholder": "rgb(144, 144, 144)",
+          "colorErrorText": "rgb(218, 62, 81)",
+          "colorBorder": "rgba(217, 217, 217, 0)",
+          "colorPrimaryActive": "rgb(191, 157, 112)",
+          "colorBgContainer": "#FFFFFF",
+          "lineWidth": 1,
         },
         "components": {
           "Button": {
@@ -57,17 +74,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             "inputFontSize": 16,
             "paddingBlock": 16,
             "paddingInline": 16,
-            "fontSize": 16,
-            "lineWidth": 1,
-            "colorText": "rgb(75, 75, 75)",
-            "colorTextPlaceholder": "rgb(144, 144, 144)",
-            "colorError": "rgb(218, 62, 81)",
-            "colorErrorText": "rgb(218, 62, 81)",
-            "colorBorder": "rgba(217, 217, 217, 0)",
-            "colorPrimaryActive": "rgb(191, 157, 112)",
-            "colorPrimaryHover": "rgb(191, 157, 112)",
-            "colorBgContainer": "#FFFFFF"
-          }
+          },
+          "Form": {
+          },
         },
       }}
     >
