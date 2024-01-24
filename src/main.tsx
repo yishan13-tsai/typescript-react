@@ -4,7 +4,7 @@ import App from './App.tsx'
 import {createBrowserRouter, RouterProvider} from "react-router-dom"
 import './index.css'
 
-const isProd = process.env.NODE_ENV === "production";
+// const isProd = process.env.NODE_ENV === "production";
 const router = createBrowserRouter([
     {
         path: "/",
@@ -22,7 +22,7 @@ const router = createBrowserRouter([
         path: "*",
         element: <h1>Not Found</h1>,
     },
-], {basename: isProd ? "/typescript-react" : undefined})
+])
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
