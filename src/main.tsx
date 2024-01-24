@@ -21,7 +21,7 @@ const router = createBrowserRouter([
         path: "*",
         element: <h1>Not Found</h1>,
     },
-]);
+], {basename: "/typescript-react"});
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
