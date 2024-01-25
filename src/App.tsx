@@ -1,7 +1,6 @@
-import { Checkbox, Input } from "antd";
+import { Checkbox, Input, Button } from "antd";
 // import { useState } from 'react';
 import type { CheckboxProps } from 'antd';
-import AButton from "./AButton"
 
 
 const App = () => {
@@ -22,9 +21,8 @@ const App = () => {
     <p className="text-primary-100">字體顏色示範: color-primary-100</p>
     <p className="bg-info-20">背景顏色示範: bg-info-20</p>
     <Input placeholder="Basic usage"></Input>
-
-    <AButton>Button</AButton>
-
+    <Button type="primary">按钮</Button>
+    <Button > default 按钮</Button>
     <Checkbox onChange={onChange}>Checkbox</Checkbox>
 
   </>)
