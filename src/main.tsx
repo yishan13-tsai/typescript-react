@@ -1,8 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
-import {createBrowserRouter, RouterProvider} from "react-router-dom"
+import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import './index.css'
+import Rooms from './component/Rooms.tsx'
 
 const router = createBrowserRouter([
     {
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
     {
         path: "/users",
         element: <h1>Users</h1>,
+    },
+    {
+        path: "/rooms",
+        element: <Rooms />,
     },
     {
         path: "*",
