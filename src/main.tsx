@@ -4,6 +4,7 @@ import App from './App.tsx'
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import './index.css'
 import { ConfigProvider } from "antd";
+import Rooms from './component/Rooms.tsx'
 
 const isProd = process.env.NODE_ENV === "production";
 const router = createBrowserRouter([
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
   {
     path: "/users",
     element: <h1>Users</h1>,
+  },
+  {
+    path: "/rooms",
+    element: <Rooms />,
   },
   {
     path: "*",
