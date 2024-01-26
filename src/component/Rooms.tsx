@@ -3,7 +3,7 @@ import React from "react";
 import CarouselArrows from "./CarouselArrows";
 import Detail from "./Detail";
 import { Divider } from 'antd';
-import { ArrowRightOutlined, RightOutlined } from "@ant-design/icons";
+import { ArrowRightOutlined } from "@ant-design/icons";
 
 const cardStyle: React.CSSProperties = {
     width: '65%',
