@@ -6,37 +6,3 @@
 * {
   font-family: 'Noto Serif TC';
 }
-
-.ant-carousel .slick-slide {
-  text-align: center;
-  height: 200px;
-  line-height: 160px;
-  background: #364d79;
-  border-radius: 5px;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-  overflow: hidden;
-}
-
-
-.ant-carousel .slick-slide h3 {
-  color: #fff;
-  margin: 24px;
-}
-
-
-.ant-carousel .slick-next {
-  margin-right: 30px;
-}
-
-.ant-card .ant-card-body {
-  padding: 0px;
-  background-color: white;
-  border-radius: 50%;
-}
-
-.ant-carousel .slick-prev {
-  margin-left: 30px;
-  z-index: 9;
-
-}

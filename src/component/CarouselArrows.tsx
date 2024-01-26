@@ -2,6 +2,10 @@ import { Carousel } from "antd";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import { Image } from 'antd';
 import React from "react";
+import test1 from '../assets/test1.jpg';
+import test2 from '../assets/test2.jpg';
+import test3 from '../assets/test3.jpg';
+import test4 from '../assets/test4.jpg';
 
 interface ArrowProps {
     className?: string;
@@ -44,22 +48,16 @@ const CarouselArrows = () => {
         < >
             <Carousel arrows {...settings}>
                 <div>
-                    <Image
-                        width={300}
-                        src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-                    />
+                    <Image width={600} src={test1} />
                 </div>
                 <div>
-                    <Image
-                        width={300}
-                        src="https://gw.alipayobjects.com/zos/antfincdn/aPkFc8Sj7n/method-draw-image.svg"
-                    />
+                    <Image width={600} src={test2} />
                 </div>
                 <div>
-                    <Image width={300} src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg" />
+                    <Image width={600} src={test3} />
                 </div>
                 <div>
-                    <h3>4</h3>
+                    <Image width={600} src={test4} />
                 </div>
             </Carousel>
         </>
