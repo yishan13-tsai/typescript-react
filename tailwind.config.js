@@ -15,7 +15,7 @@ export default {
     },
     letterSpacing: {
       'heading': '0.05em', // tracking-heading
-      'normal': '0.02em' // tracking-normal
+      'normal': '0.0875rem' // tracking-normal
     },
     colors: {
       primary: {
