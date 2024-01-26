@@ -93,7 +93,7 @@ const FormInput = (props: any) => {
   )
 }
 
-const AddressForm = (props: any) => {
+const AddressForm = () => {
   return (
     <Form.Item style={{ fontWeight: 700 }} label="地址">
       <Space.Compact size="middle" className="w-full">
