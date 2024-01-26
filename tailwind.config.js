@@ -38,7 +38,7 @@ export default {
         '100': '#3BADEF',
         '120': '#1D66AC',
       },
-      info: {
+      error: {
         '10': '#FDECEF',
         '20': '#F5CCD1',
         '100': '#DA3E51',
