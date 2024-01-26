@@ -33,7 +33,7 @@ const router = createBrowserRouter([
     path: "*",
     element: <h1>Not Found</h1>,
   },
-], { basename: isProd ? "/typescript-react/" : undefined })
+], { basename: isProd ? "/typescript-react" : undefined })
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
