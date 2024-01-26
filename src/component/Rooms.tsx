@@ -14,9 +14,6 @@ const titleStyle: React.CSSProperties = {
     width: '65%',
     margin: '0 auto',
 };
-const subTitleStyle: React.CSSProperties = {
-
-};
 const Rooms = () => {
     return (
         <>
@@ -31,7 +28,7 @@ const Rooms = () => {
 
                     </Col>
                     <Col className="gutter-row" md={9} >
-                        <div style={subTitleStyle}>
+                        <div >
                             <h1 >尊爵雙人房</h1>
                             <p>享受高級的住宿體驗，尊爵雙人房提供給您舒適寬敞的空間和精緻的裝潢。</p>
                         </div>
