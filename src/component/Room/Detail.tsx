@@ -10,7 +10,8 @@ const detail: React.CSSProperties = {
     marginRight: 10,
     paddingTop: 10,
     paddingRight: 30,
-    paddingLeft: 15
+    paddingLeft: 15,
+    backgroundColor: '#FFFFFF',
 };
 const icon: React.CSSProperties = {
     color: '#FFF',
@@ -28,20 +29,20 @@ const Detail = () => {
                     <div style={detail}>
                         <ArrowsAltOutlined style={icon} />
                         {/* <div className="arrow-up"></div> */}
-                        <p >24 坪</p>
+                        <p className="text-xs">24 坪</p>
                     </div>
                 </Col>
                 <Col className="gutter-row"  >
                     <div style={detail}>
                         <CarOutlined style={icon} />
-                        <p >一張大床</p>
+                        <p className="text-xs">一張大床</p>
                     </div>
                 </Col>
                 <Col className="gutter-row"  >
                     <div style={detail}>
                         <UserOutlined style={icon} />
 
-                        <p >2-4人</p>
+                        <p className="text-xs">2-4人</p>
                     </div>
                 </Col>
             </Row>

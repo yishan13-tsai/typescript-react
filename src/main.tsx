@@ -1,14 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import {createBrowserRouter, RouterProvider} from "react-router-dom"
+import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import './index.css'
 import Home from "./pages/home";
 import Login from "./pages/login.tsx";
 import Signup from "./pages/signup.tsx";
 import Order from './Order.tsx'
-import {ConfigProvider} from "antd";
-import Rooms from './component/Rooms.tsx'
-import {antdTheme} from "./config/antdTheme.tsx";
+import { ConfigProvider } from "antd";
+import Rooms from './component/Room/Rooms.tsx'
+import { antdTheme } from "./config/antdTheme.tsx";
+import DetailPage from './component/Detail/DetailPage.tsx'
 
 const isProd = process.env.NODE_ENV === "production";
 
@@ -32,12 +33,19 @@ const router = createBrowserRouter([
   {
     path: "/rooms",
     element: <Rooms />,
+    children: [
+      { path: 'detail', element: <DetailPage /> },
+    ]
+  },
+  {
+    path: "/detail",
+    element: <DetailPage />,
   },
   {
     path: "*",
     element: <h1>Not Found</h1>
   },
-], {basename: isProd ? "/typescript-react" : undefined})
+], { basename: isProd ? "/typescript-react" : undefined })
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

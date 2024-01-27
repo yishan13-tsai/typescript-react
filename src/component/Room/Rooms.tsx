@@ -1,9 +1,10 @@
-import { Card, Col, Row } from "antd";
+import { Card, Col, Row, Typography } from "antd";
 import React from "react";
 import CarouselArrows from "./CarouselArrows";
 import Detail from "./Detail";
 import { Divider } from 'antd';
 import { ArrowRightOutlined } from "@ant-design/icons";
+import { Link } from "react-router-dom";
 
 const cardStyle: React.CSSProperties = {
     width: '65%',
@@ -29,14 +30,19 @@ const Rooms = () => {
                     </Col>
                     <Col className="gutter-row" md={9} >
                         <div >
-                            <h1 >尊爵雙人房</h1>
+                            <Typography.Title level={2}>
+                                尊爵雙人房
+                            </Typography.Title>
                             <p>享受高級的住宿體驗，尊爵雙人房提供給您舒適寬敞的空間和精緻的裝潢。</p>
                         </div>
                         <Detail />
                         <Divider />
                         <div className="flex  justify-between text-primary-100 ">
                             <span className="text-xl">NT$ 10,000</span>
-                            <ArrowRightOutlined className="text-base mr-4 " />
+                            <Link to="/detail">
+                                <ArrowRightOutlined className="text-base mr-4" />
+                            </Link>
+
                         </div>
 
                     </Col>
@@ -46,4 +52,4 @@ const Rooms = () => {
     )
 }
 
-export default Rooms
+export default Rooms;
