@@ -5,7 +5,8 @@ import Order from './Order.tsx'
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import './index.css'
 import { ConfigProvider } from "antd";
-import Rooms from './component/Rooms.tsx'
+import Rooms from './component/Room/Rooms.tsx'
+import DetailPage from './component/Detail/DetailPage.tsx'
 
 const isProd = process.env.NODE_ENV === "production";
 const router = createBrowserRouter([
@@ -24,6 +25,14 @@ const router = createBrowserRouter([
   {
     path: "/rooms",
     element: <Rooms />,
+    children: [
+      { path: 'detail', element: <DetailPage /> },
+    ]
+  },
+  {
+    path: "/detail",
+    element: <DetailPage />,
+
   },
   {
     path: "/order",
