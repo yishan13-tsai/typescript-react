@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import {createBrowserRouter, RouterProvider} from "react-router-dom"
 import './index.css'
-import Home from "./pages/home.tsx";
+import Index from "./pages/home";
 import Login from "./pages/login.tsx";
 import Signup from "./pages/signup.tsx";
 
@@ -11,7 +11,7 @@ const isProd = process.env.NODE_ENV === "production";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element: <Index />,
   },
   {
     path: "/login",
