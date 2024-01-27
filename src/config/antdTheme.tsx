@@ -36,7 +36,20 @@ export const antdTheme: ThemeConfig = {
       "inputFontSize": 16,
       "paddingBlock": 16,
       "paddingInline": 16,
+      "fontSize": 16,
+      "lineWidth": 1,
+      "colorText": "rgb(75, 75, 75)",
+      "colorTextPlaceholder": "rgb(144, 144, 144)",
+      "colorError": "rgb(218, 62, 81)",
+      "colorErrorText": "rgb(218, 62, 81)",
+      "colorBorder": "rgba(217, 217, 217, 0)",
+      "colorPrimaryActive": "rgb(191, 157, 112)",
+      "colorPrimaryHover": "rgb(191, 157, 112)",
+      "colorBgContainer": "#FFFFFF"
     },
     "Form": {},
+    "Steps": {
+      "colorText": "#FFFFFF"
+    }
   },
 };
