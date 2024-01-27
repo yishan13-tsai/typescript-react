@@ -1,18 +1,18 @@
 import {PrimaryButton} from "./primaryButton.tsx";
 import {useEffect, useState} from "react";
-import axios from "axios";
 import useSWR from "swr";
+import axios from "../../utils/axios.ts";
 
 const Index = () => {
   const [canFetch, setCanFetch] = useState(false);
-  const fetcher = async (url: string) => {
+  const axiosGet = async (url: string) => {
     return axios.get(url).then((response) => {
       console.log(response);
       return response.data;
     })
   }
 
-  const {data, error, isLoading} = useSWR(canFetch ? "https://jsonplaceholder.typicode.com/todos/1" : null, fetcher)
+  const {data, error, isLoading} = useSWR(canFetch ? "/home/news/" : null, axiosGet)
 
   useEffect(() => {
     if (error) console.error(error)
