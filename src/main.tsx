@@ -1,39 +1,42 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.tsx'
-import Order from './Order.tsx'
-import { createBrowserRouter, RouterProvider } from "react-router-dom"
+import {createBrowserRouter, RouterProvider} from "react-router-dom"
 import './index.css'
-import { ConfigProvider } from "antd";
+import Home from "./pages/home";
+import Login from "./pages/login.tsx";
+import Signup from "./pages/signup.tsx";
+import Order from './Order.tsx'
+import {ConfigProvider} from "antd";
 import Rooms from './component/Rooms.tsx'
 
 const isProd = process.env.NODE_ENV === "production";
+
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <Home />,
   },
   {
-    path: "/about",
-    element: <h1>About</h1>,
+    path: "/login",
+    element: <Login />,
   },
   {
-    path: "/users",
-    element: <h1>Users</h1>,
-  },
-  {
-    path: "/rooms",
-    element: <Rooms />,
+    path: "/signup",
+    element: <Signup />,
   },
   {
     path: "/order",
     element: <Order />,
   },
   {
-    path: "*",
-    element: <h1>Not Found</h1>,
+    path: "/rooms",
+    element: <Rooms />,
   },
-], { basename: isProd ? "/typescript-react" : undefined })
+  {
+    path: "*",
+    element: <h1>Not Found</h1>
+  },
+], {basename: isProd ? "/typescript-react" : undefined})
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -75,8 +78,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             "paddingBlock": 16,
             "paddingInline": 16,
           },
-          "Form": {
-          },
+          "Form": {},
         },
       }}
     >
