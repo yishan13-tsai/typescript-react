@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import {  Button, message, Steps, theme } from "antd";
+import {  Button, message, Steps } from "antd";
 import SignupStepOne from './signup/SignupStepOne';
 import SignupStepTwo from './signup/SignupStepTwo';
 import { Link } from "react-router-dom";
