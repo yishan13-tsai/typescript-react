@@ -1,4 +1,4 @@
-import { Button, Input, Space, Checkbox } from "antd";
+import { Button, Input, Checkbox } from "antd";
 import { Link } from "react-router-dom";
 
 const Login = () => (

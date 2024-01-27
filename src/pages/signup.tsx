@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import {  Button, Input, Checkbox, message, Steps, theme } from "antd";
+import { useState } from 'react';
+import {  Button, message, Steps, theme } from "antd";
 import SignupStepOne from './signup/SignupStepOne';
 import SignupStepTwo from './signup/SignupStepTwo';
 import { Link } from "react-router-dom";
@@ -17,22 +17,13 @@ const steps = [
 ];
 
 function Signup () {
-  const { token } = theme.useToken();
   const [current, setCurrent] = useState(0);
 
   const next = () => {
     setCurrent(current + 1);
   };
 
-  const prev = () => {
-    setCurrent(current - 1);
-  };
-
   const items = steps.map((item) => ({ key: item.title, title: item.title }));
-
-  const onChange = (e: any) => {
-    console.log(`checked = ${e.target.checked}`);
-  };
   
   return (
     <>

@@ -1,10 +1,6 @@
-import {  Button, Input } from "antd";
+import { Input } from "antd";
 
 function SignupStepOne () {
-  const onChange = (e: any) => {
-    console.log(`checked = ${e.target.checked}`);
-  };
-  
   return (
     <>
       <div>

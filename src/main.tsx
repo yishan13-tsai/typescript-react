@@ -1,15 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.tsx'
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import './index.css'
 import Home from "./pages/home";
-import Login from "./pages/Login.tsx";
-import Signup from "./pages/Signup.tsx";
+import Login from "./pages/login.tsx";
+import Signup from "./pages/signup.tsx";
 import Order from './Order.tsx'
 import {ConfigProvider} from "antd";
 import Rooms from './component/Room/Rooms.tsx'
-import {antdTheme} from "./config/antdTheme.tsx";
 import DetailPage from './component/Detail/DetailPage.tsx'
 import Layout from "./component/layout.tsx";
 
