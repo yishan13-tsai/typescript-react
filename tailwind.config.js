@@ -15,7 +15,7 @@ export default {
     },
     letterSpacing: {
       'heading': '0.05em', // tracking-heading
-      'normal': '0.02em' // tracking-normal
+      'normal': '0.0875rem' // tracking-normal
     },
     colors: {
       primary: {
@@ -38,7 +38,7 @@ export default {
         '100': '#3BADEF',
         '120': '#1D66AC',
       },
-      info: {
+      error: {
         '10': '#FDECEF',
         '20': '#F5CCD1',
         '100': '#DA3E51',
