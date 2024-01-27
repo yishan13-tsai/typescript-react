@@ -14,9 +14,11 @@
   "dependencies": {
     "@ant-design/icons": "^5.2.6",
     "antd": "^5.13.2",
+    "axios": "^1.6.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.21.3"
+    "react-router-dom": "^6.21.3",
+    "swr": "^2.2.4"
   },
   "devDependencies": {
     "@types/node": "^20.11.5",
