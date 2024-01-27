@@ -1,6 +1,6 @@
-import {Button} from "antd";
+import {PrimaryButton} from "./primaryButton.tsx";
 
-const Home = () => (
+const Index = () => (
   <>
     <h1 className="text-3xl underline">
       測試字體
@@ -13,7 +13,7 @@ const Home = () => (
     <p className="tracking-normal">字體letter spacing示範: tracking-normal</p>
     <p className="text-primary-100">字體顏色示範: color-primary-100</p>
     <p className="bg-info-20">背景顏色示範: bg-info-20</p>
-    <Button type="primary">Button</Button>
+    <PrimaryButton>Button</PrimaryButton>
   </>
 );
-export default Home;
+export default Index;
