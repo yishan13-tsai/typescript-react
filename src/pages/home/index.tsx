@@ -1,5 +1,5 @@
 import {PrimaryButton} from "./primaryButton.tsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import axios from "axios";
 import useSWR from "swr";
 
@@ -13,6 +13,10 @@ const Index = () => {
   }
 
   const {data, error, isLoading} = useSWR(canFetch ? "https://jsonplaceholder.typicode.com/todos/1" : null, fetcher)
+
+  useEffect(() => {
+    if (error) console.error(error)
+  }, [error]);
 
   return (
     <>
