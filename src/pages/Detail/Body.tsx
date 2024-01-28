@@ -1,4 +1,4 @@
-import { Button, Card, Col, Divider, Row, Typography } from "antd";
+import { Col, Row, Typography } from "antd";
 import { Component } from "react";
 import BaseInformation from "../../component/BaseInformation";
 import ItemsRoom from "../../component/ItemsRoom";
