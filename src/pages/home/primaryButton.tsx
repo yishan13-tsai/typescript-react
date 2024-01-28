@@ -1,9 +1,12 @@
 import {Button} from "antd";
 import {ReactNode} from "react";
+
 interface Props {
-  children?: ReactNode
+  children?: ReactNode,
+  onClick?: () => void,
+  loading?: boolean,
 }
 
-export const PrimaryButton = ({children}: Props) => {
-  return <Button type="primary">{children}</Button>;
+export const PrimaryButton = ({children, ...props}: Props) => {
+  return <Button type="primary" {...props}>{children}</Button>;
 };
