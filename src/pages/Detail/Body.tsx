@@ -1,4 +1,4 @@
-import { Button, Card, Col, Divider, List, Row, Typography } from "antd";
+import { Button, Card, Col, Divider, Row, Typography } from "antd";
 import { Component } from "react";
 import BaseInformation from "../../component/BaseInformation";
 import ItemsRoom from "../../component/ItemsRoom";
@@ -50,26 +50,6 @@ export default class Body extends Component {
         );
     }
 }
-
-const OrderPriceCard = () => {
-    return (
-        <Card className='p-10 md:sticky md:top-10'>
-            <img src="https://miro.medium.com/v2/resize:fit:720/1*XGw9zUEZGYPNmeKGmyeX1g.jpeg" alt="" className='w-full' />
-            <p className='text-2xl text-bold'>價格詳情</p>
-            <div className='grid gap-y-3 mb-6'>
-
-                <Divider />
-                <div className="flex justify-between font-bold">
-                    <span>總價</span>
-
-                </div>
-            </div>
-            <Button type="primary" block>確認訂單</Button>
-        </Card>
-    )
-}
-
-
 
 const items = [
     '入住時間為下午3點，退房時間為上午12點。',
