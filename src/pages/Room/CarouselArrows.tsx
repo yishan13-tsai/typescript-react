@@ -48,16 +48,16 @@ const CarouselArrows = () => {
         < >
             <Carousel arrows {...settings}>
                 <div>
-                    <Image width={610} src={test1} />
+                    <Image width={'100%'} src={test1} />
                 </div>
                 <div>
-                    <Image width={610} src={test2} />
+                    <Image width={'100%'} src={test2} />
                 </div>
                 <div>
-                    <Image width={610} src={test3} />
+                    <Image width={'100%'} src={test3} />
                 </div>
                 <div>
-                    <Image width={610} src={test4} />
+                    <Image width={'100%'} src={test4} />
                 </div>
             </Carousel>
         </>
