@@ -13,6 +13,10 @@ body {
   @apply tracking-normal leading-normal;
 }
 
+.title-line {
+  @apply before:content-[''] before:border-l-4 before:h-full before:mr-3 before:border-primary-100 before:border-solid;
+}
+
 .ant-select-selector {
   border-radius: 8px !important;
 }
