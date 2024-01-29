@@ -63,7 +63,7 @@ const InfoItem = (props: any) => {
   return (
     <div className="flex justify-start">
       <div className="grid flex-1">
-        <div className="font-bold before:content-[''] before:border-l-4 before:h-full before:mr-3 before:border-[#BF9D7D] before:border-solid">{props.title}</div>
+        <div className="font-bold title-line">{props.title}</div>
         <div className="">
 
           {typeof props.context === 'string' ? <p>{props.context}</p> : props.context.map((el: string) => <p>{el}</p>)}
