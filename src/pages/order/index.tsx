@@ -1,6 +1,8 @@
-import arrowLeftIcon from './icons/arrow-left.svg'
+import arrowLeftIcon from '@/assets/icons/arrow-left.svg'
 import { Divider } from 'antd';
+import React, { useState } from 'react';
 import { Form, Input, Space, Select, Card, Button } from 'antd';
+import LoadingModal from '@/pages/order/LoadingModal';
 const { Option } = Select;
 
 // const infos: Info[] = [{ title: '選擇房型' }]
@@ -50,23 +52,27 @@ type FieldType = {
   address: ArressType;
 };
 
-const onFinish = (values: any) => {
-  console.log('Success:', values);
-};
+// const onFinish = (values: any) => {
+//   console.log('Success:', values);
+// };
 
-const onFinishFailed = (errorInfo: any) => {
-  console.log('Failed:', errorInfo);
-};
+// const onFinishFailed = (errorInfo: any) => {
+//   console.log('Failed:', errorInfo);
+// };
 
+interface Info {
+  context: string | string[];
+  title: string;
+}
 
-const InfoItem = (props: any) => {
+const InfoItem = ({ context, title }: Info) => {
   return (
     <div className="flex justify-start">
       <div className="grid flex-1">
-        <div className="font-bold title-line">{props.title}</div>
+        <div className="font-bold title-line">{title}</div>
         <div className="">
 
-          {typeof props.context === 'string' ? <p>{props.context}</p> : props.context.map((el: string) => <p>{el}</p>)}
+          {typeof context === 'string' ? <p>{context}</p> : context.map((el: string, index: number) => <p key={index}>{el}</p>)}
         </div>
       </div>
       <div className="self-center font-bold">編輯</div>
@@ -74,21 +80,32 @@ const InfoItem = (props: any) => {
   )
 }
 
-const fields = [
+
+
+
+interface OrderFormItem {
+  label: string;
+  name: string | string[];
+  isRequired: boolean;
+  errorMessage: string;
+  placeholder: string;
+}
+
+const fields:OrderFormItem[] = [
   { label: '姓名', name: 'name', isRequired: true, errorMessage: '請輸入姓名', placeholder: '請輸入姓名' },
   { label: '手機號碼', name: 'phone', isRequired: true, errorMessage: '請輸入手機號碼', placeholder: '請輸入手機號碼' },
   { label: '電子信箱', name: 'email', isRequired: true, errorMessage: '請輸入電子信箱', placeholder: '請輸入電子信箱' }
 ]
 
-const FormInput = (props: any) => {
+const FormInput = ({ label, name, isRequired, errorMessage, placeholder }: OrderFormItemProps) => {
   return (
     <Form.Item<FieldType>
-      label={<span style={{ fontWeight: 700 }}>{props.label}</span>}
-      name={props.name}
-      rules={[{ required: props?.isRequired ?? false, message: props.errorMessage }]}
+      label={<span style={{ fontWeight: 700 }}>{label}</span>}
+      name={name}
+      rules={[{ required: isRequired ?? false, message: errorMessage }]}
       className="w-full"
     >
-      <Input placeholder={props.placeholder} />
+      <Input placeholder={placeholder} />
     </Form.Item>
   )
 }
@@ -147,15 +164,25 @@ const formatPrice = (price: number): string => {
   return `${negative}${prefix} ${priceStr}`
 }
 const OrderPriceCard = () => {
+  const [isOpenLoadingModal, setIsOpenLoadingModal] = useState(false)
+  const showLoadingModal = () => {
+    setIsOpenLoadingModal(true)
+    window.setInterval(() => {
+      closeLoadingModal()
+    }, 1000)
+  }
+  const closeLoadingModal = () => {
+    setIsOpenLoadingModal(false)
+  }
   return (
     <Card className='p-10 md:sticky md:top-10'>
       <img src="https://miro.medium.com/v2/resize:fit:720/1*XGw9zUEZGYPNmeKGmyeX1g.jpeg" alt="" className='w-full' />
       <p className='text-2xl text-bold'>價格詳情</p>
       <div className='grid gap-y-3 mb-6'>
-        {priceItem.map((priceItem) => {
+        {priceItem.map((priceItem, index) => {
           const isDiscount = priceItem.price < 0
           return (
-            <div className="flex justify-between">
+            <div className="flex justify-between" key={index}>
               <span>{priceItem.title}</span>
               <span className={isDiscount ? "text-primary-100" : ""}>{formatPrice(priceItem.price)}</span>
             </div>
@@ -167,14 +194,14 @@ const OrderPriceCard = () => {
           <span>{formatPrice(totalPrice)}</span>
         </div>
       </div>
-      <Button type="primary" block>確認訂單</Button>
+      <Button type="primary" block onClick={showLoadingModal}>確認訂單</Button>
+      <LoadingModal isOpen={isOpenLoadingModal} />
     </Card>
   )
 }
 
 const Order = () => (
   <>
-    <header className="bg-[#140F0A] h-[120px]"></header>
     <main className="p-4 md:max-w-[1296px] mx-auto grid md:gap-x-[72px] grid-cols-12">
       {/* breadcrumb */}
       <div className="flex items-center font-bold col-span-12">
@@ -197,8 +224,8 @@ const Order = () => (
           className='w-full'
           layout="vertical"
           initialValues={{ remember: true }}
-          onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
+          // onFinish={onFinish}
+          // onFinishFailed={onFinishFailed}
           autoComplete="off"
           requiredMark={false}
         >
@@ -210,6 +237,7 @@ const Order = () => (
                 isRequired={fieldItem.isRequired}
                 errorMessage={fieldItem.errorMessage}
                 placeholder={fieldItem.placeholder}
+                key={fieldItem.name}
               />
             )
           })}
