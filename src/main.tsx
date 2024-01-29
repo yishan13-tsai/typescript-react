@@ -5,7 +5,7 @@ import './index.css'
 import Home from "./pages/home";
 import Login from "./pages/login.tsx";
 import Signup from "./pages/signup.tsx";
-import Order from './Order.tsx'
+import Order from './pages/order'
 import { ConfigProvider } from "antd";
 
 import Layout from "./component/layout.tsx";
