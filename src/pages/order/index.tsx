@@ -222,7 +222,7 @@ const OrderPriceCard = () => {
   }
   return (
     <Card className='p-10 md:sticky md:top-10'>
-      <img src="https://miro.medium.com/v2/resize:fit:720/1*XGw9zUEZGYPNmeKGmyeX1g.jpeg" alt="" className='w-full' />
+      <img src="https://images.unsplash.com/photo-1682687219356-e820ca126c92?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" className='w-full' />
       <p className='text-2xl text-bold'>價格詳情</p>
       <div className='grid gap-y-3 mb-6'>
         {priceItem.map((priceItem, index) => {
