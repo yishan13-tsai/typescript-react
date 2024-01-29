@@ -8,10 +8,8 @@ import person from '../icons/ic-person.svg';
 
 export default class BaseInformation extends Component {
     detailStyle = {
-
         border: '1px solid #F1EAE4',
         borderRadius: 8,
-
         paddingTop: 10,
         paddingRight: 30,
         paddingLeft: 15,

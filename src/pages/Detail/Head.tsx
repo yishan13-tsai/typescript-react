@@ -5,7 +5,7 @@ import test4 from '../../assets/test4.jpg';
 import test2 from '../../assets/test2.jpg';
 import test3 from '../../assets/test3.jpg';
 
-class Head extends Component {
+export default class Head extends Component {
     cardStyle = {
         margin: 50
     };
@@ -63,5 +63,3 @@ class Head extends Component {
         );
     }
 }
-
-export default Head;
