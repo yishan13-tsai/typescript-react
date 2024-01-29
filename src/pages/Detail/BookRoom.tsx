@@ -1,12 +1,6 @@
 import { Button, Card, Col, Divider, Row, Typography } from "antd";
-import React from "react";
 import { Component } from "react";
 import DateCalender from "./DateCalender";
-
-const dateStyle: React.CSSProperties = {
-    border: '2px solid',
-    borderRadius: 8,
-};
 
 export default class BookRoom extends Component {
     formatPrice = (price: number): string => {
@@ -31,15 +25,6 @@ export default class BookRoom extends Component {
                 </Typography.Title>
                 <p>享受高級的住宿體驗，尊爵雙人房提供給您舒適寬敞的空間和精緻的裝潢。</p>
                 <Row gutter={12}  >
-                    {/* <Col span={12} style={dateStyle}>
-                        <div>
-                            sa
-                        </div>
-                        
-                    </Col>
-                    <Col span={12} style={dateStyle}>
-                        sa
-                    </Col> */}
                     <Col span={24}  >
                         <DateCalender />
                     </Col>
@@ -55,8 +40,6 @@ export default class BookRoom extends Component {
                         </div>
                     </Col>
                 </Row>
-
-
                 <Button type="primary" block>立即預訂</Button>
             </Card>
         );

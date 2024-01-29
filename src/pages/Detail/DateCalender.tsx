@@ -1,75 +1,9 @@
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 import type { Dayjs } from 'dayjs';
 
-import { Button, Col, DatePicker, Row } from 'antd';
+import { Button, DatePicker } from 'antd';
 
 const { RangePicker } = DatePicker;
-
-// type RangeValue = [Dayjs | null, Dayjs | null] | null;
-
-
-// const dateCalenderStyle: React.CSSProperties = {
-//     border: '2px solid',
-//     borderRadius: 8,
-//     padding: 0
-// };
-// const dayTotalStyle: React.CSSProperties = {
-//     padding: 0
-// };
-// const sharedProps = {
-//     onMouseDown(e: React.MouseEvent) {
-//         e.stopPropagation();
-//         e.preventDefault();
-//     }
-// };
-
-// const DateCalender: React.FC = () => {
-//     const [dates, setDates] = useState<RangeValue>(null);
-//     const [value, setValue] = useState<RangeValue>(null);
-//     return (
-//         <RangePicker
-//             value={dates || value}
-//             format="YYYY/MM/DD"
-//             onCalendarChange={(val) => {
-//                 setDates(val);
-//             }}
-//             onChange={(val) => {
-//                 setValue(val);
-//             }}
-//             panelRender={(node) => {
-//                 return (
-//                     <div  {...sharedProps}>
-//                         <div className='p-4'>
-//                             <div className="flex items-center grid grid-cols-7 gap-4">
-//                                 <div className="py-4 col-span-3" style={dayTotalStyle}>
-//                                     <p className="font-bold text-xl">入住</p>
-
-//                                 </div>
-//                                 <div className="py-4  col-span-2" style={dateCalenderStyle}>
-//                                     <p className="font-bold text-xs">入住</p>
-//                                     <p>入住</p>
-//                                 </div>
-//                                 <div className="py-4 col-span-2" style={dateCalenderStyle}>
-//                                     <p className="font-bold text-xs">退房</p>
-//                                     <p>入住</p>
-//                                 </div>
-//                             </div>
-//                         </div>
-//                         <div>{node}</div>
-//                     </div>
-//                 );
-//             }}
-//         />
-//     );
-// };
-
-// export default DateCalender;
-
-// import React, { Component } from 'react';
-// import { RangePicker } from 'antd';
-// import type { Dayjs } from 'dayjs';
-
-// const { RangePicker } = DatePicker;
 
 type RangeValue = [Dayjs | null, Dayjs | null] | null;
 
