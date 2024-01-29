@@ -1,6 +1,6 @@
 import arrowLeftIcon from '@/assets/icons/arrow-left.svg'
 import { Divider } from 'antd';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Form, Input, Space, Select, Card, Button } from 'antd';
 import LoadingModal from '@/pages/order/LoadingModal';
 const { Option } = Select;
@@ -40,17 +40,7 @@ const { Option } = Select;
 //   }
 // }
 
-type ArressType = {
-  zipcode: number;
-  detail: string
-}
 
-type FieldType = {
-  name: string;
-  phone: string;
-  email: string;
-  address: ArressType;
-};
 
 // const onFinish = (values: any) => {
 //   console.log('Success:', values);
@@ -81,32 +71,88 @@ const InfoItem = ({ context, title }: Info) => {
 }
 
 
+// type AddressType = {
+//   zipcode: number;
+//   detail: string
+// }
 
+// interface FieldType {
+//   name?: string;
+//   phone?: string;
+//   email?: string;
+//   address?: AddressType;
+// };
 
-interface OrderFormItem {
-  label: string;
-  name: string | string[];
-  isRequired: boolean;
-  errorMessage: string;
-  placeholder: string;
-}
+// interface OrderFormItem {
+//   label: string;
+//   name: FieldType;
+//   isRequired: boolean;
+//   errorMessage: string;
+//   placeholder: string;
+// }
 
-const fields:OrderFormItem[] = [
-  { label: '姓名', name: 'name', isRequired: true, errorMessage: '請輸入姓名', placeholder: '請輸入姓名' },
-  { label: '手機號碼', name: 'phone', isRequired: true, errorMessage: '請輸入手機號碼', placeholder: '請輸入手機號碼' },
-  { label: '電子信箱', name: 'email', isRequired: true, errorMessage: '請輸入電子信箱', placeholder: '請輸入電子信箱' }
-]
+// const fields: OrderFormItem[] = [
+//   { label: '姓名', name: 'name', isRequired: true, errorMessage: '請輸入姓名', placeholder: '請輸入姓名' },
+//   { label: '手機號碼', name: 'phone', isRequired: true, errorMessage: '請輸入手機號碼', placeholder: '請輸入手機號碼' },
+//   { label: '電子信箱', name: 'email', isRequired: true, errorMessage: '請輸入電子信箱', placeholder: '請輸入電子信箱' }
+// ]
 
-const FormInput = ({ label, name, isRequired, errorMessage, placeholder }: OrderFormItemProps) => {
+// const FormInput = ({ label, name, isRequired, errorMessage, placeholder }: OrderFormItem) => {
+//   return (
+//     <Form.Item<FieldType>
+//       label={<span style={{ fontWeight: 700 }}>{label}</span>}
+//       name={name}
+//       rules={[{ required: isRequired ?? false, message: errorMessage }]}
+//       className="w-full"
+//     >
+//       <Input placeholder={placeholder} />
+//     </Form.Item>
+//   )
+// }
+
+const UserForm = () => {
+  const [form] = Form.useForm();
+
+  // const onFinish = (values: any) => {
+  //   console.log('Received values of form: ', values);
+  // };
   return (
-    <Form.Item<FieldType>
-      label={<span style={{ fontWeight: 700 }}>{label}</span>}
-      name={name}
-      rules={[{ required: isRequired ?? false, message: errorMessage }]}
-      className="w-full"
+    <Form
+      name="basic"
+      className='w-full'
+      layout="vertical"
+      initialValues={{ remember: true }}
+      // onFinish={onFinish}
+      // onFinishFailed={onFinishFailed}
+      form={form}
+      autoComplete="off"
+      requiredMark={false}
     >
-      <Input placeholder={placeholder} />
-    </Form.Item>
+      <Form.Item label="姓名" name="name" rules={[{ required: true, message: "請輸入姓名" }]} className="w-full">
+        <Input placeholder="請輸入姓名" />
+      </Form.Item>
+      <Form.Item label="手機號碼" name="phone" rules={[{ required: true, message: "請輸入手機號碼" }]} className="w-full">
+        <Input placeholder="請輸入手機號碼" />
+      </Form.Item>
+      <Form.Item label="電子信箱" name="email" rules={[{ required: true, message: "請輸入電子信箱" }]} className="w-full">
+        <Input placeholder="電子信箱" />
+      </Form.Item>
+      <AddressForm />
+
+      {/* {(fields).map((fieldItem) => {
+        return (
+          <FormInput
+            label={fieldItem.label}
+            name={fieldItem.name}
+            isRequired={fieldItem.isRequired}
+            errorMessage={fieldItem.errorMessage}
+            placeholder={fieldItem.placeholder}
+            key={fieldItem.name}
+          />
+        )
+      })}
+      <AddressForm /> */}
+    </Form>
   )
 }
 
@@ -217,32 +263,7 @@ const Order = () => (
         </div>
         <Divider className='m-0 h-2' orientationMargin="0" />
         <div className="font-bold leading-heading text-3xl">訂房人資訊</div>
-        <Form
-          name="basic"
-          // labelCol={{ span: 8 }}
-          // wrapperCol={{ span: 16 }}
-          className='w-full'
-          layout="vertical"
-          initialValues={{ remember: true }}
-          // onFinish={onFinish}
-          // onFinishFailed={onFinishFailed}
-          autoComplete="off"
-          requiredMark={false}
-        >
-          {fields.map((fieldItem) => {
-            return (
-              <FormInput
-                label={fieldItem.label}
-                name={fieldItem.name}
-                isRequired={fieldItem.isRequired}
-                errorMessage={fieldItem.errorMessage}
-                placeholder={fieldItem.placeholder}
-                key={fieldItem.name}
-              />
-            )
-          })}
-          <AddressForm />
-        </Form>
+        <UserForm />
       </section>
       <section className="col-span-12 md:col-span-5">
         <OrderPriceCard />
