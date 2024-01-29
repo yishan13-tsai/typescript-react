@@ -6,6 +6,7 @@ import Home from "./pages/home";
 import Login from "./pages/login.tsx";
 import Signup from "./pages/signup.tsx";
 import Order from './pages/order'
+import OrderSuccess from './pages/orderSuccess'
 import { ConfigProvider } from "antd";
 
 import Layout from "./component/layout.tsx";
@@ -26,6 +27,7 @@ const router = createBrowserRouter([
       { path: "/login", element: <Login /> },
       { path: "/signup", element: <Signup /> },
       { path: "/order", element: <Order /> },
+      { path: "/orderSuccess", element: <OrderSuccess /> },
       { path: "/rooms", element: <Rooms /> },
       { path: "/rooms/detail", element: <DetailPage /> }]
   },
