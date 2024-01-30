@@ -1,7 +1,7 @@
-import { Col, Row, Typography } from "antd";
-import { Component } from "react";
-import BaseInformation from "../../component/BaseInformation";
-import ItemsRoom from "../../component/ItemsRoom";
+import { Col, Row, Typography } from 'antd';
+import { Component } from 'react';
+import BaseInformation from '@/component/BaseInformation';
+import ItemsRoom from '@/component/ItemsRoom';
 
 const barraStyle: React.CSSProperties = {
     borderLeft: '0.3rem solid #BF9D7D',

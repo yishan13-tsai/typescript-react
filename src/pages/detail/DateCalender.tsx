@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import type { Dayjs } from 'dayjs';
-
 import { Button, DatePicker } from 'antd';
 
 const { RangePicker } = DatePicker;
-
 type RangeValue = [Dayjs | null, Dayjs | null] | null;
 
 const dateCalenderStyle: React.CSSProperties = {
@@ -23,20 +21,25 @@ const sharedProps = {
         e.preventDefault();
     }
 };
+interface DateCalenderProps {
+    days: number;
+    onDaysChange: (days: number) => void;
+}
 
 interface DateCalenderState {
     dates: RangeValue;
     value: RangeValue;
 }
 
-export default class DateCalender extends Component<{}, DateCalenderState> {
-    constructor(props: {}) {
+export default class DateCalender extends Component<DateCalenderProps, DateCalenderState> {
+    constructor(props: DateCalenderProps) {
         super(props);
         this.state = {
             dates: null,
-            value: null
+            value: null,
         };
     }
+
     handleClear = () => {
         this.setState({ dates: null });
     };
@@ -47,6 +50,7 @@ export default class DateCalender extends Component<{}, DateCalenderState> {
         let result
         result = Math.ceil((newEndDate.getTime() - newStartDate.getTime()) / (one_day))
         if (isNaN(result) || result < 0) { return 0 }
+        this.props.onDaysChange(result);
         return result;
     }
     render() {
@@ -62,16 +66,16 @@ export default class DateCalender extends Component<{}, DateCalenderState> {
                 }}
                 renderExtraFooter={() => {
                     return (
-                        <div >
-                            <Button onClick={this.handleClear}>清除日期</Button>
-                            <Button type="primary">確定日期</Button>
+                        <div className='flex justify-end m-2'>
+                            <Button onClick={this.handleClear} className='py-2 px-4 rounded mr-2'>清除日期</Button>
+                            <Button type="primary" className='py-2 px-4 rounded'>確定日期</Button>
                         </div>
 
                     )
                 }}
                 panelRender={(node) => {
-                    const date1 = dates && dates[0] && dates[0].format("YYYY/MM/DD") || '0000/00/00';
-                    const date2 = dates && dates[1] && dates[1].format("YYYY/MM/DD") || '0000/00/00';
+                    const date1 = dates && dates[0] && dates[0].format("YYYY/MM/DD") || '入住';
+                    const date2 = dates && dates[1] && dates[1].format("YYYY/MM/DD") || '退房';
                     return (
                         <div {...sharedProps}>
                             <div className='p-4'>
@@ -82,11 +86,11 @@ export default class DateCalender extends Component<{}, DateCalenderState> {
                                         <p>{date1} - {date2}</p>
                                     </div>
                                     <div className="py-4  col-span-2" style={dateCalenderStyle}>
-                                        <p className="font-bold text-xs">入住</p>
+                                        <p className="font-bold text-sm">入住</p>
                                         <p>{date1}</p>
                                     </div>
                                     <div className="py-4 col-span-2" style={dateCalenderStyle}>
-                                        <p className="font-bold text-xs">退房</p>
+                                        <p className="font-bold text-sm">退房</p>
                                         <p>{date2}</p>
                                     </div>
                                 </div>

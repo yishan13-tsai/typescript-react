@@ -2,6 +2,8 @@ import {PrimaryButton} from "./primaryButton.tsx";
 import {useEffect, useState} from "react";
 import useSWR from "swr";
 import axios from "../../utils/axios.ts";
+import { DatePicker } from "antd";
+import type { DatePickerProps } from 'antd';
 
 const Index = () => {
   const [canFetch, setCanFetch] = useState(false);
@@ -17,6 +19,10 @@ const Index = () => {
   useEffect(() => {
     if (error) console.error(error)
   }, [error]);
+
+  const onChange: DatePickerProps['onChange'] = (date, dateString) => {
+    console.log(date, dateString);
+  };
 
   return (
     <>
@@ -36,6 +42,7 @@ const Index = () => {
         loading={isLoading}
       >Button</PrimaryButton>
       {data ? <p>{data.title}</p> : null}
+      <DatePicker onChange={onChange} />
     </>
   );
 }

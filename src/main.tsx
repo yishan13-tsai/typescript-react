@@ -8,13 +8,18 @@ import Signup from "./pages/signup.tsx";
 import Order from './pages/order'
 import OrderSuccess from './pages/orderSuccess'
 import { ConfigProvider } from "antd";
-
+import zhTw from 'antd/locale/zh_TW';
+import dayjs from 'dayjs';
+import "dayjs/locale/zh-tw";
 import Layout from "./component/layout.tsx";
 import { antdTheme } from "./config/antdTheme.tsx";
-import Rooms from './pages/Room/Rooms.tsx';
-import DetailPage from './pages/Detail/DetailPage.tsx';
+import Rooms from './pages/room/index.tsx';
+import DetailPage from './pages/detail/index.tsx';
+
 
 const isProd = process.env.NODE_ENV === "production";
+dayjs.locale('zh-tw');
+
 
 const router = createBrowserRouter([
   {
@@ -36,7 +41,7 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <ConfigProvider theme={antdTheme}>
+    <ConfigProvider theme={antdTheme} locale={zhTw}>
       <RouterProvider router={router} />
     </ConfigProvider>
   </React.StrictMode>,
