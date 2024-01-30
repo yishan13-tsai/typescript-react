@@ -43,8 +43,45 @@ const layout = () => {
       <div className="grow">
         <Outlet />
       </div>
-      <Footer className="bg-neutral-120">
-        <h1>Footer</h1>
+      <Footer className="bg-neutral-120 px-[312px] py-20">
+        <div className="flex justify-between mb-20">
+          <div>
+            <Image
+              className="block"
+              src="./LOGO.png"
+              preview={false}
+              width={196}
+              height={72}
+            ></Image>
+            <div>line ig</div>
+          </div>
+          <div className="flex gap-20">
+            <div className="">
+              <div>
+                <div>TEL</div>
+                <div>+886-7-1234567</div>
+              </div>
+              <div>
+                <div>FAX</div>
+                <div>+886-7-1234567</div>
+              </div>
+            </div>
+            <div className="">
+              <div>
+                <div>MAIL</div>
+                <div>elh@hexschool.com</div>
+              </div>
+              <div>
+                <div>WEB</div>
+                <div>www.elhhexschool.com.tw</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="flex justify-between">
+          <div>806023 台灣高雄市新興區六角路123號</div>
+          <div>© 享樂酒店 2023 All Rights Reserved.</div>
+        </div>
       </Footer>
     </div>
   )
