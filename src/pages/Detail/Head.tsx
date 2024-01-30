@@ -1,9 +1,9 @@
 import { Component } from 'react';
 import { Card, Col, Flex, Row } from 'antd';
-import test1 from '../../assets/test1.jpg';
-import test4 from '../../assets/test4.jpg';
-import test2 from '../../assets/test2.jpg';
-import test3 from '../../assets/test3.jpg';
+import test1 from '@/assets/test1.jpg';
+import test4 from '@/assets/test4.jpg';
+import test2 from '@/assets/test2.jpg';
+import test3 from '@/assets/test3.jpg';
 
 export default class Head extends Component {
     cardStyle = {

@@ -1,7 +1,7 @@
-import { Col, Row } from "antd";
-import Body from "./Body";
-import Head from "./Head";
-import BookRoom from "./BookRoom";
+import { Col, Row } from 'antd';
+import Body from '@/pages/detail/Body';
+import Head from '@/pages/detail/Head';
+import BookRoom from '@/pages/detail/BookRoom';
 
 const DetailPage = () => {
     return (
