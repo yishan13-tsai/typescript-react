@@ -1,9 +1,14 @@
 import arrowLeftIcon from '@/assets/icons/arrow-left.svg'
-import { Divider } from 'antd'
-import { useState } from 'react'
-import { Form, Input, Space, Select, Card, Button } from 'antd'
-import LoadingModal from '@/pages/order/LoadingModal'
-const { Option } = Select
+import { Divider, Form } from 'antd'
+
+import { useState, useEffect } from 'react'
+import OrderPriceCard from './OrderPriceCard'
+import UserInfoForm from './UserInfoForm'
+import { orderDetailType } from './types'
+import LoadingModal from './LoadingModal'
+import axios from '@/utils/axios.ts'
+import { useNavigate } from 'react-router-dom'
+import useSWRMutation from 'swr/mutation'
 
 // const infos: Info[] = [{ title: '選擇房型' }]
 
@@ -109,194 +114,151 @@ const InfoItem = ({ context, title }: Info) => {
 //   )
 // }
 
-const UserForm = () => {
+const OrderDetail = ({
+  name,
+  checkInDate,
+  checkOutDate,
+  peopleNum,
+}: orderDetailType) => {
+  return (
+    <>
+      <div className="font-bold leading-heading text-2xl">訂房資訊</div>
+      <div className="grid">
+        <InfoItem title={'選擇房型'} context={name}></InfoItem>
+        <InfoItem
+          title={'訂房日期'}
+          context={[`入住：${checkInDate}`, `退房：${checkOutDate}`]}
+        ></InfoItem>
+        <InfoItem title={'訂房人數'} context={`${peopleNum}人`}></InfoItem>
+      </div>
+    </>
+  )
+}
+
+// const axiosGet = async (url: string) => {
+//   return axios.get(url).then((response) => {
+//     return response
+//   })
+// }
+type formUserInfoData = {
+  address: {
+    zipcode: string
+    detail: string
+  }
+  name: string
+  phone: string
+  email: string
+}
+type FormDataType = {
+  roomId: string
+  checkInDate: string
+  checkOutDate: string
+  peopleNum: number
+  userInfo: formUserInfoData
+}
+
+const Order = () => {
+  const [orderDetailData] = useState<orderDetailType>({
+    roomId: '65b90fc4f5d87d9cce6a4741',
+    name: '豪華雙人房',
+    checkInDate: '2023/11/12',
+    checkOutDate: '2023/11/14',
+    peopleNum: 2,
+  })
+
+  const [isSubmittable, setIsSubmittable] = useState(false)
+  const [isOpenLoadingModal, setIsOpenLoadingModal] = useState(false)
   const [form] = Form.useForm()
+  const formValues = Form.useWatch([], form)
+  const navigate = useNavigate()
 
   // const onFinish = (values: any) => {
   //   console.log('Received values of form: ', values);
   // };
-  return (
-    <Form
-      name="basic"
-      className="w-full"
-      layout="vertical"
-      initialValues={{ remember: true }}
-      // onFinish={onFinish}
-      // onFinishFailed={onFinishFailed}
-      form={form}
-      autoComplete="off"
-      requiredMark={false}
-    >
-      <Form.Item
-        label="姓名"
-        name="name"
-        rules={[{ required: true, message: '請輸入姓名' }]}
-        className="w-full"
-      >
-        <Input placeholder="請輸入姓名" />
-      </Form.Item>
-      <Form.Item
-        label="手機號碼"
-        name="phone"
-        rules={[{ required: true, message: '請輸入手機號碼' }]}
-        className="w-full"
-      >
-        <Input placeholder="請輸入手機號碼" />
-      </Form.Item>
-      <Form.Item
-        label="電子信箱"
-        name="email"
-        rules={[{ required: true, message: '請輸入電子信箱' }]}
-        className="w-full"
-      >
-        <Input placeholder="電子信箱" />
-      </Form.Item>
-      <AddressForm />
+  useEffect(() => {
+    form.validateFields({ validateOnly: true }).then(
+      () => {
+        handleSubmittable(true)
+      },
+      () => {
+        handleSubmittable(false)
+      },
+    )
+  }, [formValues])
+  const fetchUrl = `/orders`
 
-      {/* {(fields).map((fieldItem) => {
-        return (
-          <FormInput
-            label={fieldItem.label}
-            name={fieldItem.name}
-            isRequired={fieldItem.isRequired}
-            errorMessage={fieldItem.errorMessage}
-            placeholder={fieldItem.placeholder}
-            key={fieldItem.name}
-          />
-        )
-      })}
-      <AddressForm /> */}
-    </Form>
-  )
-}
-
-const AddressForm = () => {
-  return (
-    <Form.Item style={{ fontWeight: 700 }} label="地址">
-      <Space.Compact size="middle" className="w-full">
-        <Form.Item
-          className="w-full mr-4 mb-4"
-          name={['address', 'city']}
-          rules={[{ required: true, message: '請選擇城市' }]}
-        >
-          <Select>
-            <Option value="Zhejiang">高雄市</Option>
-          </Select>
-        </Form.Item>
-        <Form.Item
-          className="w-full"
-          name={['address', 'district']}
-          rules={[{ required: true, message: '請選擇地區' }]}
-        >
-          <Select>
-            <Option value="Zhejiang">新興區</Option>
-          </Select>
-        </Form.Item>
-      </Space.Compact>
-      <Space.Compact className="w-full">
-        <Form.Item
-          className="w-full"
-          name={['address', 'street']}
-          rules={[{ required: true, message: 'Street is required' }]}
-        >
-          <Input placeholder="請輸入地址" />
-        </Form.Item>
-      </Space.Compact>
-    </Form.Item>
-  )
-}
-
-const priceItem = [
-  { title: 'NT$10,000 X 2晚', price: 2000 },
-  { title: '住宿折扣', price: -1000 },
-]
-const totalPrice = priceItem.reduce((acc, cur) => {
-  return acc + cur.price
-}, 0)
-
-const formatPrice = (price: number): string => {
-  let priceStr = price.toString()
-  priceStr = priceStr.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-  const prefix = 'NT$'
-  let negative = ''
-  if (priceStr?.[0] == '-') {
-    negative = '-'
-    priceStr = priceStr.replace('-', '')
+  const submitPost = async (url: string, { arg }: { arg: FormDataType }) => {
+    const token =
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWE2N2ZkNWE2NWI2N2I3NjRlNmFiNDQiLCJpYXQiOjE3MDY2ODM5MDUsImV4cCI6MTcwNzI4ODcwNX0.CACW-Rbmm75iXJzIoJ75U_u5BGciNaapUDqnD4N1-X0'
+    return axios
+      .post(url, arg, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => {
+        return response
+      })
   }
-  return `${negative}${prefix} ${priceStr}`
-}
-const OrderPriceCard = () => {
-  const [isOpenLoadingModal, setIsOpenLoadingModal] = useState(false)
-  const showLoadingModal = () => {
-    setIsOpenLoadingModal(true)
-    window.setInterval(() => {
-      closeLoadingModal()
-    }, 1000)
-  }
+  const { trigger } = useSWRMutation(fetchUrl, submitPost)
+
   const closeLoadingModal = () => {
     setIsOpenLoadingModal(false)
   }
+  const handleSubmittable = (status: boolean) => {
+    setIsSubmittable(status)
+  }
+
+  const handleSubmit = async () => {
+    setIsOpenLoadingModal(true)
+    const postData: FormDataType = {
+      roomId: orderDetailData.roomId || '',
+      checkInDate: orderDetailData.checkInDate,
+      checkOutDate: orderDetailData.checkOutDate,
+      peopleNum: orderDetailData.peopleNum,
+      userInfo: {
+        address: {
+          zipcode: formValues.address.district,
+          detail: formValues.address.detail,
+        },
+        name: formValues.name,
+        phone: formValues.phone,
+        email: formValues.email,
+      },
+    }
+    await trigger(postData)
+    closeLoadingModal()
+    navigate('/orderSuccess')
+  }
+
   return (
-    <Card className="p-10 md:sticky md:top-10">
-      <img
-        src="https://images.unsplash.com/photo-1682687219356-e820ca126c92?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-        alt=""
-        className="w-full"
-      />
-      <p className="text-2xl text-bold">價格詳情</p>
-      <div className="grid gap-y-3 mb-6">
-        {priceItem.map((priceItem, index) => {
-          const isDiscount = priceItem.price < 0
-          return (
-            <div className="flex justify-between" key={index}>
-              <span>{priceItem.title}</span>
-              <span className={isDiscount ? 'text-primary-100' : ''}>
-                {formatPrice(priceItem.price)}
-              </span>
-            </div>
-          )
-        })}
-        <Divider />
-        <div className="flex justify-between font-bold">
-          <span>總價</span>
-          <span>{formatPrice(totalPrice)}</span>
+    <>
+      <main className="p-4 md:max-w-[1296px] mx-auto grid md:gap-x-[72px] grid-cols-12">
+        {/* breadcrumb */}
+        <div className="flex items-center font-bold col-span-12">
+          <img src={arrowLeftIcon} alt="arrowicon" className="h-10 w-10" />
+          <p className="font-bold leading-heading text-3xl">確認訂房資訊</p>
         </div>
-      </div>
-      <Button type="primary" block onClick={showLoadingModal}>
-        確認訂單
-      </Button>
-      <LoadingModal isOpen={isOpenLoadingModal} />
-    </Card>
+        <section className="grid gap-y-10 col-span-12 md:col-span-7">
+          <OrderDetail
+            name={orderDetailData.name}
+            checkInDate={orderDetailData.checkInDate}
+            checkOutDate={orderDetailData.checkOutDate}
+            peopleNum={orderDetailData.peopleNum}
+          />
+          <Divider className="m-0 h-2" orientationMargin="0" />
+          <div className="font-bold leading-heading text-3xl">訂房人資訊</div>
+          <UserInfoForm form={form} />
+        </section>
+        <section className="col-span-12 md:col-span-5">
+          <OrderPriceCard
+            orderDetail={orderDetailData}
+            isSubmittable={isSubmittable}
+            handleSubmit={handleSubmit}
+          />
+          <LoadingModal isOpen={isOpenLoadingModal} />
+        </section>
+      </main>
+    </>
   )
 }
-
-const Order = () => (
-  <>
-    <main className="p-4 md:max-w-[1296px] mx-auto grid md:gap-x-[72px] grid-cols-12">
-      {/* breadcrumb */}
-      <div className="flex items-center font-bold col-span-12">
-        <img src={arrowLeftIcon} alt="arrowicon" className="h-10 w-10" />
-        <p className="font-bold leading-heading text-3xl">確認訂房資訊</p>
-      </div>
-      <section className="grid gap-y-10 col-span-12 md:col-span-7">
-        <div className="font-bold leading-heading text-2xl">訂房資訊</div>
-        <div className="grid">
-          <InfoItem title={'選擇房型'} context={'尊爵雙人房'}></InfoItem>
-          <InfoItem
-            title={'訂房日期'}
-            context={['入住：12月4日星期二', '退房：12月6日星期四']}
-          ></InfoItem>
-          <InfoItem title={'訂房人數'} context={'2人'}></InfoItem>
-        </div>
-        <Divider className="m-0 h-2" orientationMargin="0" />
-        <div className="font-bold leading-heading text-3xl">訂房人資訊</div>
-        <UserForm />
-      </section>
-      <section className="col-span-12 md:col-span-5">
-        <OrderPriceCard />
-      </section>
-    </main>
-  </>
-)
 
 export default Order
