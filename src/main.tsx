@@ -11,10 +11,12 @@ import { ConfigProvider } from 'antd'
 import zhTw from 'antd/locale/zh_TW'
 import dayjs from 'dayjs'
 import 'dayjs/locale/zh-tw'
-import Layout from './component/layout.tsx'
+import Layout from './component/Layout.tsx'
 import { antdTheme } from './config/antdTheme.tsx'
 import Rooms from './pages/room/index.tsx'
 import DetailPage from './pages/detail/index.tsx'
+import { store } from './store.ts'
+import { Provider } from 'react-redux'
 
 const isProd = process.env.NODE_ENV === 'production'
 dayjs.locale('zh-tw')
@@ -33,18 +35,20 @@ const router = createBrowserRouter(
         { path: '/order', element: <Order /> },
         { path: '/orderSuccess', element: <OrderSuccess /> },
         { path: '/rooms', element: <Rooms /> },
-        { path: '/rooms/detail', element: <DetailPage /> },
-      ],
+        { path: '/rooms/detail', element: <DetailPage /> }
+      ]
     },
-    { path: '*', element: <h1>Not Found</h1> },
+    { path: '*', element: <h1>Not Found</h1> }
   ],
-  { basename: isProd ? '/typescript-react' : undefined },
+  { basename: isProd ? '/typescript-react' : undefined }
 )
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <ConfigProvider theme={antdTheme} locale={zhTw}>
-      <RouterProvider router={router} />
-    </ConfigProvider>
-  </React.StrictMode>,
+    <Provider store={store}>
+      <ConfigProvider theme={antdTheme} locale={zhTw}>
+        <RouterProvider router={router} />
+      </ConfigProvider>
+    </Provider>
+  </React.StrictMode>
 )
