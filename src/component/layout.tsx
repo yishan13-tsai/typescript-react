@@ -1,9 +1,10 @@
 import {Outlet} from "react-router-dom";
 import {Footer, Header} from "antd/es/layout/layout";
 import {Button, Image} from 'antd';
+import {getCookie} from "../utils/cookies.js.ts";
 
 const layout = () => {
-  const token = localStorage.getItem('token') || '';
+  const token = getCookie('token');
   const user = {name: 'Jessica'};
   return (
     <div className='flex flex-col min-h-[100vh]'>
