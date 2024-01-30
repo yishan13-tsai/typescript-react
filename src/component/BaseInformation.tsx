@@ -1,9 +1,9 @@
 import { Component } from 'react';
 import Col from 'antd/es/col';
 import Row from 'antd/es/row';
-import size from '../icons/ic-size.svg';
-import bed from '../icons/ic-bed.svg';
-import person from '../icons/ic-person.svg';
+import size from '@/assets/icons/ic-size.svg';
+import bed from '@/assets/icons/ic-bed.svg';
+import person from '@/assets/icons/ic-person.svg';
 
 
 export default class BaseInformation extends Component {
