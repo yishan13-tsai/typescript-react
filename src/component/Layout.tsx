@@ -1,11 +1,15 @@
 import { Link, Outlet } from 'react-router-dom'
 import { Footer, Header } from 'antd/es/layout/layout'
 import { Button, Image } from 'antd'
-import { getCookie } from '../utils/cookies.js.ts'
+// import { getCookie } from '../utils/cookies.js.ts'
+import { RootState } from '@/store.ts'
+import { useSelector } from 'react-redux'
 
-const layout = () => {
-  const token = getCookie('token')
-  const user = { name: 'Jessica' }
+const Layout = () => {
+  // const token = getCookie('token')
+  const currentUser = useSelector((state: RootState) => state.user.currentUser)
+  const isLoggedIn = useSelector((state: RootState) => state.user.isLoggedIn)
+
   return (
     <div className="flex flex-col min-h-[100vh]">
       <Header className="justify-between flex py-6 px-20 h-[120px] bg-neutral-120 items-center">
@@ -24,9 +28,9 @@ const layout = () => {
               客房預約
             </Button>
           </Link>
-          {token ? (
+          {isLoggedIn ? (
             <Button className="text-neutral-0" type="text">
-              {user.name}
+              {currentUser?.result?.name}
             </Button>
           ) : (
             <Link to="/login">
@@ -87,4 +91,4 @@ const layout = () => {
   )
 }
 
-export default layout
+export default Layout
