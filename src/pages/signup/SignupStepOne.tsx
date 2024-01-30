@@ -1,6 +1,6 @@
-import { Input } from "antd";
+import { Input } from 'antd'
 
-function SignupStepOne () {
+function SignupStepOne() {
   return (
     <>
       <div>
@@ -8,7 +8,7 @@ function SignupStepOne () {
           <div className="mb-4">
             <label className="inline-block mb-2">電子信箱</label>
             <Input
-              style={{ height: "56px" }}
+              style={{ height: '56px' }}
               size="large"
               placeholder="hello@example.com"
             />
@@ -16,7 +16,7 @@ function SignupStepOne () {
           <div className="mb-4">
             <label className="inline-block mb-2">密碼</label>
             <Input.Password
-              style={{ height: "56px" }}
+              style={{ height: '56px' }}
               size="large"
               placeholder="請輸入密碼"
             />
@@ -24,7 +24,7 @@ function SignupStepOne () {
           <div>
             <label className="inline-block mb-2">確認密碼</label>
             <Input.Password
-              style={{ height: "56px" }}
+              style={{ height: '56px' }}
               size="large"
               placeholder="請再輸入一次密碼"
             />
@@ -32,7 +32,7 @@ function SignupStepOne () {
         </div>
       </div>
     </>
-  );
+  )
 }
 
 export default SignupStepOne

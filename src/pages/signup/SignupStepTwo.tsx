@@ -1,9 +1,9 @@
-import { Select, Input, Checkbox } from "antd";
+import { Select, Input, Checkbox } from 'antd'
 
 function SignupStepTwo() {
   const onChange = (e: any) => {
-    console.log(`checked = ${e.target.checked}`);
-  };
+    console.log(`checked = ${e.target.checked}`)
+  }
 
   const yearOptions = [
     {
@@ -30,7 +30,7 @@ function SignupStepTwo() {
       value: '6',
       label: 'Cancelled',
     },
-  ];
+  ]
 
   return (
     <>
@@ -39,7 +39,7 @@ function SignupStepTwo() {
           <div className="mb-4">
             <label className="inline-block mb-2">姓名</label>
             <Input
-              style={{ height: "56px" }}
+              style={{ height: '56px' }}
               size="large"
               placeholder="請輸入姓名"
             />
@@ -47,7 +47,7 @@ function SignupStepTwo() {
           <div className="mb-4">
             <label className="inline-block mb-2">手機號碼</label>
             <Input
-              style={{ height: "56px" }}
+              style={{ height: '56px' }}
               size="large"
               placeholder="請輸入手機號碼"
             />
@@ -59,42 +59,54 @@ function SignupStepTwo() {
                 <Select
                   showSearch
                   defaultValue="1990年"
-                  style={{ width: "100%", height: "56px" }}
+                  style={{ width: '100%', height: '56px' }}
                   placeholder="Search to Select"
                   optionFilterProp="children"
-                  filterOption={(input, option) => (option?.label ?? '').includes(input)}
-                  filterSort={(optionA, optionB) =>
-                    (optionA?.label ?? '').toLowerCase().localeCompare((optionB?.label ?? '').toLowerCase())
+                  filterOption={(input, option) =>
+                    (option?.label ?? '').includes(input)
                   }
-                  options={ yearOptions }
+                  filterSort={(optionA, optionB) =>
+                    (optionA?.label ?? '')
+                      .toLowerCase()
+                      .localeCompare((optionB?.label ?? '').toLowerCase())
+                  }
+                  options={yearOptions}
                 />
               </div>
               <div>
                 <Select
                   showSearch
                   defaultValue="8月"
-                  style={{ width: "100%", height: "56px" }}
+                  style={{ width: '100%', height: '56px' }}
                   placeholder="Search to Select"
                   optionFilterProp="children"
-                  filterOption={(input, option) => (option?.label ?? '').includes(input)}
-                  filterSort={(optionA, optionB) =>
-                    (optionA?.label ?? '').toLowerCase().localeCompare((optionB?.label ?? '').toLowerCase())
+                  filterOption={(input, option) =>
+                    (option?.label ?? '').includes(input)
                   }
-                  options={ yearOptions }
+                  filterSort={(optionA, optionB) =>
+                    (optionA?.label ?? '')
+                      .toLowerCase()
+                      .localeCompare((optionB?.label ?? '').toLowerCase())
+                  }
+                  options={yearOptions}
                 />
               </div>
               <div>
                 <Select
                   showSearch
                   defaultValue="15日"
-                  style={{ width: "100%", height: "56px" }}
+                  style={{ width: '100%', height: '56px' }}
                   placeholder="Search to Select"
                   optionFilterProp="children"
-                  filterOption={(input, option) => (option?.label ?? '').includes(input)}
-                  filterSort={(optionA, optionB) =>
-                    (optionA?.label ?? '').toLowerCase().localeCompare((optionB?.label ?? '').toLowerCase())
+                  filterOption={(input, option) =>
+                    (option?.label ?? '').includes(input)
                   }
-                  options={ yearOptions }
+                  filterSort={(optionA, optionB) =>
+                    (optionA?.label ?? '')
+                      .toLowerCase()
+                      .localeCompare((optionB?.label ?? '').toLowerCase())
+                  }
+                  options={yearOptions}
                 />
               </div>
             </div>
@@ -106,33 +118,41 @@ function SignupStepTwo() {
                 <Select
                   showSearch
                   defaultValue="高雄市"
-                  style={{ width: "100%", height: "56px" }}
+                  style={{ width: '100%', height: '56px' }}
                   placeholder="Search to Select"
                   optionFilterProp="children"
-                  filterOption={(input, option) => (option?.label ?? '').includes(input)}
-                  filterSort={(optionA, optionB) =>
-                    (optionA?.label ?? '').toLowerCase().localeCompare((optionB?.label ?? '').toLowerCase())
+                  filterOption={(input, option) =>
+                    (option?.label ?? '').includes(input)
                   }
-                  options={ yearOptions }
+                  filterSort={(optionA, optionB) =>
+                    (optionA?.label ?? '')
+                      .toLowerCase()
+                      .localeCompare((optionB?.label ?? '').toLowerCase())
+                  }
+                  options={yearOptions}
                 />
               </div>
               <div>
                 <Select
                   showSearch
                   defaultValue="新興區"
-                  style={{ width: "100%", height: "56px" }}
+                  style={{ width: '100%', height: '56px' }}
                   placeholder="Search to Select"
                   optionFilterProp="children"
-                  filterOption={(input, option) => (option?.label ?? '').includes(input)}
-                  filterSort={(optionA, optionB) =>
-                    (optionA?.label ?? '').toLowerCase().localeCompare((optionB?.label ?? '').toLowerCase())
+                  filterOption={(input, option) =>
+                    (option?.label ?? '').includes(input)
                   }
-                  options={ yearOptions }
+                  filterSort={(optionA, optionB) =>
+                    (optionA?.label ?? '')
+                      .toLowerCase()
+                      .localeCompare((optionB?.label ?? '').toLowerCase())
+                  }
+                  options={yearOptions}
                 />
               </div>
             </div>
             <Input
-              style={{ height: "56px" }}
+              style={{ height: '56px' }}
               size="large"
               placeholder="詳細地址"
             />
@@ -143,7 +163,7 @@ function SignupStepTwo() {
         </div>
       </div>
     </>
-  );
+  )
 }
 
 export default SignupStepTwo

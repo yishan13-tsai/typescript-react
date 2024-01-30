@@ -1,30 +1,30 @@
-import { useState } from 'react';
-import {  Button, message, Steps } from "antd";
-import SignupStepOne from './signup/SignupStepOne';
-import SignupStepTwo from './signup/SignupStepTwo';
-import { Link } from "react-router-dom";
-import "../signup.css"
+import { useState } from 'react'
+import { Button, message, Steps } from 'antd'
+import SignupStepOne from './signup/SignupStepOne'
+import SignupStepTwo from './signup/SignupStepTwo'
+import { Link } from 'react-router-dom'
+import '../signup.css'
 
 const steps = [
   {
     title: '輸入信箱及密碼',
-    content: <SignupStepOne/>,
+    content: <SignupStepOne />,
   },
   {
     title: '填寫基本資料',
-    content: <SignupStepTwo/>,
-  }
-];
+    content: <SignupStepTwo />,
+  },
+]
 
-function Signup () {
-  const [current, setCurrent] = useState(0);
+function Signup() {
+  const [current, setCurrent] = useState(0)
 
   const next = () => {
-    setCurrent(current + 1);
-  };
+    setCurrent(current + 1)
+  }
 
-  const items = steps.map((item) => ({ key: item.title, title: item.title }));
-  
+  const items = steps.map((item) => ({ key: item.title, title: item.title }))
+
   return (
     <>
       <div className="grid grid-cols-2 h-screen p-0">
@@ -44,55 +44,62 @@ function Signup () {
           <div className="w-full flex justify-center items-center mt-32">
             <div className="w-1/2">
               <div className="mb-8">
-              {current < steps.length - 1 && (
-                <p className="font-medium mb-2 tracking-normal text-primary-100">
-                  享樂酒店，誠摯歡迎
-                </p>
-              )}
+                {current < steps.length - 1 && (
+                  <p className="font-medium mb-2 tracking-normal text-primary-100">
+                    享樂酒店，誠摯歡迎
+                  </p>
+                )}
                 <p className="font-bold m-0 text-5xl tracking-heading">
                   立即註冊
                 </p>
               </div>
-              <Steps className="mb-10 step_custom" current={current} items={items} labelPlacement="vertical"/>
+              <Steps
+                className="mb-10 step_custom"
+                current={current}
+                items={items}
+                labelPlacement="vertical"
+              />
               <div>
-                { steps[current].content}
+                {steps[current].content}
                 <div className="mb-4">
                   {current < steps.length - 1 && (
-                    <Button style= {{
-                      height: "56px",
-                      width: "100%",
-                      background: "#BF9D7D",
-                    }}
-                    type="primary" 
-                    onClick={() => next()}>
+                    <Button
+                      style={{
+                        height: '56px',
+                        width: '100%',
+                        background: '#BF9D7D',
+                      }}
+                      type="primary"
+                      onClick={() => next()}
+                    >
                       下一步
                     </Button>
                   )}
                 </div>
                 <div className="mb-4">
                   {current === steps.length - 1 && (
-                    <Button style= {{
-                      height: "56px",
-                      width: "100%",
-                      background: "#BF9D7D",
-                    }}
-                    type="primary" 
-                    onClick={() => message.success("Processing complete!")}>
+                    <Button
+                      style={{
+                        height: '56px',
+                        width: '100%',
+                        background: '#BF9D7D',
+                      }}
+                      type="primary"
+                      onClick={() => message.success('Processing complete!')}
+                    >
                       完成註冊
                     </Button>
                   )}
                 </div>
                 <span>已經有會員了嗎？</span>
-                <Link to="/login">
-                  立即登入  
-                </Link>
+                <Link to="/login">立即登入</Link>
               </div>
             </div>
           </div>
         </div>
       </div>
     </>
-  );
+  )
 }
 
 export default Signup
