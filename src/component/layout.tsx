@@ -1,27 +1,39 @@
 import {Outlet} from "react-router-dom";
 import {Footer, Header} from "antd/es/layout/layout";
-import {Image} from 'antd';
+import {Button, Image} from 'antd';
 
 const layout = () => {
+  const token = localStorage.getItem('token') || '';
+  const user = {name: 'Jessica'};
   return (
-    <>
-      <Header className="box-border justify-between flex py-[24px] px-[80px] h-[120px] w-[100%] bg-neutral-120">
-        <div>
+    <div className='flex flex-col min-h-[100vh]'>
+      <Header className="justify-between flex py-6 px-20 h-[120px] bg-neutral-120 items-center">
+        <div className="h-full">
           <Image
             className='block'
-            src='/LOGO.png'
+            src='./LOGO.png'
             preview={false}
             width={196}
             height={72}
           ></Image>
         </div>
-        <div></div>
+        <div className='flex h-[65px] gap-4 items-center'>
+          <Button className="text-neutral-0" type="text">客房預約</Button>
+          {token ?
+            <Button className="text-neutral-0" type="text">{user.name}</Button> :
+            <Button className="text-neutral-0" type="text">會員登入</Button>
+          }
+          <Button type="primary">立即訂房</Button>
+
+        </div>
       </Header>
-      <Outlet />
+      <div className="grow">
+        <Outlet />
+      </div>
       <Footer className='bg-neutral-120'>
         <h1>Footer</h1>
       </Footer>
-    </>
+    </div>
   )
 }
 
