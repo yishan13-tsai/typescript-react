@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom'
+import { Link, Outlet } from 'react-router-dom'
 import { Footer, Header } from 'antd/es/layout/layout'
 import { Button, Image } from 'antd'
 import { getCookie } from '../utils/cookies.js.ts'
@@ -19,19 +19,25 @@ const layout = () => {
           ></Image>
         </div>
         <div className="flex h-[65px] gap-4 items-center">
-          <Button className="text-neutral-0" type="text">
-            客房預約
-          </Button>
+          <Link to="/rooms">
+            <Button className="text-neutral-0" type="text">
+              客房預約
+            </Button>
+          </Link>
           {token ? (
             <Button className="text-neutral-0" type="text">
               {user.name}
             </Button>
           ) : (
-            <Button className="text-neutral-0" type="text">
-              會員登入
-            </Button>
+            <Link to="/login">
+              <Button className="text-neutral-0" type="text">
+                會員登入
+              </Button>
+            </Link>
           )}
-          <Button type="primary">立即訂房</Button>
+          <Link to="/rooms">
+            <Button type="primary">立即訂房</Button>
+          </Link>
         </div>
       </Header>
       <div className="grow">
