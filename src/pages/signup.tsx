@@ -27,7 +27,7 @@ function Signup() {
 
   return (
     <>
-      <div className="grid grid-cols-2 h-screen p-0">
+      <div className="grid grid-cols-2 p-0">
         <div className="bg-black">
           <img
             className="h-full w-full object-cover object-center"
@@ -35,7 +35,7 @@ function Signup() {
             alt="login_bg"
           />
         </div>
-        <div className="bg-neutral-100 text-neutral-0 pb-32 relative">
+        <div className="bg-neutral-120 text-neutral-0 pb-32 relative">
           <img
             className="h-187 w-full object-cover object-center absolute top-16"
             src="../../src/assets/Login/line.png"

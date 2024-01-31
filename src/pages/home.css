@@ -1,0 +1,97 @@
+.hotel_name::after {
+  position: absolute;
+  content: "";
+  width: 80%;
+  height: 2px;
+  background: linear-gradient(to right, #BE9C7C, #fff);
+  top: 7.5rem;
+}
+
+.btn_title::after {
+  position: absolute;
+  content: "";
+  width: 150px;
+  height: 1px;
+  background: #000;
+  top: 1rem;
+  margin-left: 1rem;
+}
+
+.btn {
+  color: #000;
+  background-color: #fff;
+}
+
+.btn:hover {
+  color: #fff;
+  background-color: #BE9C7C;
+  cursor: pointer;
+}
+
+.btn:hover .btn_title::after {
+  background: #fff;
+}
+
+
+.subtitle {
+  position: relative;
+}
+
+.subtitle::after {
+  position: absolute;
+  content: "";
+  width: 80%;
+  height: 2px;
+  background: linear-gradient(to right, #BE9C7C, #fff);
+  bottom: -40px;
+}
+
+
+.subtitle_line_right {
+  position: relative;
+}
+
+.subtitle_line_right::after {
+  position: absolute;
+  content: "";
+  width: 15%;
+  height: 2px;
+  background: linear-gradient(to right, #BE9C7C, #fff);
+  bottom: 55px;
+  left: 140px;
+}
+
+.about_title::after {
+  position: absolute;
+  content: "";
+  width: 150px;
+  height: 2px;
+  background: #fff;
+  top: 50%;
+  margin-left: 9rem;
+}
+
+.food .slick-slide {
+  padding-right:32.5px;
+  text-align:center;
+}
+
+.food.slick-slider {
+  height: 600px;
+  overflow: hidden;
+}
+
+.food .food_bg {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.food .frosted_glass {
+  border-radius: 5px;
+  text-align: center;
+  width: 100%;
+  height: 40%;
+  background-color: #00000026;
+  backdrop-filter: blur(5px);
+}
