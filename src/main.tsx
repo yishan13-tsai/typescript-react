@@ -21,6 +21,7 @@ import "slick-carousel/slick/slick-theme.css";
 import Rooms from './pages/room/index.tsx';
 import Detail from './pages/detail/index.tsx';
 
+ /* @ts-ignore */
 const isProd = process.env.NODE_ENV === 'production'
 dayjs.extend(updateLocale);
 dayjs.updateLocale("zh-tw", {
