@@ -23,3 +23,7 @@ body {
 a {
   color: #bf9d7d;
 }
+
+.ant-picker-dropdown .ant-picker-panel-container {
+  margin-top: -85px;
+}
