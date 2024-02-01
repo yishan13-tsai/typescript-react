@@ -8,20 +8,24 @@ import Signup from './pages/signup.tsx'
 import Order from './pages/order'
 import OrderSuccess from './pages/orderSuccess'
 import { ConfigProvider } from 'antd'
-import zhTw from 'antd/locale/zh_TW'
+import locale from 'antd/locale/zh_TW'
 import dayjs from 'dayjs'
 import 'dayjs/locale/zh-tw'
-import Layout from './component/Layout.tsx'
+import updateLocale from "dayjs/plugin/updateLocale";
 import { antdTheme } from './config/antdTheme.tsx'
 import Rooms from './pages/room/index.tsx'
-import DetailPage from './pages/detail/index.tsx'
+import Detail from './pages/detail/index.tsx'
 import { store } from './store.ts'
 import { Provider } from 'react-redux'
-import "slick-carousel/slick/slick.css"; 
+import Layout from './component/Layout.tsx'
+import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const isProd = process.env.NODE_ENV === 'production'
-dayjs.locale('zh-tw')
+dayjs.extend(updateLocale);
+dayjs.updateLocale("zh-tw", {
+  weekStart: 0
+});
 
 const router = createBrowserRouter(
   [
@@ -37,7 +41,7 @@ const router = createBrowserRouter(
         { path: '/order', element: <Order /> },
         { path: '/orderSuccess', element: <OrderSuccess /> },
         { path: '/rooms', element: <Rooms /> },
-        { path: '/rooms/detail', element: <DetailPage /> }
+        { path: '/rooms/detail', element: <Detail /> }
       ]
     },
     { path: '*', element: <h1>Not Found</h1> }
@@ -48,7 +52,7 @@ const router = createBrowserRouter(
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <Provider store={store}>
-      <ConfigProvider theme={antdTheme} locale={zhTw}>
+      <ConfigProvider theme={antdTheme} locale={locale}>
         <RouterProvider router={router} />
       </ConfigProvider>
     </Provider>

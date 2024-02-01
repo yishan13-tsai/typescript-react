@@ -3,7 +3,7 @@ import Body from '@/pages/detail/Body'
 import Head from '@/pages/detail/Head'
 import BookRoom from '@/pages/detail/BookRoom'
 
-const DetailPage = () => {
+const Detail = () => {
   return (
     <>
       <div className="mb-20">
@@ -22,4 +22,4 @@ const DetailPage = () => {
     </>
   )
 }
-export default DetailPage
+export default Detail;
