@@ -23,16 +23,16 @@ const sharedProps = {
 };
 
 interface DateCalenderProps {
-  days: number;
   onDaysChange: (days: number) => void;
 }
 
-const DateCalender: React.FC<DateCalenderProps> = ({ days, onDaysChange }) => {
+const DateCalender: React.FC<DateCalenderProps> = ({ onDaysChange }) => {
   const [dates, setDates] = useState<RangeValue>(null);
   const [value, setValue] = useState<RangeValue>(null);
 
   const handleClear = () => {
     setDates(null);
+    setValue(null);
   };
 
   const dateConverter = (startDate: any, timeEnd: any) => {
