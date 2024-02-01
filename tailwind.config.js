@@ -60,6 +60,10 @@ export default {
         normal: '1.5',
       },
     },
+    container: {
+      center: true,
+      margin: '4rem'
+    },
   },
   plugins: [],
   corePlugins: {

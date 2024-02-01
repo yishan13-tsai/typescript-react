@@ -18,6 +18,8 @@ import Detail from './pages/detail/index.tsx'
 import { store } from './store.ts'
 import { Provider } from 'react-redux'
 import Layout from './component/Layout.tsx'
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const isProd = process.env.NODE_ENV === 'production'
 dayjs.extend(updateLocale);
