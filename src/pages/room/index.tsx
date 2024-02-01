@@ -10,8 +10,6 @@ import '../../rooms.css'
 import useSWR from 'swr';
 import RoomsHead from './Head';
 import { Room, RoomResponse } from './types';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/store';
 
 const axiosGet = async (url: string) => {
   return axios.get(url).then((response) => {
