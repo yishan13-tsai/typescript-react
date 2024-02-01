@@ -7,7 +7,6 @@
   text-align: center;
   height: 400px;
   line-height: 160px;
-  background: #364d79;
   border-radius: 5px;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
@@ -31,4 +30,8 @@
 .ant-carousel .slick-prev {
   margin-left: 50px;
   z-index: 9;
+}
+
+.ant-picker-dropdown .ant-picker-panel-container {
+  margin-top: -120px;
 }

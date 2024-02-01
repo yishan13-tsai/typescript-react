@@ -12,40 +12,31 @@ interface ArrowProps {
   onClick?: React.MouseEventHandler<HTMLElement>;
 }
 
-class SampleNextArrow extends React.Component<ArrowProps> {
-  render() {
-    const { className, onClick } = this.props;
-    return (
-      <RightOutlined
-        style={{ fontSize: "20px", color: "#fff" }}
-        className={className}
-        onClick={onClick}
-      />
-    );
-  }
-}
+const SampleNextArrow: React.FC<ArrowProps> = ({ className, onClick }) => (
+  <RightOutlined
+    style={{ fontSize: "20px", color: "#fff" }}
+    className={className}
+    onClick={onClick}
+  />
+);
 
-class SamplePrevArrow extends React.Component<ArrowProps> {
-  render() {
-    const { className, onClick } = this.props;
-    return (
-      <div className={className}>
-        <LeftOutlined
-          style={{ fontSize: "20px", color: "#fff" }}
-          onClick={onClick}
-        />
-      </div>
-    );
-  }
-}
-const settings = {
-  nextArrow: <SampleNextArrow />,
-  prevArrow: <SamplePrevArrow />
-};
+const SamplePrevArrow: React.FC<ArrowProps> = ({ className, onClick }) => (
+  <div className={className}>
+    <LeftOutlined
+      style={{ fontSize: "20px", color: "#fff" }}
+      onClick={onClick}
+    />
+  </div>
+);
 
 const CarouselArrows = () => {
+  const settings = {
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />
+  };
+
   return (
-    < >
+    <>
       <Carousel arrows {...settings}>
         <div>
           <Image width={'100%'} src={test1} />
@@ -63,4 +54,5 @@ const CarouselArrows = () => {
     </>
   );
 };
+
 export default CarouselArrows;

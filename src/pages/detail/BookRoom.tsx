@@ -55,4 +55,4 @@ function BookRoom() {
     </Card>
   )
 }
-export default BookRoom
+export default BookRoom;
