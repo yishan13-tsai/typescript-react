@@ -9,6 +9,7 @@ import LoadingModal from './LoadingModal'
 import axios from '@/utils/axios.ts'
 import { useNavigate } from 'react-router-dom'
 import useSWRMutation from 'swr/mutation'
+import { FormDataType } from './types'
 
 // const infos: Info[] = [{ title: '選擇房型' }]
 
@@ -140,22 +141,6 @@ const OrderDetail = ({
 //     return response
 //   })
 // }
-type formUserInfoData = {
-  address: {
-    zipcode: string
-    detail: string
-  }
-  name: string
-  phone: string
-  email: string
-}
-type FormDataType = {
-  roomId: string
-  checkInDate: string
-  checkOutDate: string
-  peopleNum: number
-  userInfo: formUserInfoData
-}
 
 const Order = () => {
   const [orderDetailData] = useState<orderDetailType>({
@@ -187,17 +172,23 @@ const Order = () => {
   }, [formValues])
   const fetchUrl = `/orders`
 
-  const submitPost = async (url: string, { arg }: { arg: FormDataType }) => {
+  type ApiResponse = {
+    result?: any
+    status: number
+  }
+
+  const submitPost = async (url: string, { arg }: { arg: FormDataType }): Promise<ApiResponse> => {
     const token =
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWE2N2ZkNWE2NWI2N2I3NjRlNmFiNDQiLCJpYXQiOjE3MDY2ODM5MDUsImV4cCI6MTcwNzI4ODcwNX0.CACW-Rbmm75iXJzIoJ75U_u5BGciNaapUDqnD4N1-X0'
     return axios
-      .post(url, arg, {
+      .post<ApiResponse>(url, arg, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
         return response
       })
   }
+
   const { trigger } = useSWRMutation(fetchUrl, submitPost)
 
   const closeLoadingModal = () => {
@@ -224,9 +215,14 @@ const Order = () => {
         email: formValues.email,
       },
     }
-    await trigger(postData)
+    const result = await trigger(postData)
     closeLoadingModal()
-    navigate('/orderSuccess')
+    const orderId = result?.result?._id
+    if (orderId) {
+      navigate(`/orderSuccess?id=${orderId}`)
+    } else {
+      console.error(result.result)
+    }
   }
 
   return (
