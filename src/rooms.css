@@ -22,15 +22,18 @@
   margin-right: 50px;
 }
 
+.ant-carousel .slick-prev {
+  margin-left: 50px;
+  z-index: 9;
+}
+
+
 .ant-card .ant-card-body {
   padding: 0px;
   background-color: white;
 }
 
-.ant-carousel .slick-prev {
-  margin-left: 50px;
-  z-index: 9;
-}
+
 
 .ant-picker-dropdown .ant-picker-panel-container {
   margin-top: -120px;

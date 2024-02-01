@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Button, DatePicker } from 'antd';
 import { Dayjs } from 'dayjs';
+import { useDispatch } from 'react-redux';
+import { dateEnd, dateStart } from '@/slice/roomSlice';
 
 const { RangePicker } = DatePicker;
 type RangeValue = [Dayjs | null, Dayjs | null] | null;
@@ -28,6 +30,7 @@ interface DateCalenderProps {
 }
 
 const DateCalender: React.FC<DateCalenderProps> = ({ days, onDaysChange }) => {
+  const dispatch = useDispatch();
   const [dates, setDates] = useState<RangeValue>(null);
   const [value, setValue] = useState<RangeValue>(null);
 
@@ -72,6 +75,8 @@ const DateCalender: React.FC<DateCalenderProps> = ({ days, onDaysChange }) => {
       panelRender={(node) => {
         const date1 = (dates && dates[0] && dates[0].format('YYYY/MM/DD')) || '入住';
         const date2 = (dates && dates[1] && dates[1].format('YYYY/MM/DD')) || '退房';
+        dispatch(dateStart(date1));
+        dispatch(dateEnd(date2));
         return (
           <div {...sharedProps}>
             <div className="pl-4 pr-4">

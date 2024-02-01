@@ -54,7 +54,7 @@ function home() {
             <div className="w-10/12 flex-none">
               <div className="flex flex-wrap mb-10">
                 <div className="-ml-6 pr-6 w-5/12 flex-none">
-                  <img className="w-full object-cover" src="./home_page/news/news_01.png"/>
+                  <img className="w-full object-cover" src="./home_page/news/news_01.png" />
                 </div>
                 <div className="-mx-4 w-7/12 flex-none px-4 grid content-center">
                   <p className="font-bold text-[32px]">秋季旅遊，豪華享受方案</p>
@@ -63,7 +63,7 @@ function home() {
               </div>
               <div className="flex flex-wrap mb-10">
                 <div className="-ml-6 pr-6 w-5/12 flex-none">
-                  <img className="w-full object-cover" src="./home_page/news/news_02.png"/>
+                  <img className="w-full object-cover" src="./home_page/news/news_02.png" />
                 </div>
                 <div className="-mx-4 w-7/12 flex-none px-4 grid content-center">
                   <p className="font-bold text-[32px]">輕鬆住房專案</p>
@@ -72,7 +72,7 @@ function home() {
               </div>
               <div className="flex flex-wrap mb-10">
                 <div className="-ml-6 pr-6 w-5/12 flex-none">
-                  <img className="w-full object-cover" src="./home_page/news/news_03.png"/>
+                  <img className="w-full object-cover" src="./home_page/news/news_03.png" />
                 </div>
                 <div className="-mx-4 w-7/12 flex-none px-4 grid content-center">
                   <p className="font-bold text-[32px]">耶誕快樂，住房送禮</p>
@@ -85,7 +85,7 @@ function home() {
         </section>
         <section className="about w-full bg-neutral-120 relative">
           <div>
-            <img className="w-full object-cover mt-[120px] mb-[200px]" src="./home_page/about/about_bg.png"/>
+            <img className="w-full object-cover mt-[120px] mb-[200px]" src="./home_page/about/about_bg.png" />
             <div className="container h-[672px] w-2/3 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
                     border border-solid border-neutral-0 border-l-0 border-b-0 rounded-[80px] rounded-br-none
                     bg-gradient-to-b from-[#140F0ACC] to-[#BE9C7CCC]
@@ -97,16 +97,16 @@ function home() {
                   <p className="m-0 leading-[57.6px] tracking-heading">我們</p>
                 </div>
                 <p className="mb-10">
-                  享樂酒店，位於美麗島高雄的心臟地帶，是這座城市的璀璨瑰寶與傲人地標。<br/>
+                  享樂酒店，位於美麗島高雄的心臟地帶，是這座城市的璀璨瑰寶與傲人地標。<br />
                   我們的存在，不僅僅是為了提供奢華的住宿體驗，更是為了將高雄的美麗與活力，獻給每一位蒞臨的旅客。
                 </p>
                 <p className="mb-10">
-                  我們的酒店，擁有時尚典雅的裝潢，每一個細節都充滿著藝術與設計的精緻。<br/>
-                  我們的員工，都以熱情的服務與專業的態度，讓每一位客人都能感受到賓至如歸的溫暖。 
+                  我們的酒店，擁有時尚典雅的裝潢，每一個細節都充滿著藝術與設計的精緻。<br />
+                  我們的員工，都以熱情的服務與專業的態度，讓每一位客人都能感受到賓至如歸的溫暖。
                 </p>
                 <p className="mb-10">
                   在這裡，您可以遙望窗外，欣賞高雄的城市景色，感受這座城市的繁華與活力；
-                  您也可以舒適地坐在我們的餐廳，品嚐精緻的佳餚，體驗無與倫比的味覺盛宴。 
+                  您也可以舒適地坐在我們的餐廳，品嚐精緻的佳餚，體驗無與倫比的味覺盛宴。
                 </p>
                 <p className="mb-10">
                   享樂酒店，不僅是您在高雄的住宿之選，更是您感受高雄魅力的最佳舞台。我們期待著您的蒞臨，讓我們共同編織一段難忘的高雄故事。
@@ -119,28 +119,28 @@ function home() {
           <img className="absolute right-[5px] top-[100px] w-[52%] bg-cover" src="./home_page/line.png" alt="" />
           <img className="absolute right-[5px] bottom-[0px] w-full bg-cover" src="./home_page/flow_bg.png" alt="" />
           <div className="grid grid-cols-2 gap-20">
-              <div className="left_col_block w-full">
-                <img className="w-full object-cover" src="./home_page/rooms/rooms_01.png"/>
-              </div>
-              <div className="right_col_block w-2/3 flex flex-col justify-end relative -top-24">
-                <p className="m-0 mb-4 font-bold text-neutral-0 text-[40px]">尊爵雙人房</p>
-                <p className="m-0 mb-10 font-medium text-neutral-0 text-base">享受高級的住宿體驗，尊爵雙人房提供給您舒適寬敞的空間和精緻的裝潢。</p>
-                <p className="m-0 mb-10 font-medium text-neutral-0 text-[32px]">NT$ 10,000</p>
-                <div className="btn h-[116px] w-full bg-neutral-0 rounded-lg
+            <div className="left_col_block w-full">
+              <img className="w-full object-cover" src="./home_page/rooms/rooms_01.png" />
+            </div>
+            <div className="right_col_block w-2/3 flex flex-col justify-end relative -top-24">
+              <p className="m-0 mb-4 font-bold text-neutral-0 text-[40px]">尊爵雙人房</p>
+              <p className="m-0 mb-10 font-medium text-neutral-0 text-base">享受高級的住宿體驗，尊爵雙人房提供給您舒適寬敞的空間和精緻的裝潢。</p>
+              <p className="m-0 mb-10 font-medium text-neutral-0 text-[32px]">NT$ 10,000</p>
+              <div className="btn h-[116px] w-full bg-neutral-0 rounded-lg
                   flex justify-end items-center">
-                  <p className="m-0 btn_title relative mr-52 font-bold text-[24px] mb-0">查看更多</p>
-                </div>
+                <p className="m-0 btn_title relative mr-52 font-bold text-[24px] mb-0">查看更多</p>
               </div>
             </div>
+          </div>
         </section>
         <section className="food w-[70%] mx-auto my-[120px] px-4 bg-primary-10 relative">
-        <img className="absolute right-[-120px] top-[-146px] w-[12%] bg-cover" src="./home_page/dot.png" alt="" />
-        <img className="absolute left-[-220px] top-[-60px] w-[13.5%] bg-cover" src="./home_page/straight_line.png" alt="" />
+          <img className="absolute right-[-120px] top-[-146px] w-[12%] bg-cover" src="./home_page/dot.png" alt="" />
+          <img className="absolute left-[-220px] top-[-60px] w-[13.5%] bg-cover" src="./home_page/straight_line.png" alt="" />
           <div className="subtitle_line_right font-bold text-5xl text-primary-100 mb-20">
             <p className="m-0 leading-[57.6px] tracking-heading">佳餚</p>
             <p className="m-0 leading-[57.6px] tracking-heading">美饌</p>
           </div>
-          <FoodSlider/>
+          <FoodSlider />
         </section>
         <section className="transportation pt-[120px] pb-[267px] px-4 bg-neutral-120 relative">
           <div className="w-[70%] mx-auto">

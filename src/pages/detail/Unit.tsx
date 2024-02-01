@@ -1,31 +1,27 @@
-import React, { useState } from 'react';
+
 import plus from '@/assets/icons/ic_plus.svg';
 import minus from '@/assets/icons/ic_minus.svg';
 import { Button } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/store';
+import { quantityPeople } from '@/slice/roomSlice';
 
 const numStyle = {
   border: '1px solid rgba(0, 0, 0, 0.05)',
   borderRadius: 50,
 };
 
-interface UnitProps {
-  quantity: number;
-  onQuantityChange: (newQuantity: number) => void;
-}
-
-const Unit: React.FC<UnitProps> = ({ quantity, onQuantityChange }) => {
-  const [currentQuantity, setCurrentQuantity] = useState(quantity);
-
+const Unit = () => {
+  const dispatch = useDispatch();
+  const people = useSelector((state: RootState) => state.room.people);
   const handlePlus = () => {
-    setCurrentQuantity((prevQuantity) =>
-      prevQuantity > 0 ? prevQuantity - 1 : 0
-    );
-    onQuantityChange(currentQuantity);
+    const quantity = people > 0 ? people - 1 : 0
+    dispatch(quantityPeople(quantity))
   };
 
   const handleMinus = () => {
-    setCurrentQuantity((prevQuantity) => prevQuantity + 1);
-    onQuantityChange(currentQuantity);
+    const quantity = people + 1
+    dispatch(quantityPeople(quantity))
   };
 
   return (
@@ -33,7 +29,7 @@ const Unit: React.FC<UnitProps> = ({ quantity, onQuantityChange }) => {
       <Button style={numStyle} onClick={handleMinus}>
         <img src={plus} alt="size" />
       </Button>
-      <span className="text-2xl ml-6 mr-6">{currentQuantity}</span>
+      <span className="text-2xl ml-6 mr-6">{people}</span>
       <Button style={numStyle} onClick={handlePlus}>
         <img src={minus} alt="size" />
       </Button>

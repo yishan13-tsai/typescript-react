@@ -34,7 +34,7 @@ export default function Body() {
           <Typography.Title level={4} style={barraStyle}>
             房型基本資訊
           </Typography.Title>
-          <BaseInformation />
+          <BaseInformation baseInfo={{ size: "24 坪", bed: "1 張大床", capacity: 0 }} />
         </Col>
         <Col span={24}>
           <Typography.Title level={4} style={barraStyle}>
