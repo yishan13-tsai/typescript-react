@@ -2,31 +2,16 @@ import { Button, Card, Col, Divider, Row, Typography } from 'antd'
 import DateCalender from '@/pages/detail/DateCalender'
 import Unit from './Unit'
 import { useState } from 'react'
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store';
+import { formatPrice } from './utils';
 
 function BookRoom() {
-  const [current, setCurrent] = useState(0)
+  const price = useSelector((state: RootState) => state.room.price);
   const [days, setDays] = useState(0)
-  const formatPrice = (price: number): string => {
-    let priceStr = price.toString()
-    priceStr = priceStr.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-    const prefix = 'NT$'
-    let negative = ''
-    if (priceStr?.[0] == '-') {
-      negative = '-'
-      priceStr = priceStr.replace('-', '')
-    }
-    return `${negative}${prefix} ${priceStr}`
-  }
-  const handleBook = () => {
-    console.log('kao ', current)
-  }
-  const handleQuantityChange = (quantity: number) => {
-    setCurrent(quantity)
-  }
   const handleonDaysChange = (days: number) => {
     setDays(days)
   }
-
   return (
     <Card className="p-10 mt-0 m-16 md:sticky md:top-10">
       <p className="text-xl">預訂房型</p>
@@ -40,16 +25,16 @@ function BookRoom() {
         <Col span={24} className="mt-6 mb-6">
           <div className="flex justify-between items-center font-bold">
             <span>人數</span>
-            <Unit quantity={current} onQuantityChange={handleQuantityChange} />
+            <Unit />
           </div>
         </Col>
         <Col span={24} className="mb-6 mb-6">
           <div className="flex justify-between text-xl font-bold text-primary-100">
-            <span>{formatPrice(1000)}</span>
+            <span>{formatPrice(price)}</span>
           </div>
         </Col>
       </Row>
-      <Button type="primary" block onClick={handleBook}>
+      <Button type="primary" block >
         立即預訂
       </Button>
     </Card>
