@@ -13,8 +13,6 @@ const UserInfoForm = ({ form }: UserInfoFormProps) => {
       className="w-full"
       layout="vertical"
       initialValues={{ remember: true }}
-      // onFinish={onFinish}
-      // onFinishFailed={onFinishFailed}
       form={form}
       autoComplete="off"
       requiredMark={false}

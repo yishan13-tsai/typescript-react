@@ -1,7 +1,7 @@
 
 export type FormUserInfoDataType = {
   address: {
-    zipcode: string
+    zipcode: number
     detail: string
   }
   name: string
