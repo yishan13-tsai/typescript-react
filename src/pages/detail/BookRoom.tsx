@@ -4,7 +4,8 @@ import Unit from './Unit'
 import { useState } from 'react'
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
-import { formatPrice } from './utils';
+import { formatPrice } from '@/utils/format';
+import { Link } from 'react-router-dom';
 
 function BookRoom() {
   const price = useSelector((state: RootState) => state.room.price);
@@ -35,7 +36,8 @@ function BookRoom() {
         </Col>
       </Row>
       <Button type="primary" block >
-        立即預訂
+        <Link to="/order">立即預訂</Link>
+
       </Button>
     </Card>
   )

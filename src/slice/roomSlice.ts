@@ -1,6 +1,10 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
+
+
 export interface RoomState {
+    _id?: string
+    id?: string
     name: string,
     description: string,
     dateStart: string,
@@ -45,12 +49,9 @@ export const roomSlice = createSlice({
         dateEnd: (state, action: PayloadAction<string>) => {
             state.dateEnd = action.payload
         },
-        getRoom: (state, action: PayloadAction<RoomState>) => {
-            state = action.payload
-        },
     }
 })
 
-export const { quantityPeople, dateStart, dateEnd, getRoom } = roomSlice.actions;
+export const { quantityPeople, dateStart, dateEnd } = roomSlice.actions;
 export default roomSlice.reducer;
 
