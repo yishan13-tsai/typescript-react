@@ -1,22 +1,49 @@
-import { Component } from "react";
+import { FoodType } from "@/types/culinary.model";
+import axios from "@/utils/axios";
+import { useEffect, useState } from "react";
 import Slider from "react-slick";
+import useSWR from "swr";
 
-export default class MultipleItems extends Component {
-  render() {
-    const settings = {
-      className: "food",
-      dots: true,
-      infinite: true,
-      speed: 500,
-      slidesToShow: 3,
-      slidesToScroll: 1,
-      autoplay: true
-    };
-    return (
-      <>
-        <Slider {...settings}>
-          <div className="w-[416px] h-[calc(100vh-38vh)]">
-            <div className="
+const axiosGet = async (url: string) => {
+  return axios.get(url).then((response) => {
+    return response
+  })
+}
+const settings = {
+  className: "food",
+  dots: true,
+  infinite: true,
+  speed: 500,
+  slidesToShow: 3,
+  slidesToScroll: 1,
+  autoplay: true
+};
+const MultipleItems = () => {
+  const [canFetch, setCanFetch] = useState<boolean>(false)
+  const [foods, setFoods] = useState<FoodType[]>([])
+  const { data, error } = useSWR(
+    canFetch ? `/home/culinary` : null,
+    axiosGet,
+  )
+  useEffect(() => {
+    if (foods) {
+      setCanFetch(true)
+    }
+  }, [foods])
+  useEffect(() => {
+    if (data) setFoods(data.result)
+  }, [data])
+
+  useEffect(() => {
+    if (error) console.error(error)
+  }, [error])
+  return (
+    <>
+      <Slider {...settings}>
+        {foods.map((food: FoodType, index: number) => {
+          return <div className="w-[416px] h-[calc(100vh-38vh)]" key={index}>
+            <div
+              className="
               food_bg
               w-full h-full
               bg-[url('./home_page/food/food_01.png')]
@@ -24,57 +51,17 @@ export default class MultipleItems extends Component {
             >
               <div className="frosted_glass text-neutral-0 p-6">
                 <div className="flex justify-between items-center">
-                  <p className="text-xl">海霸</p>
-                  <p className="text-base">SUN-MON  11:00 - 20:30</p>
+                  <p className="text-xl">{food.title}</p>
+                  <p className="text-base">{food.diningTime}</p>
                 </div>
-                <p className="text-base">
-                  以新鮮海產料理聞名，我們的專業廚師選用高雄當地的海鮮，每一道菜都充滿海洋的鮮美與清甜。無論是烤魚、蒸蝦還是煮蛤蜊，都能讓您品嚐到最新鮮的海洋風味。
-                </p>
+                <p className="text-base">{food.description}</p>
               </div>
             </div>
           </div>
-          <div className="w-[416px] h-[calc(100vh-38vh)]">
-            <div className="
-              food_bg
-              w-full h-full
-              bg-[url('./home_page/food/food_02.png')]
-              bg-no-repeat object-cover bg-cover"
-            >
-              <div className="frosted_glass"></div>
-            </div>
-          </div>
-          <div className="w-[416px] h-[calc(100vh-38vh)]">
-            <div className="
-              food_bg
-              w-full h-full
-              bg-[url('./home_page/food/food_03.png')]
-              bg-no-repeat object-cover bg-cover"
-            >
-              <div className="frosted_glass"></div>
-            </div>
-          </div>
-          <div className="w-[416px] h-[calc(100vh-38vh)]">
-            <div className="
-              food_bg
-              w-full h-full
-              bg-[url('./home_page/food/food_04.png')]
-              bg-no-repeat object-cover bg-cover"
-            >
-              <div className="frosted_glass"></div>
-            </div>
-          </div>
-          <div className="w-[416px] h-[calc(100vh-38vh)]">
-            <div className="
-              food_bg
-              w-full h-full
-              bg-[url('./home_page/food/food_05.png')]
-              bg-no-repeat object-cover bg-cover"
-            >
-              <div className="frosted_glass"></div>
-            </div>
-          </div>
-        </Slider>
-      </>
-    );
-  }
-}
+        })}
+      </Slider>
+    </>
+  );
+};
+
+export default MultipleItems;

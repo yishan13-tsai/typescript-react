@@ -1,25 +1,69 @@
-import { Button, Checkbox, Input } from 'antd'
-import { Link } from 'react-router-dom'
+import { Button, Checkbox,Form } from 'antd'
+import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { loginUser } from '@/slice/userSlice.ts'
+import UserInfoForm from './LoginInfoForm'
+import axios from '@/utils/axios.ts'
+import { FormDataType } from './types'
+import useSWRMutation from 'swr/mutation'
+import FailedModal from './FailedModal'
+import { useState } from 'react'
 
 const Login = () => {
   const dispatch = useDispatch()
+  const [form] = Form.useForm()
+  const formValues = Form.useWatch([], form)
+  const navigate = useNavigate()
+  
+  const [isOpenFailedModal, setIsOpenFailedModal] = useState(false)
 
+  const fetchUrl = `user/login`
+
+  type ApiResponse = {
+    result?: any
+    status: number
+  }
+
+  const submitPost = async (url: string, { arg }: { arg: FormDataType }): Promise<ApiResponse> => {
+    return axios
+      .post<ApiResponse>(url, arg)
+      .then((response) => {
+        return response
+      })
+  }
+
+  const { trigger } = useSWRMutation(fetchUrl, submitPost)
+
+  const handleSubmit = async () => {
+    const postData: FormDataType = {
+      email: formValues.email,
+      password: formValues.password
+    }
+    const result = await trigger(postData)
+
+    if (result) {
+      navigate(`/`)
+      dispatch(loginUser({ result: result.result }))
+    } else {
+      console.log('error');
+      setIsOpenFailedModal(true)
+    }
+  }
+  
   return (
     <>
       <div className="grid grid-cols-2 p-0">
         <div className="bg-black">
           <img
             className="h-full w-full object-cover object-center"
-            src="./login/login_bg.png"
+            src="./Login/login_bg.png"
             alt="login_bg"
           />
         </div>
         <div className="bg-neutral-120 text-neutral-0 relative">
           <img
             className="h-187 w-full object-cover object-center absolute top-16"
-            src="./login/line.png"
+            src="./Login/line.png"
             alt="line"
           />
           <div className="w-full h-full flex justify-center items-center">
@@ -32,23 +76,9 @@ const Login = () => {
                   立即開始旅程
                 </p>
               </div>
+              
               <div className="font-medium">
-                <div className="mb-4">
-                  <label className="inline-block mb-2">電子信箱</label>
-                  <Input
-                    style={{ height: '56px' }}
-                    size="large"
-                    placeholder="hello@example.com"
-                  />
-                </div>
-                <div className="mb-4">
-                  <label className="inline-block mb-2">密碼</label>
-                  <Input.Password
-                    style={{ height: '56px' }}
-                    size="large"
-                    placeholder="請輸入密碼"
-                  />
-                </div>
+                <UserInfoForm form={form} />
                 <div className="flex justify-between items-end mb-10">
                   <Checkbox className="text-neutral-0" onChange={onChange}>
                     記住帳號
@@ -65,8 +95,7 @@ const Login = () => {
                   }}
                   type="primary"
                   onClick={() => {
-                    // after login success
-                    dispatch(loginUser({ result: { name: 'user name' } }))
+                    handleSubmit()
                   }}
                 >
                   會員登入
@@ -77,6 +106,7 @@ const Login = () => {
             </div>
           </div>
         </div>
+        <FailedModal isOpen={isOpenFailedModal} />
       </div>
     </>
   )
