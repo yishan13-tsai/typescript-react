@@ -3,7 +3,7 @@ import { formatPrice } from '@/utils/format'
 import { Card, Button, Divider, Spin } from 'antd'
 import axios from '@/utils/axios.ts'
 import useSWR from 'swr'
-import { orderDetailType } from '@/types/order.model'
+import { RoomState } from '@/slice/roomSlice'
 
 const axiosGet = async (url: string) => {
   return axios.get(url).then((response) => {
@@ -11,8 +11,8 @@ const axiosGet = async (url: string) => {
   })
 }
 
-type OrderPriceCardProps = {
-  orderDetail: orderDetailType
+interface OrderPriceCardProps {
+  orderDetail: RoomState
   isSubmittable: boolean
   handleSubmit: () => void
 }
@@ -39,7 +39,7 @@ const OrderPriceCard = ({
   handleSubmit,
 }: OrderPriceCardProps) => {
   const [canFetch, setCanFetch] = useState(false)
-  const roomId = orderDetail.roomId
+  const roomId = orderDetail?.detail?._id || ''
   const fetchUrl = `/rooms/${roomId}`
   const [roomInfo, setRoomInfo] = useState<RoomInfo>()
   const [priceData, setPriceData] = useState<PriceData[]>([])
@@ -61,8 +61,8 @@ const OrderPriceCard = ({
   useEffect(() => {
     if (!data) return
     setRoomInfo(data.result)
-    const checkInDate = new Date(orderDetail.checkInDate).getTime()
-    const checkOutDate = new Date(orderDetail.checkOutDate).getTime()
+    const checkInDate = new Date(orderDetail?.dateStart).getTime()
+    const checkOutDate = new Date(orderDetail?.dateEnd).getTime()
     const dayDiff = Number((checkOutDate - checkInDate) / (1000 * 60 * 60 * 24))
     setPriceData([
       ...priceData,
