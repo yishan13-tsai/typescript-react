@@ -6,7 +6,7 @@ import UserInfoForm from './LoginInfoForm'
 import axios from '@/utils/axios.ts'
 import { FormDataType } from './types'
 import useSWRMutation from 'swr/mutation'
-import FailedModal from './NoticeModal'
+import NoticeModal from '@/component/NoticeModal'
 import { useState } from 'react'
 
 const Login = () => {
@@ -46,7 +46,9 @@ const Login = () => {
       const result = await trigger(postData)
       dispatch(loginUser(result?.result))
       localStorage.setItem('token', result?.token)
-      navigate(`/`)
+      setMessage('登入成功')
+      setIsOpenNoticeModal(true)
+      setTimeout(() => navigate(`/`), 1200)
     } catch(e: any) {
       setMessage(e.response.data.message)
       navigate(`/login`)
@@ -111,7 +113,7 @@ const Login = () => {
             </div>
           </div>
         </div>
-        <FailedModal isOpen={isOpenNoticeModal} message={message}/>
+        <NoticeModal isOpen={isOpenNoticeModal} message={message}/>
       </div>
     </>
   )

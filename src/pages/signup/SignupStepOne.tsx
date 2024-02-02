@@ -1,36 +1,74 @@
-import { Input } from 'antd'
+import { Input, Form, ConfigProvider } from 'antd'
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux'
+import { getEmail, getPassword } from '@/slice/signupSlice'
 
 function SignupStepOne() {
+  const dispatch = useDispatch();
+  const [form] = Form.useForm()
+  const formValues = Form.useWatch([], form)
+
+  useEffect(() => {
+    form.validateFields({ validateOnly: true }).then(
+      () => {
+        dispatch(getEmail(formValues.email));
+        dispatch(getPassword(formValues.password));
+      },
+      () => {
+        // handleSubmittable(false)
+      },
+    )
+  }, [formValues])
+  
   return (
     <>
-      <div>
-        <div className="font-medium mb-10">
-          <div className="mb-4">
-            <label className="inline-block mb-2">電子信箱</label>
-            <Input
-              style={{ height: '56px' }}
-              size="large"
-              placeholder="hello@example.com"
-            />
-          </div>
-          <div className="mb-4">
-            <label className="inline-block mb-2">密碼</label>
-            <Input.Password
-              style={{ height: '56px' }}
-              size="large"
-              placeholder="請輸入密碼"
-            />
-          </div>
-          <div>
-            <label className="inline-block mb-2">確認密碼</label>
-            <Input.Password
-              style={{ height: '56px' }}
-              size="large"
-              placeholder="請再輸入一次密碼"
-            />
-          </div>
-        </div>
-      </div>
+      <ConfigProvider
+        theme={{
+          components: {
+            Form: {
+              labelColor: '#fff',
+            },
+          },
+        }}
+      >
+        <Form
+          name="basic"
+          className="w-full"
+          layout="vertical"
+          initialValues={{ remember: true }}
+          autoComplete="off"
+          requiredMark={false}
+          form={form}
+        >
+          <Form.Item
+            label="電子信箱"
+            name="email"
+            rules={[{ required: true, message: '請輸入電子信箱' }]}
+            validateTrigger="onBlur"
+            className="w-full font-bold"
+          >
+            <Input placeholder="hello@example.com" />
+          </Form.Item>
+          <Form.Item
+            label="密碼"
+            name="password"
+            rules={[{ required: true, message: '請輸入密碼' }]}
+            validateTrigger="onBlur"
+            className="w-full font-bold"
+          >
+            <Input.Password placeholder="請輸入密碼" />
+          </Form.Item>
+          <Form.Item
+            label="確認密碼"
+            name="checkPassword"
+            rules={[{ required: true, message: '請輸入密碼' }]}
+            validateTrigger="onBlur"
+            className="w-full font-bold"
+          >
+            <Input.Password placeholder="請再輸入一次密碼" />
+          </Form.Item>
+        </Form>
+      </ConfigProvider>
     </>
   )
 }
