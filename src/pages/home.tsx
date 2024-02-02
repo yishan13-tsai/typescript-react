@@ -1,7 +1,34 @@
+import { useEffect, useState } from 'react';
 import FoodSlider from '../component/home/FoodSlider'
 import './home.css'
+import { NewsType } from '@/types/news.model';
+import axios from '@/utils/axios';
+import useSWR from 'swr';
 
+const axiosGet = async (url: string) => {
+  return axios.get(url).then((response) => {
+    return response
+  })
+}
 function home() {
+  const [canFetch, setCanFetch] = useState<boolean>(false)
+  const [news, setNews] = useState<NewsType[]>([])
+  const { data, error } = useSWR(
+    canFetch ? `/home/news` : null,
+    axiosGet,
+  )
+  useEffect(() => {
+    if (news) {
+      setCanFetch(true)
+    }
+  }, [news])
+  useEffect(() => {
+    if (data) setNews(data.result)
+  }, [data])
+
+  useEffect(() => {
+    if (error) console.error(error)
+  }, [error])
   return (
     <>
       <div className="">
@@ -52,7 +79,19 @@ function home() {
               </div>
             </div>
             <div className="w-10/12 flex-none">
-              <div className="flex flex-wrap mb-10">
+              {news.map((item: NewsType) => {
+                return <div className="flex flex-wrap mb-10">
+                  <div className="-ml-6 pr-6 w-5/12 flex-none">
+                    {/* <img className="w-full object-cover" src="./home_page/news/news_01.png" /> */}
+                    <img className="w-full object-cover" src={item.image} />
+                  </div>
+                  <div className="-mx-4 w-7/12 flex-none px-4 grid content-center">
+                    <p className="font-bold text-[32px]">{item.title}</p>
+                    <p className="font-medium text-base text-neutral-80">{item.description}</p>
+                  </div>
+                </div>
+              })}
+              {/* <div className="flex flex-wrap mb-10">
                 <div className="-ml-6 pr-6 w-5/12 flex-none">
                   <img className="w-full object-cover" src="./home_page/news/news_01.png" />
                 </div>
@@ -78,7 +117,7 @@ function home() {
                   <p className="font-bold text-[32px]">耶誕快樂，住房送禮</p>
                   <p className="font-medium text-base text-neutral-80">聖誕節來臨，我們為您準備了特別的禮物！在聖誕期間訂房，不僅有特別優惠，還會送上我們精心準備的聖誕禮物。讓我們一起慶祝這個溫馨的節日吧！</p>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
           <img className="absolute left-[-80px] bottom-[-180px] z-10 w-[12%] bg-cover" src="./home_page/dot.png" alt="" />
