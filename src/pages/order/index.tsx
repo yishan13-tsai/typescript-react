@@ -125,11 +125,8 @@ const Order = () => {
     url: string,
     { arg }: { arg: FormDataType },
   ): Promise<ApiResponse> => {
-    const token = ''
     return axios
-      .post<ApiResponse>(url, arg, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      .post<ApiResponse>(url, arg)
       .then((response) => {
         return response
       })

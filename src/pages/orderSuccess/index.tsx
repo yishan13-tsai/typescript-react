@@ -10,11 +10,7 @@ import OrderInfoCard from '@/component/OrderInfoCard'
 
 const axiosGet = async (url: string) => {
   return axios
-    .get(url, {
-      headers: {
-        authorization: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWE2N2ZkNWE2NWI2N2I3NjRlNmFiNDQiLCJpYXQiOjE3MDY3NzA0NjgsImV4cCI6MTcwNzM3NTI2OH0.d8ngSOVcnj3hGQAlQa10mI73x9i4U3Zcx5LKO_KUGns`,
-      },
-    })
+    .get(url)
     .then((response) => {
       return response
     })
