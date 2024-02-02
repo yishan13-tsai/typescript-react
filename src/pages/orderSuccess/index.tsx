@@ -1,40 +1,38 @@
-import BgLineImg from '@/assets/Login/line.png'
+import BgLineImg from '/Login/line.png'
 import SuccessIcon from '@/assets/icons/success.svg'
 import { Divider, Button } from 'antd'
-import { useLocation } from "react-router-dom";
+import { useLocation } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import axios from '@/utils/axios.ts'
 import useSWR from 'swr'
-import { OrderDataType } from './types'
+import { OrderDataType } from '../../types/order.model'
 import OrderInfoCard from '@/component/OrderInfoCard'
 
 const axiosGet = async (url: string) => {
-  return axios.get(url, {
-    headers: {
-      'authorization': `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWE2N2ZkNWE2NWI2N2I3NjRlNmFiNDQiLCJpYXQiOjE3MDY3NzA0NjgsImV4cCI6MTcwNzM3NTI2OH0.d8ngSOVcnj3hGQAlQa10mI73x9i4U3Zcx5LKO_KUGns`
-    }
-  }).then((response) => {
-    return response
-  })
+  return axios
+    .get(url, {
+      headers: {
+        authorization: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWE2N2ZkNWE2NWI2N2I3NjRlNmFiNDQiLCJpYXQiOjE3MDY3NzA0NjgsImV4cCI6MTcwNzM3NTI2OH0.d8ngSOVcnj3hGQAlQa10mI73x9i4U3Zcx5LKO_KUGns`,
+      },
+    })
+    .then((response) => {
+      return response
+    })
 }
 
-
 const orderSuccess = () => {
-  const location = useLocation();
+  const location = useLocation()
   const [orderId, setOrderId] = useState('')
   const [orderData, setOrderData] = useState<OrderDataType>()
 
   useEffect(() => {
-    const searchParams = new URLSearchParams(location.search);
+    const searchParams = new URLSearchParams(location.search)
     setOrderId(searchParams.get('id') || '')
   }, [])
 
   const [canFetch, setCanFetch] = useState(false)
   const fetchUrl = `/orders/${orderId}`
-  const { data, error } = useSWR(
-    canFetch ? fetchUrl : null,
-    axiosGet,
-  )
+  const { data, error } = useSWR(canFetch ? fetchUrl : null, axiosGet)
 
   useEffect(() => {
     if (orderId) {
@@ -79,11 +77,17 @@ const orderSuccess = () => {
             <div className="flex flex-col">
               <p className="font-bold text-xl">訂房人資訊</p>
               <span className="mb-2">姓名</span>
-              <span className="font-bold mb-6">{orderData?.userInfo?.name}</span>
+              <span className="font-bold mb-6">
+                {orderData?.userInfo?.name}
+              </span>
               <span className="mb-2">手機號碼</span>
-              <span className="font-bold mb-6">{orderData?.userInfo?.phone}</span>
+              <span className="font-bold mb-6">
+                {orderData?.userInfo?.phone}
+              </span>
               <span className="mb-2">電子信箱</span>
-              <span className="font-bold mb-6">{orderData?.userInfo?.email}</span>
+              <span className="font-bold mb-6">
+                {orderData?.userInfo?.email}
+              </span>
             </div>
           </div>
           {/* right */}

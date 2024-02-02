@@ -21,7 +21,7 @@ import "slick-carousel/slick/slick-theme.css";
 import Rooms from './pages/room/index.tsx';
 import Detail from './pages/detail/index.tsx';
 
- /* @ts-ignore */
+/* @ts-ignore */
 const isProd = process.env.NODE_ENV === 'production'
 dayjs.extend(updateLocale);
 dayjs.updateLocale("zh-tw", {
@@ -42,7 +42,7 @@ const router = createBrowserRouter(
         { path: '/order', element: <Order /> },
         { path: '/orderSuccess', element: <OrderSuccess /> },
         { path: '/rooms', element: <Rooms /> },
-        { path: '/rooms/detail', element: <Detail /> }
+        { path: '/rooms/detail/:id', element: <Detail /> }
       ]
     },
     { path: '*', element: <h1>Not Found</h1> }
