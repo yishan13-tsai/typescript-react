@@ -11,7 +11,7 @@ const axiosGet = async (url: string) => {
   })
 }
 
-function home() {
+function Home() {
   const [canFetch, setCanFetch] = useState<boolean>(false)
   const [news, setNews] = useState<NewsType[]>([])
   const { data, error } = useSWR(canFetch ? `/home/news` : null, axiosGet)
@@ -94,7 +94,7 @@ function home() {
             <div className="w-10/12 flex-none">
               {news.map((item: NewsType) => {
                 return (
-                  <div className="flex flex-wrap mb-10">
+                  <div key={item._id} className="flex flex-wrap mb-10">
                     <div className="-ml-6 pr-6 w-5/12 flex-none">
                       {/* <img className="w-full object-cover" src="./home_page/news/news_01.png" /> */}
                       <img className="w-full object-cover" src={item.image} />
@@ -311,4 +311,4 @@ function home() {
   )
 }
 
-export default home
+export default Home
