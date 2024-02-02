@@ -9,7 +9,7 @@ import axios from '@/utils/axios.ts'
 import '../../rooms.css'
 import useSWR from 'swr';
 import RoomsHead from './Head';
-import { Room, RoomResponse } from './types';
+import { Room } from './types';
 
 const cardStyle: React.CSSProperties = {
   width: '65%',
