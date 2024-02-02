@@ -1,7 +1,7 @@
 import arrowLeftIcon from '@/assets/icons/arrow-left.svg'
 import { Divider, Form, Button } from 'antd'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import OrderPriceCard from './OrderPriceCard'
 import UserInfoForm from './UserInfoForm'
 import LoadingModal from './LoadingModal'
@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom'
 import useSWRMutation from 'swr/mutation'
 import { orderDetailType } from '@/types/order.model'
 import { FormDataType } from '@/types/form.model'
-import { RoomSubItemInfo } from "@/types/room.model";
+import { RoomSubItemInfo } from '@/types/room.model'
 import { RootState } from '@/store.ts'
 import { useAppSelector } from '@/hooks/storeHooks'
 import BaseInformation from '@/component/BaseInformation'
@@ -35,9 +35,11 @@ type lineTitleProps = {
 }
 
 const LineTitle = ({ title }: lineTitleProps) => {
-  return (<>
-    <div className="font-bold title-line">{title}</div>
-  </>)
+  return (
+    <>
+      <div className="font-bold title-line">{title}</div>
+    </>
+  )
 }
 
 const InfoItem = ({ context, title }: Info) => {
@@ -46,11 +48,14 @@ const InfoItem = ({ context, title }: Info) => {
       <div className="grid flex-1">
         <LineTitle title={title} />
         <div className="">
-          {context && (typeof context === 'string' ? (
-            <p>{context}</p>
-          ) : (
-            context.map((el: string, index: number) => <p key={index}>{el}</p>)
-          ))}
+          {context &&
+            (typeof context === 'string' ? (
+              <p>{context}</p>
+            ) : (
+              context.map((el: string, index: number) => (
+                <p key={index}>{el}</p>
+              ))
+            ))}
         </div>
       </div>
       <div className="self-center font-bold">編輯</div>
@@ -80,17 +85,16 @@ const OrderDetail = ({
 }
 
 const Order = () => {
-
   const navigate = useNavigate()
   const orderDetailData = useAppSelector((state: RootState) => state.room)
-  const timer = useRef<number | undefined>();
+
   useEffect(() => {
     if (!orderDetailData?.detail?._id) {
-      timer.current = setInterval(() => {
+      const interval = setInterval(() => {
         navigate('/rooms')
-      }, 100)
+      }, 1000);
       return () => {
-        clearInterval(timer.current)
+        clearInterval(interval)
       }
     }
   }, [])
@@ -99,8 +103,6 @@ const Order = () => {
   const [isOpenLoadingModal, setIsOpenLoadingModal] = useState(false)
   const [form] = Form.useForm()
   const formValues = Form.useWatch([], form)
-
-
 
   useEffect(() => {
     form.validateFields({ validateOnly: true }).then(
@@ -119,7 +121,10 @@ const Order = () => {
     status: number
   }
 
-  const submitPost = async (url: string, { arg }: { arg: FormDataType }): Promise<ApiResponse> => {
+  const submitPost = async (
+    url: string,
+    { arg }: { arg: FormDataType },
+  ): Promise<ApiResponse> => {
     const token = ''
     return axios
       .post<ApiResponse>(url, arg, {
@@ -166,7 +171,9 @@ const Order = () => {
     }
   }
 
-  const currentUser = useAppSelector((state: RootState) => state.user.currentUser)
+  const currentUser = useAppSelector(
+    (state: RootState) => state.user.currentUser,
+  )
   const applyUserData = () => {
     if (currentUser?.address?.zipcode) {
       const cityData = getCityData(currentUser?.address?.zipcode)
@@ -174,15 +181,15 @@ const Order = () => {
         address: {
           city: cityData.city || '',
           detail: currentUser?.address?.detail || '',
-          district: cityData?.zipcode || ''
+          district: cityData?.zipcode || '',
         },
-      });
+      })
     }
     form.setFieldsValue({
       name: currentUser?.name || '',
       phone: currentUser?.phone || '',
       email: currentUser?.email || '',
-    });
+    })
   }
 
   return (
@@ -203,27 +210,30 @@ const Order = () => {
           <Divider className="m-0 h-2" orientationMargin="0" />
           <div className="font-bold leading-heading text-3xl flex justify-center">
             <span>訂房人資訊</span>
-            <Button type="link" className="text-primay-100 ml-auto pl-0" onClick={applyUserData}>套用會員資料</Button>
+            <Button
+              type="link"
+              className="text-primay-100 ml-auto pl-0"
+              onClick={applyUserData}
+            >
+              套用會員資料
+            </Button>
           </div>
           <UserInfoForm form={form} />
           <Divider className="m-0 h-2" orientationMargin="0" />
           <LineTitle title={'房型基本資訊'} />
-          <BaseInformation baseInfo={{
-            size: orderDetailData?.detail?.areaInfo || '',
-            bed: orderDetailData?.detail?.bedInfo || '',
-            capacity: orderDetailData?.detail?.maxPeople || 0
-          }} />
+          <BaseInformation
+            baseInfo={{
+              size: orderDetailData?.detail?.areaInfo || '',
+              bed: orderDetailData?.detail?.bedInfo || '',
+              capacity: orderDetailData?.detail?.maxPeople || 0,
+            }}
+          />
           <LineTitle title={'房間格局'} />
           <ItemsRoom items={area} />
           <LineTitle title={'房內設備'} />
-          <ItemsRoom
-            items={orderDetailData?.detail?.facilityInfo || []}
-          />
+          <ItemsRoom items={orderDetailData?.detail?.facilityInfo || []} />
           <LineTitle title={'備品提供'} />
-          <ItemsRoom
-            items={orderDetailData?.detail?.amenityInfo || []}
-          />
-
+          <ItemsRoom items={orderDetailData?.detail?.amenityInfo || []} />
         </section>
         <section className="col-span-12 mt-10 md:col-span-5 md:mt-0">
           <OrderPriceCard
