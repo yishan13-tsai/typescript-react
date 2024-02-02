@@ -11,12 +11,6 @@ import useSWR from 'swr';
 import RoomsHead from './Head';
 import { Room, RoomResponse } from './types';
 
-const axiosGet = async (url: string) => {
-  return axios.get(url).then((response) => {
-    return response
-  })
-}
-
 const cardStyle: React.CSSProperties = {
   width: '65%',
   height: 400,
@@ -30,27 +24,33 @@ const titleStyle: React.CSSProperties = {
 };
 
 const Rooms = () => {
-  const [canFetch, setCanFetch] = useState<boolean>(false);
   const [rooms, setRooms] = useState<Room[]>([]);
-  const fetchUrl = `/rooms`;
+  const [canFetch, setCanFetch] = useState<boolean>(false);
+  const axiosGet = async (url: string) => {
+    return axios.get(url).then((response) => {
+      return response
+    })
+  }
   const { data, error } = useSWR<any>(
-    canFetch ? fetchUrl : null,
+    canFetch ? '/rooms' : null,
     axiosGet,
   )
-  useEffect(() => {
-    setCanFetch(true)
-  }, [])
 
   useEffect(() => {
-    const res = data as RoomResponse;
-    console.log('data', data?.result)
-    setRooms(res?.result || [])
+    if (rooms) {
+      setCanFetch(true)
+    }
+  }, [rooms])
+
+  useEffect(() => {
+    if (data) setRooms(data.result)
   }, [data])
 
   useEffect(() => {
     if (error) console.error(error)
   }, [error])
-  console.log('kaods', Array.isArray(rooms))
+
+
   console.log('kaods', rooms)
   return (
     <>
@@ -59,7 +59,7 @@ const Rooms = () => {
         <p className="font-medium mb-2 tracking-normal">房型選擇</p>
         <p className="font-bold m-0 text-4xl tracking-normal text-primary-100" >各種房型，任你挑選</p>
       </div>
-      {Array.isArray(rooms) && rooms.map((room: Room, index: number) => {
+      {rooms.map((room: Room, index: number) => {
         <Card hoverable style={cardStyle} key={index}>
           <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} >
             <Col className="gutter-row" md={15} >
