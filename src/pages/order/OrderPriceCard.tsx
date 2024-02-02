@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
-import { orderDetailType } from './types'
 import { formatPrice } from '@/utils/format'
 import { Card, Button, Divider, Spin } from 'antd'
 import axios from '@/utils/axios.ts'
 import useSWR from 'swr'
+import { orderDetailType } from '@/types/order.model'
 
 const axiosGet = async (url: string) => {
   return axios.get(url).then((response) => {
@@ -79,7 +79,7 @@ const OrderPriceCard = ({
         priceData.reduce((acc, cur) => {
           return acc + cur.price
         }, 0)) ||
-        0,
+      0,
     )
   }, [priceData])
 

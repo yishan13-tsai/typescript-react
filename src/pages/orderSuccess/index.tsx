@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom";
 import { useEffect, useState } from 'react'
 import axios from '@/utils/axios.ts'
 import useSWR from 'swr'
-import { OrderDataType } from './types'
+import { OrderDataType } from '../../types/order.model'
 import OrderInfoCard from '@/component/OrderInfoCard'
 
 const axiosGet = async (url: string) => {

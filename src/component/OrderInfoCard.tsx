@@ -1,7 +1,7 @@
 import CheckIcon from '@/assets/icons/ic_check.svg'
 import { useEffect, useState } from 'react'
 import { Card, Divider } from 'antd'
-import { OrderDataType } from '@/pages/orderSuccess/types'
+import { OrderDataType } from '@/types/order.model'
 
 type subItemGridSizeType = 'big' | 'small'
 
