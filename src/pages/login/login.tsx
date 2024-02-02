@@ -1,7 +1,7 @@
-import { Button, Checkbox,Form } from 'antd'
+import { Button, Checkbox, Form } from 'antd'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { loginUser } from '@/slice/userSlice.ts'
+import { loginUser, User } from '@/slice/userSlice.ts'
 import UserInfoForm from './LoginInfoForm'
 import axios from '@/utils/axios.ts'
 import { FormDataType } from './types'
@@ -14,14 +14,15 @@ const Login = () => {
   const [form] = Form.useForm()
   const formValues = Form.useWatch([], form)
   const navigate = useNavigate()
-  
+
   const [isOpenFailedModal, setIsOpenFailedModal] = useState(false)
 
   const fetchUrl = `user/login`
 
   type ApiResponse = {
-    result?: any
+    result: User
     status: number
+    token: string
   }
 
   const submitPost = async (url: string, { arg }: { arg: FormDataType }): Promise<ApiResponse> => {
@@ -43,13 +44,14 @@ const Login = () => {
 
     if (result) {
       navigate(`/`)
-      dispatch(loginUser({ result: result.result }))
+      dispatch(loginUser(result?.result))
+      localStorage.setItem('token', result?.token)
     } else {
       console.log('error');
       setIsOpenFailedModal(true)
     }
   }
-  
+
   return (
     <>
       <div className="grid grid-cols-2 p-0">
@@ -76,7 +78,7 @@ const Login = () => {
                   立即開始旅程
                 </p>
               </div>
-              
+
               <div className="font-medium">
                 <UserInfoForm form={form} />
                 <div className="flex justify-between items-end mb-10">

@@ -1,7 +1,7 @@
 import arrowLeftIcon from '@/assets/icons/arrow-left.svg'
-import { Divider, Form, message } from 'antd'
+import { Divider, Form, Button } from 'antd'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import OrderPriceCard from './OrderPriceCard'
 import UserInfoForm from './UserInfoForm'
 import LoadingModal from './LoadingModal'
@@ -10,11 +10,12 @@ import { useNavigate } from 'react-router-dom'
 import useSWRMutation from 'swr/mutation'
 import { orderDetailType } from '@/types/order.model'
 import { FormDataType } from '@/types/form.model'
-import {  RoomSubItemInfo } from "@/types/room.model";
+import { RoomSubItemInfo } from "@/types/room.model";
 import { RootState } from '@/store.ts'
 import { useAppSelector } from '@/hooks/storeHooks'
 import BaseInformation from '@/component/BaseInformation'
 import ItemsRoom from '@/component/ItemsRoom'
+import { getCityData } from '@/utils/address'
 
 const area: RoomSubItemInfo[] = [
   { title: '市景', isProvide: true },
@@ -79,19 +80,21 @@ const OrderDetail = ({
 }
 
 const Order = () => {
-  const [messageApi] = message.useMessage();
 
   const navigate = useNavigate()
   const orderDetailData = useAppSelector((state: RootState) => state.room)
+  const timer = useRef<number | undefined>();
   useEffect(() => {
     if (!orderDetailData?.detail?._id) {
-      messageApi.open({
-        type: 'error',
-        content: '請選擇房間!',
-      });
-      navigate('/rooms')
+      timer.current = setInterval(() => {
+        navigate('/rooms')
+      }, 100)
+      return () => {
+        clearInterval(timer.current)
+      }
     }
   }, [])
+
   const [isSubmittable, setIsSubmittable] = useState(false)
   const [isOpenLoadingModal, setIsOpenLoadingModal] = useState(false)
   const [form] = Form.useForm()
@@ -117,8 +120,7 @@ const Order = () => {
   }
 
   const submitPost = async (url: string, { arg }: { arg: FormDataType }): Promise<ApiResponse> => {
-    const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWE2N2ZkNWE2NWI2N2I3NjRlNmFiNDQiLCJpYXQiOjE3MDY2ODM5MDUsImV4cCI6MTcwNzI4ODcwNX0.CACW-Rbmm75iXJzIoJ75U_u5BGciNaapUDqnD4N1-X0'
+    const token = ''
     return axios
       .post<ApiResponse>(url, arg, {
         headers: { Authorization: `Bearer ${token}` },
@@ -164,6 +166,25 @@ const Order = () => {
     }
   }
 
+  const currentUser = useAppSelector((state: RootState) => state.user.currentUser)
+  const applyUserData = () => {
+    if (currentUser?.address?.zipcode) {
+      const cityData = getCityData(currentUser?.address?.zipcode)
+      form.setFieldsValue({
+        address: {
+          city: cityData.city || '',
+          detail: currentUser?.address?.detail || '',
+          district: cityData?.zipcode || ''
+        },
+      });
+    }
+    form.setFieldsValue({
+      name: currentUser?.name || '',
+      phone: currentUser?.phone || '',
+      email: currentUser?.email || '',
+    });
+  }
+
   return (
     <>
       <main className="p-4 md:p-0 md:my-[120px] md:max-w-[1296px] mx-auto grid md:gap-x-[72px] grid-cols-12">
@@ -180,7 +201,10 @@ const Order = () => {
             peopleNum={orderDetailData.people || 0}
           />
           <Divider className="m-0 h-2" orientationMargin="0" />
-          <div className="font-bold leading-heading text-3xl">訂房人資訊</div>
+          <div className="font-bold leading-heading text-3xl flex justify-center">
+            <span>訂房人資訊</span>
+            <Button type="link" className="text-primay-100 ml-auto pl-0" onClick={applyUserData}>套用會員資料</Button>
+          </div>
           <UserInfoForm form={form} />
           <Divider className="m-0 h-2" orientationMargin="0" />
           <LineTitle title={'房型基本資訊'} />
