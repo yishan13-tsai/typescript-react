@@ -6,7 +6,7 @@ import UserInfoForm from './LoginInfoForm'
 import axios from '@/utils/axios.ts'
 import { FormDataType } from './types'
 import useSWRMutation from 'swr/mutation'
-import FailedModal from './FailedModal'
+import NoticeModal from '@/component/NoticeModal'
 import { useState } from 'react'
 
 const Login = () => {
@@ -14,8 +14,9 @@ const Login = () => {
   const [form] = Form.useForm()
   const formValues = Form.useWatch([], form)
   const navigate = useNavigate()
-
-  const [isOpenFailedModal, setIsOpenFailedModal] = useState(false)
+  
+  const [isOpenNoticeModal, setIsOpenNoticeModal] = useState(false)
+  const [message, setMessage] = useState('');
 
   const fetchUrl = `user/login`
 
@@ -40,15 +41,19 @@ const Login = () => {
       email: formValues.email,
       password: formValues.password
     }
-    const result = await trigger(postData)
 
-    if (result) {
-      navigate(`/`)
+    try {
+      const result = await trigger(postData)
       dispatch(loginUser(result?.result))
       localStorage.setItem('token', result?.token)
-    } else {
-      console.log('error');
-      setIsOpenFailedModal(true)
+      setMessage('登入成功')
+      setIsOpenNoticeModal(true)
+      setTimeout(() => navigate(`/`), 1200)
+    } catch(e: any) {
+      setMessage(e.response.data.message)
+      navigate(`/login`)
+      setIsOpenNoticeModal(true)
+      setTimeout(() => setIsOpenNoticeModal(false), 1200)
     }
   }
 
@@ -108,7 +113,7 @@ const Login = () => {
             </div>
           </div>
         </div>
-        <FailedModal isOpen={isOpenFailedModal} />
+        <NoticeModal isOpen={isOpenNoticeModal} message={message}/>
       </div>
     </>
   )
