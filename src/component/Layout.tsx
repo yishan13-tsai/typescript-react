@@ -30,7 +30,7 @@ const Layout = () => {
           </Link>
           {isLoggedIn ? (
             <Button className="text-neutral-0" type="text">
-              {currentUser?.result?.name}
+              {currentUser?.name}
             </Button>
           ) : (
             <Link to="/login">

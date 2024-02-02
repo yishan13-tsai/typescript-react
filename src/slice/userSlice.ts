@@ -1,17 +1,22 @@
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'
 
+export interface UserAddress {
+  zipcode: number
+  detail: string
+}
 export interface User {
-  status?: boolean
-  token?: string
-  result?: {
+  // status?: boolean
+  // token?: string
+  // result?: {
     _id?: string
     name?: string
     email?: string
     phone?: string
     birthday?: string
     id?: string
-  }
+    address?: UserAddress
+  // }
 }
 
 export interface UserState {
