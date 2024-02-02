@@ -1,12 +1,10 @@
 import { Link, Outlet } from 'react-router-dom'
 import { Footer, Header } from 'antd/es/layout/layout'
 import { Button, Image } from 'antd'
-// import { getCookie } from '../utils/cookies.js.ts'
 import { RootState } from '@/store.ts'
 import { useSelector } from 'react-redux'
 
 const Layout = () => {
-  // const token = getCookie('token')
   const currentUser = useSelector((state: RootState) => state.user.currentUser)
   const isLoggedIn = useSelector((state: RootState) => state.user.isLoggedIn)
 
@@ -47,44 +45,46 @@ const Layout = () => {
       <div className="grow">
         <Outlet />
       </div>
-      <Footer className="bg-neutral-120 px-[312px] py-20">
-        <div className="flex justify-between mb-20">
-          <div>
-            <Image
-              className="block"
-              src="./LOGO.png"
-              preview={false}
-              width={196}
-              height={72}
-            ></Image>
-            <div>line ig</div>
-          </div>
-          <div className="flex gap-20">
-            <div className="">
-              <div>
-                <div>TEL</div>
-                <div>+886-7-1234567</div>
+      <Footer className="bg-neutral-120 py-20 px-0 text-neutral-0">
+        <div className="max-w-[70vw] mx-auto">
+          <div className="flex justify-between mb-20">
+            <div>
+              <Image
+                className="block"
+                src="./LOGO.png"
+                preview={false}
+                width={196}
+                height={72}
+              ></Image>
+              <div>line ig</div>
+            </div>
+            <div className="flex gap-20">
+              <div className="">
+                <div>
+                  <div>TEL</div>
+                  <div>+886-7-1234567</div>
+                </div>
+                <div>
+                  <div>FAX</div>
+                  <div>+886-7-1234567</div>
+                </div>
               </div>
-              <div>
-                <div>FAX</div>
-                <div>+886-7-1234567</div>
+              <div className="">
+                <div>
+                  <div>MAIL</div>
+                  <div>elh@hexschool.com</div>
+                </div>
+                <div>
+                  <div>WEB</div>
+                  <div>www.elhhexschool.com.tw</div>
+                </div>
               </div>
             </div>
-            <div className="">
-              <div>
-                <div>MAIL</div>
-                <div>elh@hexschool.com</div>
-              </div>
-              <div>
-                <div>WEB</div>
-                <div>www.elhhexschool.com.tw</div>
-              </div>
-            </div>
           </div>
-        </div>
-        <div className="flex justify-between">
-          <div>806023 台灣高雄市新興區六角路123號</div>
-          <div>© 享樂酒店 2023 All Rights Reserved.</div>
+          <div className="flex justify-between">
+            <div>806023 台灣高雄市新興區六角路123號</div>
+            <div>© 享樂酒店 2023 All Rights Reserved.</div>
+          </div>
         </div>
       </Footer>
     </div>
