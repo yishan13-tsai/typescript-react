@@ -8,7 +8,7 @@ import { formatPrice } from '@/utils/format';
 import { Link } from 'react-router-dom';
 
 function BookRoom() {
-  const price = useSelector((state: RootState) => state.room.price);
+  const detail = useSelector((state: RootState) => state.room.detail);
   const [days, setDays] = useState(0)
   const handleonDaysChange = (days: number) => {
     setDays(days)
@@ -17,8 +17,8 @@ function BookRoom() {
     <Card className="p-10 mt-0 m-16 md:sticky md:top-10">
       <p className="text-xl">預訂房型</p>
       <Divider />
-      <Typography.Title level={2}>尊爵雙人房</Typography.Title>
-      <p>享受高級的住宿體驗，尊爵雙人房提供給您舒適寬敞的空間和精緻的裝潢。</p>
+      <Typography.Title level={2}> {detail?.name}</Typography.Title>
+      <p>{detail?.description}</p>
       <Row gutter={12}>
         <Col span={24}>
           <DateCalender days={days} onDaysChange={handleonDaysChange} />
@@ -31,13 +31,12 @@ function BookRoom() {
         </Col>
         <Col span={24} className="mb-6 mb-6">
           <div className="flex justify-between text-xl font-bold text-primary-100">
-            <span>{formatPrice(price)}</span>
+            <span>{formatPrice(detail?.price || 0)}</span>
           </div>
         </Col>
       </Row>
       <Button type="primary" block >
         <Link to="/order">立即預訂</Link>
-
       </Button>
     </Card>
   )

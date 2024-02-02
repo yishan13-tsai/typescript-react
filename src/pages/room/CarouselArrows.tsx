@@ -21,12 +21,11 @@ const SampleNextArrow: React.FC<ArrowProps> = ({ className, onClick }) => (
 );
 
 const SamplePrevArrow: React.FC<ArrowProps> = ({ className, onClick }) => (
-  <div className={className}>
-    <LeftOutlined
-      style={{ fontSize: "20px", color: "#fff" }}
-      onClick={onClick}
-    />
-  </div>
+  <LeftOutlined
+    style={{ fontSize: "20px", color: "#fff" }}
+    className={className}
+    onClick={onClick}
+  />
 );
 
 const CarouselArrows = () => {

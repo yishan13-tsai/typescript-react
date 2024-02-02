@@ -4,12 +4,13 @@ import { Divider, Form } from 'antd'
 import { useState, useEffect } from 'react'
 import OrderPriceCard from './OrderPriceCard'
 import UserInfoForm from './UserInfoForm'
-import { orderDetailType } from './types'
 import LoadingModal from './LoadingModal'
 import axios from '@/utils/axios.ts'
 import { useNavigate } from 'react-router-dom'
 import useSWRMutation from 'swr/mutation'
-import { FormDataType } from './types'
+import { orderDetailType } from '@/types/order.model'
+import { FormDataType } from '@/types/form.model'
+
 
 // const infos: Info[] = [{ title: '選擇房型' }]
 
