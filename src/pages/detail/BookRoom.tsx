@@ -23,12 +23,16 @@ function BookRoom() {
     dispatch(dateDayStartEnd(daysSelected));
   }
   const handleOk = () => {
-    if (days && people) {
-      navigate(`/order`);
-    } else {
+    if (!days) {
+      setMessage('人數是必填欄位');
+      setIsOpenNoticeModal(true);
+      setTimeout(() => setIsOpenNoticeModal(false), 1200);
+    } else if (!people) {
       setMessage('入住時間和退房時間是必填欄位');
       setIsOpenNoticeModal(true);
       setTimeout(() => setIsOpenNoticeModal(false), 1200);
+    } else {
+      navigate(`/order`);
     }
   };
   return (
