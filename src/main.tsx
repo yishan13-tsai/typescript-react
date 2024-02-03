@@ -20,6 +20,7 @@ import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import Rooms from './pages/room/index.tsx'
 import Detail from './pages/detail/index.tsx'
+import Account from './pages/account/index.tsx'
 
 const isProd = process.env.NODE_ENV === 'production'
 dayjs.extend(updateLocale)
@@ -42,6 +43,8 @@ const router = createBrowserRouter(
         { path: '/orderSuccess', element: <OrderSuccess /> },
         { path: '/rooms', element: <Rooms /> },
         { path: '/rooms/detail/:id', element: <Detail /> },
+        { path: '/account/:tabId', element: <Account /> },
+        { path: '/account', element: <Account /> },
       ],
     },
     { path: '*', element: <h1>Not Found</h1> },
