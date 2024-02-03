@@ -178,14 +178,14 @@ function Signup() {
         <div className="bg-black">
           <img
             className="h-full w-full object-cover object-center"
-            src="../../src/assets/Login/login_bg.png"
+            src="./Login/login_bg.png"
             alt="login_bg"
           />
         </div>
         <div className="bg-neutral-120 text-neutral-0 pb-32 relative">
           <img
             className="h-187 w-full object-cover object-center absolute top-16"
-            src="../../src/assets/Login/line.png"
+            src="./Login/line.png"
             alt="line"
           />
           <div className="w-full flex justify-center items-center mt-32">

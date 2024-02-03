@@ -1,33 +1,14 @@
-import { useState } from 'react'
 import { Select, Form, Space } from 'antd'
 
 const { Option } = Select
 
 const BirthdayInput = () => {
-  const [selectedYear, setSelectedYear] = useState<number>(
-    new Date().getFullYear(),
-  )
-  const [selectedMonth, setSelectedMonth] = useState<number>(1)
-  const [selectedDay, setSelectedDay] = useState<number>(1)
-
   const years = Array.from(
     { length: 80 },
     (_, index) => new Date().getFullYear() - index,
   )
   const months = Array.from({ length: 12 }, (_, index) => index + 1)
   const days = Array.from({ length: 31 }, (_, index) => index + 1)
-
-  const handleYearChange = (value: number) => {
-    setSelectedYear(value)
-  }
-
-  const handleMonthChange = (value: number) => {
-    setSelectedMonth(value)
-  }
-
-  const handleDayChange = (value: number) => {
-    setSelectedDay(value)
-  }
 
   return (
     <>
@@ -38,7 +19,7 @@ const BirthdayInput = () => {
             name={['birthday', 'year']}
             rules={[{ required: true, message: '年份' }]}
           >
-            <Select defaultValue={selectedYear} onChange={handleYearChange}>
+            <Select placeholder="年">
               {years.map((year) => (
                 <Option key={year} value={year}>
                   {year}
@@ -51,7 +32,7 @@ const BirthdayInput = () => {
             name={['birthday', 'month']}
             rules={[{ required: true, message: '月' }]}
           >
-            <Select defaultValue={selectedMonth} onChange={handleMonthChange}>
+            <Select placeholder="月">
               {months.map((month) => (
                 <Option key={month} value={month}>
                   {month}
@@ -64,7 +45,7 @@ const BirthdayInput = () => {
             name={['birthday', 'day']}
             rules={[{ required: true, message: '日' }]}
           >
-            <Select defaultValue={selectedDay} onChange={handleDayChange}>
+            <Select placeholder="日">
               {days.map((day) => (
                 <Option key={day} value={day}>
                   {day}
