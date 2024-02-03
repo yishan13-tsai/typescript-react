@@ -59,10 +59,14 @@ export default {
         heading: '1.2',
         normal: '1.5',
       },
+      flexGrow: {
+        2: '2',
+        3: '3',
+      },
     },
     container: {
       center: true,
-      margin: '4rem'
+      margin: '4rem',
     },
   },
   plugins: [],
