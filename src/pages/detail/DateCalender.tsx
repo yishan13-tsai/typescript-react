@@ -43,8 +43,6 @@ const DateCalender: React.FC<DateCalenderProps> = ({ onDaysChange }) => {
     if (isNaN(days) || days < 0) {
       return 0;
     }
-    console.log('DateCalender', days)
-    console.log('DateCalender', startDate)
     onDaysChange({ days, startDate, timeEnd });
     return days;
   };

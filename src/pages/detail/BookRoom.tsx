@@ -19,7 +19,6 @@ function BookRoom() {
   const [message, setMessage] = useState<string>('');
 
   const handleonDaysChange = (daysSelected: DateSelected) => {
-    console.log('BookRoom', daysSelected)
     dispatch(dateDayStartEnd(daysSelected));
   }
   const handleOk = () => {
@@ -28,7 +27,7 @@ function BookRoom() {
     } else {
       setMessage('入住時間和退房時間是必填欄位');
       setIsOpenNoticeModal(true);
-      setTimeout(() => setIsOpenNoticeModal(false), 1200);
+      // setTimeout(() => setIsOpenNoticeModal(false), 1200);
     }
   };
   return (
@@ -54,7 +53,6 @@ function BookRoom() {
         </Col>
       </Row>
       <Button type="primary" block onClick={handleOk}>
-
         立即預訂
       </Button>
       <NoticeModal isOpen={isOpenNoticeModal} message={message} />
