@@ -4,6 +4,8 @@ import './home.css'
 import { NewsType } from '@/types/news.model'
 import axios from '@/utils/axios'
 import useSWR from 'swr'
+import { Link } from 'react-router-dom'
+import { Button } from 'antd'
 
 const axiosGet = async (url: string) => {
   return axios.get(url).then((response) => {
@@ -34,10 +36,10 @@ function Home() {
           <div
             className="
             h-full w-full
-            bg-[url('./home_page/hero/hero_img.jpg')]
             bg-no-repeat object-center bg-cover
             bg-[#00000099]
             bg-blend-multiply"
+            style={{ backgroundImage: `url('./home_page/hero/hero_img.jpg')` }}
           ></div>
           <div className="container mt-[14.75rem] p-[0.5rem] absolute top-0">
             <div className="grid grid-cols-2 relative justify-center items-center h-[678px]">
@@ -65,14 +67,19 @@ function Home() {
                       我們致力於為您提供無與倫比的奢華體驗與優質服務
                     </p>
                   </div>
-                  <div
-                    className="btn h-[116px] w-full bg-neutral-0 rounded-lg
-                    flex justify-end items-center"
+                  <Link
+                    to="/rooms"
+                    className="no-underline hover:text-neutral-0"
                   >
-                    <p className="m-0 btn_title relative mr-52 font-bold text-[24px] mb-0">
-                      立即訂房
-                    </p>
-                  </div>
+                    <Button
+                      className="btn h-[116px] w-full bg-neutral-0 rounded-lg
+                      flex justify-end items-center"
+                    >
+                      <p className="m-0 btn_title relative mr-52 font-bold text-[24px] mb-0">
+                        立即訂房
+                      </p>
+                    </Button>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -210,14 +217,16 @@ function Home() {
               <p className="m-0 mb-10 font-medium text-neutral-0 text-[32px]">
                 NT$ 10,000
               </p>
-              <div
-                className="btn h-[116px] w-full bg-neutral-0 rounded-lg
-                  flex justify-end items-center"
-              >
-                <p className="m-0 btn_title relative mr-52 font-bold text-[24px] mb-0">
-                  查看更多
-                </p>
-              </div>
+              <Link to="/rooms" className="no-underline hover:text-neutral-0">
+                <Button
+                  className="btn h-[116px] w-full bg-neutral-0 rounded-lg
+                      flex justify-end items-center"
+                >
+                  <p className="m-0 btn_title relative mr-52 font-bold text-[24px] mb-0">
+                    查看更多
+                  </p>
+                </Button>
+              </Link>
             </div>
           </div>
         </section>

@@ -1,7 +1,7 @@
 import BgLineImg from '/Login/line.png'
 import SuccessIcon from '@/assets/icons/success.svg'
 import { Divider, Button } from 'antd'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import axios from '@/utils/axios.ts'
 import useSWR from 'swr'
@@ -46,6 +46,12 @@ const orderSuccess = () => {
     if (!data) return
     setOrderData(data.result)
   }, [data])
+
+  const navigate = useNavigate()
+
+  const goToOrder = () => {
+    navigate('/account/orders')
+  }
   return (
     <>
       <section className="bg-neutral-120">
@@ -68,7 +74,7 @@ const orderSuccess = () => {
             </p>
             <Divider className="my-20" />
             <p className="font-bold">立即查看您的訂單紀錄</p>
-            <Button type="primary">前往我的訂單</Button>
+            <Button type="primary" onClick={goToOrder}>前往我的訂單</Button>
             <Divider className="my-20" />
             <div className="flex flex-col">
               <p className="font-bold text-xl">訂房人資訊</p>
