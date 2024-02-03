@@ -81,6 +81,7 @@ function SignupStepTwo({ onDataSubmit, clickSignupButton }: Step2Props) {
                 width: '100%',
                 background: '#BF9D7D',
               }}
+              className="mt-4"
               type="primary"
               htmlType="submit"
             >
