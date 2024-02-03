@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Button, message, Steps } from 'antd'
+import { Button, Steps } from 'antd'
 import SignupStepOne from './SignupStepOne'
 import SignupStepTwo from './SignupStepTwo'
 import { Link, useNavigate } from 'react-router-dom'
@@ -26,21 +26,21 @@ function Signup() {
   const navigate = useNavigate()
   const [current, setCurrent] = useState(0)
   const [apiParams, setApiParams] = useState({
-    name: "joyce",
-    email: "ddd@gmail.com",
-    password: "hsu1234567",
-    phone: "0978800885",
-    birthday: "1982/2/4",
+    name: 'joyce',
+    email: 'ddd@gmail.com',
+    password: 'hsu1234567',
+    phone: '0978800885',
+    birthday: '1982/2/4',
     address: {
-        zipcode: "802",
-        detail: "文山路23號"
-    }
+      zipcode: '802',
+      detail: '文山路23號',
+    },
   })
 
   const [signup, setIsSingup] = useState(false)
 
   const [isOpenNoticeModal, setIsOpenNoticeModal] = useState(false)
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState('')
   const next = () => {
     setCurrent(current + 1)
   }
@@ -61,18 +61,16 @@ function Signup() {
         password,
         phone,
         birthday,
-        address
-      }));
+        address,
+      }))
 
       handleSubmit()
       setIsSingup(false)
     }
-  }, [signup]);
-
-
+  }, [signup])
 
   function clickSignupButton() {
-    setIsSingup(true);
+    setIsSingup(true)
     // const name = useSelector((state: RootState) => state.signup.name)
     // const email = useSelector((state: RootState) => state.signup.email)
     // const password = useSelector((state: RootState) => state.signup.password)
@@ -82,9 +80,8 @@ function Signup() {
 
     // console.log(name, email, password, phone, birthday, address)
     console.log(apiParams.name)
-    console.log('clickSignupButton', )
+    console.log('clickSignupButton')
   }
-
 
   const fetchUrl = `user/signup`
 
@@ -93,12 +90,13 @@ function Signup() {
     status: number
   }
 
-  const submitPost = async (url: string, { arg }: { arg: FormDataType }): Promise<ApiResponse> => {
-    return axios
-      .post<ApiResponse>(url, arg)
-      .then((response) => {
-        return response
-      })
+  const submitPost = async (
+    url: string,
+    { arg }: { arg: FormDataType },
+  ): Promise<ApiResponse> => {
+    return axios.post<ApiResponse>(url, arg).then((response) => {
+      return response
+    })
   }
 
   const { trigger } = useSWRMutation(fetchUrl, submitPost)
@@ -108,11 +106,11 @@ function Signup() {
 
     try {
       const result = await trigger(postData)
-      console.log(result);
+      console.log(result)
       setMessage('註冊成功')
       setIsOpenNoticeModal(true)
       setTimeout(() => navigate(`/login`), 1200)
-    } catch(e: any) {
+    } catch (e: any) {
       setMessage(e.response.data.message)
       navigate(`/signup`)
       setIsOpenNoticeModal(true)
@@ -192,7 +190,7 @@ function Signup() {
             </div>
           </div>
         </div>
-        <NoticeModal isOpen={isOpenNoticeModal} message={message}/>
+        <NoticeModal isOpen={isOpenNoticeModal} message={message} />
       </div>
     </>
   )
