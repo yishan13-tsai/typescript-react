@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react'
 import axios from '@/utils/axios'
 import useSWR from 'swr'
 import { useDispatch } from 'react-redux'
-import { getRoom } from '@/slice/roomSlice'
+import { dateDayStartEnd, getRoom, quantityPeople } from '@/slice/roomSlice'
 
 const axiosGet = async (url: string) => {
   return axios.get(url).then((response) => {
@@ -23,8 +23,8 @@ const Detail = () => {
     axiosGet,
   )
   useEffect(() => {
-    if (id) setCanFetch(true)
-  }, [id])
+    setCanFetch(true)
+  }, [])
 
   useEffect(() => {
     if (error) console.error(error)
@@ -32,6 +32,8 @@ const Detail = () => {
 
   useEffect(() => {
     if (!data) return
+    dispatch(quantityPeople(0))
+    dispatch(dateDayStartEnd({ days: 0, startDate: '', timeEnd: '' }));
     dispatch(getRoom(data.result));
   }, [data])
   return (

@@ -32,6 +32,7 @@ export const roomSlice = createSlice({
         dateDayStartEnd: (state, action: PayloadAction<DateSelected>) => {
             state.dateStart = action.payload.startDate
             state.dateEnd = action.payload.timeEnd
+            console.log('redux', action.payload.days)
             state.days = action.payload.days
         },
         getRoom: (state, action: PayloadAction<RoomType>) => {

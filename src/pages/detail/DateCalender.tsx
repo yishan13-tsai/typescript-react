@@ -9,7 +9,8 @@ type RangeValue = [Dayjs | null, Dayjs | null] | null;
 const dateCalenderStyle: React.CSSProperties = {
   border: '2px solid',
   borderRadius: 8,
-  padding: 0,
+  width: '100%',
+  height: 50
 };
 
 const dayTotalStyle: React.CSSProperties = {
@@ -42,12 +43,15 @@ const DateCalender: React.FC<DateCalenderProps> = ({ onDaysChange }) => {
     if (isNaN(days) || days < 0) {
       return 0;
     }
+    console.log('DateCalender', days)
+    console.log('DateCalender', startDate)
     onDaysChange({ days, startDate, timeEnd });
     return days;
   };
 
   return (
     <RangePicker
+      style={dateCalenderStyle}
       value={dates || value}
       format="YYYY/MM/DD"
       placeholder={['Start', 'End']}
@@ -61,9 +65,9 @@ const DateCalender: React.FC<DateCalenderProps> = ({ onDaysChange }) => {
             <Button onClick={handleClear} className="py-2 px-4 rounded mr-2">
               清除日期
             </Button>
-            <Button type="primary" className="py-2 px-4 rounded">
+            {/* <Button type="primary" className="py-2 px-4 rounded">
               確定日期
-            </Button>
+            </Button> */}
           </div>
         );
       }}
@@ -81,11 +85,11 @@ const DateCalender: React.FC<DateCalenderProps> = ({ onDaysChange }) => {
                     {date1} - {date2}
                   </p>
                 </div>
-                <div className="py-4  col-span-2" style={dateCalenderStyle}>
+                <div className="py-4  col-span-2"  >
                   <p className="font-bold text-sm">入住</p>
                   <p>{date1}</p>
                 </div>
-                <div className="py-4 col-span-2" style={dateCalenderStyle}>
+                <div className="py-4 col-span-2"  >
                   <p className="font-bold text-sm">退房</p>
                   <p>{date2}</p>
                 </div>

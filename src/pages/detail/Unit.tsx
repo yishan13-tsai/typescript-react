@@ -26,12 +26,12 @@ const Unit = () => {
 
   return (
     <div className="justify-center">
-      <Button style={numStyle} onClick={handleMinus}>
-        <img src={plus} alt="size" />
-      </Button>
-      <span className="text-2xl ml-6 mr-6">{people}</span>
       <Button style={numStyle} onClick={handlePlus}>
         <img src={minus} alt="size" />
+      </Button>
+      <span className="text-2xl ml-6 mr-6">{people}</span>
+      <Button style={numStyle} onClick={handleMinus}>
+        <img src={plus} alt="size" />
       </Button>
     </div>
   );
