@@ -1,7 +1,8 @@
-import { Form, Input, Space, Select, FormInstance } from 'antd'
-const { Option } = Select
-import { useState, useEffect } from 'react'
+import { Form, FormInstance, Input, Select, Space } from 'antd'
+import { useEffect, useState } from 'react'
 import twDistrict from '@/assets/tw-district.json'
+
+const { Option } = Select
 
 type AddressInputProps = {
   form: FormInstance
@@ -21,16 +22,24 @@ const AddressInput = ({ form }: AddressInputProps) => {
   const [districtOptions, setDistrictOptions] = useState<DistrictType[]>([])
   const selectedAddress = Form.useWatch('address', form)
   useEffect(() => {
-    const selectedCity = selectedAddress?.city
-    setDistrictOptions(twDistrict[selectedCity]?.districts || [])
-  }, [selectedAddress])
-  useEffect(() => {
     setCityOptions(
       twDistrict.map((item, id) => {
         return { name: item.name, id }
       }),
     )
   }, [])
+  useEffect(() => {
+    const selectedCity =
+      form.getFieldValue(['address', 'city']) || selectedAddress?.city
+    let newDistrictOption: DistrictType[] = []
+    if (typeof selectedCity === 'number') {
+      newDistrictOption = twDistrict[selectedCity]?.districts || []
+    } else {
+      newDistrictOption =
+        twDistrict.find((item) => item.name === selectedCity)?.districts || []
+    }
+    setDistrictOptions(newDistrictOption)
+  }, [form, selectedAddress])
 
   return (
     <Form.Item style={{ fontWeight: 700 }} label="地址">

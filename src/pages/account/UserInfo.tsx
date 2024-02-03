@@ -3,8 +3,8 @@ import { useSelector } from 'react-redux'
 import { RootState } from '@/store.ts'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import UserInfoForm from '@/pages/order/UserInfoForm.tsx'
 import { defaultUser, User } from '@/slice/userSlice.ts'
+import UserInfoForm from '@/pages/account/UserInfoForm.tsx'
 
 const { Title } = Typography
 
