@@ -23,3 +23,9 @@ export type RoomType = {
 export type RoomResponse = {
     result: RoomType[],
 }
+
+export type DateSelected = {
+    days: number,
+    startDate: string,
+    timeEnd: string
+}

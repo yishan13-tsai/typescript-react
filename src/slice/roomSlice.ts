@@ -1,4 +1,4 @@
-import { RoomType } from "@/types/room.model";
+import { DateSelected, RoomType } from "@/types/room.model";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 
@@ -9,23 +9,18 @@ export interface RoomState {
     dateEnd: string,
     people: number,
     price: number,
+    days: number
 
 }
 
 
 const initialState: RoomState = {
-    // name: '',
-    // description: '',
     detail: null,
     dateStart: '',
     dateEnd: '',
+    days: 0,
     people: 0,
     price: 1000,
-    // areaInfo: '',
-    // bedInfo: '',
-    // maxPeople: 0,
-    // amenityInfo: [],
-    // facilityInfo: []
 }
 
 export const roomSlice = createSlice({
@@ -35,18 +30,20 @@ export const roomSlice = createSlice({
         quantityPeople: (state, action: PayloadAction<number>) => {
             state.people = action.payload
         },
-        dateStart: (state, action: PayloadAction<string>) => {
-            state.dateStart = action.payload
+        dateDayStartEnd: (state, action: PayloadAction<DateSelected>) => {
+            state.dateStart = action.payload.startDate
+            state.dateEnd = action.payload.timeEnd
+            state.days = action.payload.days
         },
-        dateEnd: (state, action: PayloadAction<string>) => {
-            state.dateEnd = action.payload
-        },
+        // dateEnd: (state, action: PayloadAction<string>) => {
+        //     state.dateEnd = action.payload
+        // },
         getRoom: (state, action: PayloadAction<RoomType>) => {
             state.detail = action.payload
         },
     }
 })
 
-export const { quantityPeople, dateStart, dateEnd, getRoom } = roomSlice.actions;
+export const { quantityPeople, dateDayStartEnd, getRoom } = roomSlice.actions;
 export default roomSlice.reducer;
 

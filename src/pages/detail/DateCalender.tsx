@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Button, DatePicker } from 'antd';
 import { Dayjs } from 'dayjs';
-import { useDispatch } from 'react-redux';
-import { dateEnd, dateStart } from '@/slice/roomSlice';
+import { DateSelected } from '@/types/room.model';
 
 const { RangePicker } = DatePicker;
 type RangeValue = [Dayjs | null, Dayjs | null] | null;
@@ -25,30 +24,26 @@ const sharedProps = {
 };
 
 interface DateCalenderProps {
-  days: number;
-  onDaysChange: (days: number) => void;
+  onDaysChange: (selected: DateSelected) => void;
 }
 
-const DateCalender: React.FC<DateCalenderProps> = ({ days, onDaysChange }) => {
-  const dispatch = useDispatch();
+const DateCalender: React.FC<DateCalenderProps> = ({ onDaysChange }) => {
   const [dates, setDates] = useState<RangeValue>(null);
   const [value, setValue] = useState<RangeValue>(null);
-
   const handleClear = () => {
     setDates(null);
     setValue(null);
   };
-  console.log(days)
-  const dateConverter = (startDate: any, timeEnd: any) => {
+  const dateConverter = (startDate: string, timeEnd: string) => {
     const newStartDate = new Date(startDate);
     const newEndDate = new Date(timeEnd);
     const one_day = 1000 * 60 * 60 * 24;
-    let result = Math.ceil((newEndDate.getTime() - newStartDate.getTime()) / one_day);
-    if (isNaN(result) || result < 0) {
+    let days = Math.ceil((newEndDate.getTime() - newStartDate.getTime()) / one_day);
+    if (isNaN(days) || days < 0) {
       return 0;
     }
-    onDaysChange(result);
-    return result;
+    onDaysChange({ days, startDate, timeEnd });
+    return days;
   };
 
   return (
@@ -75,8 +70,7 @@ const DateCalender: React.FC<DateCalenderProps> = ({ days, onDaysChange }) => {
       panelRender={(node) => {
         const date1 = (dates && dates[0] && dates[0].format('YYYY/MM/DD')) || '入住';
         const date2 = (dates && dates[1] && dates[1].format('YYYY/MM/DD')) || '退房';
-        dispatch(dateStart(date1));
-        dispatch(dateEnd(date2));
+
         return (
           <div {...sharedProps}>
             <div className="pl-4 pr-4">

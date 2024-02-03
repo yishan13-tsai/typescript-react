@@ -1,17 +1,18 @@
 import { Button, Card, Col, Divider, Row, Typography } from 'antd'
 import DateCalender from '@/pages/detail/DateCalender'
 import Unit from './Unit'
-import { useState } from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store';
 import { formatPrice } from '@/utils/format';
 import { Link } from 'react-router-dom';
+import { DateSelected } from '@/types/room.model';
+import { dateDayStartEnd } from '@/slice/roomSlice';
 
 function BookRoom() {
+  const dispatch = useDispatch();
   const detail = useSelector((state: RootState) => state.room.detail);
-  const [days, setDays] = useState(0)
-  const handleonDaysChange = (days: number) => {
-    setDays(days)
+  const handleonDaysChange = (res: DateSelected) => {
+    dispatch(dateDayStartEnd(res));
   }
   return (
     <Card className="p-10 mt-0 m-16 md:sticky md:top-10">
@@ -21,7 +22,7 @@ function BookRoom() {
       <p>{detail?.description}</p>
       <Row gutter={12}>
         <Col span={24}>
-          <DateCalender days={days} onDaysChange={handleonDaysChange} />
+          <DateCalender onDaysChange={handleonDaysChange} />
         </Col>
         <Col span={24} className="mt-6 mb-6">
           <div className="flex justify-between items-center font-bold">
