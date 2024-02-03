@@ -1,43 +1,34 @@
-import {
-  Input,
-  Checkbox,
-  Form,
-  ConfigProvider,
-} from 'antd'
+import { Input, Checkbox, Form, ConfigProvider, Button } from 'antd'
 import AddressInput from '@/component/AddressInput'
 import BirthDayInput from '@/component/BirthDayInput'
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux'
-import { getName, getPhone, getBirthday, getAddress } from '@/slice/signupSlice'
+import { AddressType, BitrhDayType } from './types'
 
-function SignupStepTwo() {
+interface Step2Props {
+  onDataSubmit: (data: {
+    name: string
+    birthday: BitrhDayType
+    phone: string
+    address: AddressType
+  }) => void
+  clickSignupButton: () => void
+}
+
+function SignupStepTwo({ onDataSubmit, clickSignupButton }: Step2Props) {
   const onChange = (e: any) => {
     console.log(`checked = ${e.target.checked}`)
   }
 
-  const dispatch = useDispatch();
   const [form] = Form.useForm()
-  const formValues = Form.useWatch([], form)
 
-  useEffect(() => {
-    form.validateFields({ validateOnly: true }).then(
-      () => {
-        dispatch(getName(formValues.name));
-        dispatch(getPhone(formValues.phone));
-        dispatch(getBirthday(
-          `${formValues.birthday.year}/${formValues.birthday.month}/${formValues.birthday.day}`));
-        dispatch(getAddress(
-          {
-            zipcode: formValues.address.district            ,
-            detail: formValues.address.detail
-          }
-        ));
-      },
-      () => {
-        // handleSubmittable(false)
-      },
-    )
-  }, [formValues])
+  const onFinish = (values: {
+    name: string
+    birthday: BitrhDayType
+    phone: string
+    address: AddressType
+  }) => {
+    onDataSubmit(values)
+    clickSignupButton()
+  }
 
   return (
     <>
@@ -51,13 +42,14 @@ function SignupStepTwo() {
         }}
       >
         <Form
-          name="basic"
+          name="step2Form"
           className="w-full"
           layout="vertical"
           initialValues={{ remember: true }}
           autoComplete="off"
           requiredMark={false}
           form={form}
+          onFinish={onFinish}
         >
           <Form.Item
             label="姓名"
@@ -77,11 +69,24 @@ function SignupStepTwo() {
           >
             <Input placeholder="請輸入手機號碼" />
           </Form.Item>
-          <BirthDayInput/>
-          <AddressInput form={form}/>
+          <BirthDayInput />
+          <AddressInput form={form} />
           <Checkbox className="text-neutral-0" onChange={onChange}>
             我已閱讀並同意本網站個資使用規範
           </Checkbox>
+          <Form.Item>
+            <Button
+              style={{
+                height: '56px',
+                width: '100%',
+                background: '#BF9D7D',
+              }}
+              type="primary"
+              htmlType="submit"
+            >
+              完成註冊
+            </Button>
+          </Form.Item>
         </Form>
       </ConfigProvider>
     </>

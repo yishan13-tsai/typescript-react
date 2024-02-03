@@ -1,29 +1,87 @@
 import { useEffect, useState } from 'react'
-import { Button, Steps } from 'antd'
+import { Steps } from 'antd'
 import SignupStepOne from './SignupStepOne'
 import SignupStepTwo from './SignupStepTwo'
 import { Link, useNavigate } from 'react-router-dom'
 import './signup.css'
-import { useSelector } from 'react-redux'
-import { RootState } from '@/store'
-import { FormDataType } from './types'
+import { useDispatch } from 'react-redux'
+import {
+  setName,
+  setEmail,
+  setPassword,
+  setPhone,
+  setBirthday,
+  setAddress,
+} from '@/slice/signupSlice'
+import { Step1DataType, Step2DataType, FormDataType } from './types'
 import axios from '@/utils/axios'
 import useSWRMutation from 'swr/mutation'
 import NoticeModal from '@/component/NoticeModal'
 
-const steps = [
-  {
-    title: '輸入信箱及密碼',
-    content: <SignupStepOne />,
-  },
-  {
-    title: '填寫基本資料',
-    content: <SignupStepTwo />,
-  },
-]
-
 function Signup() {
+  const dispatch = useDispatch()
   const navigate = useNavigate()
+
+  const initialState: Step2DataType = {
+    name: '',
+    phone: '',
+    birthday: {
+      year: 1,
+      month: 1,
+      day: 1,
+    },
+    address: {
+      city: 1,
+      detail: '',
+      district: '',
+    },
+  }
+
+  const [step1Data, setStep1Data] = useState<Step1DataType>({
+    email: '',
+    password: '',
+  })
+  const [step2Data, setStep2Data] = useState<Step2DataType>(initialState)
+
+  const next = () => {
+    setCurrent(current + 1)
+  }
+  const clickSignupButton = () => {
+    setIsSingup(true)
+    console.log('step1Data', step1Data, step2Data)
+    console.log('clickSignupButton')
+  }
+
+  useEffect(() => {
+    dispatch(setEmail(step1Data.email))
+    dispatch(setPassword(step1Data.password))
+    dispatch(setName(step2Data.name))
+    dispatch(setPhone(step2Data.phone))
+    dispatch(setBirthday(step2Data.birthday))
+    dispatch(setAddress(step2Data.address))
+  }, [step1Data, step2Data, dispatch])
+
+  const steps = [
+    {
+      title: '輸入信箱及密碼',
+      content: (
+        <SignupStepOne
+          onDataSubmit={(data) => setStep1Data(data)}
+          next={next}
+        />
+      ),
+    },
+    {
+      title: '填寫基本資料',
+      content: (
+        <SignupStepTwo
+          onDataSubmit={(data) => setStep2Data(data)}
+          clickSignupButton={clickSignupButton}
+        />
+      ),
+    },
+  ]
+
   const [current, setCurrent] = useState(0)
   const [apiParams, setApiParams] = useState({
     name: 'joyce',
@@ -40,48 +98,45 @@ function Signup() {
   const [signup, setIsSingup] = useState(false)
 
   const [isOpenNoticeModal, setIsOpenNoticeModal] = useState(false)
+
   const [message, setMessage] = useState('')
-  const next = () => {
-    setCurrent(current + 1)
-  }
 
   const items = steps.map((item) => ({ key: item.title, title: item.title }))
-  const name = useSelector((state: RootState) => state.signup.name)
-  const email = useSelector((state: RootState) => state.signup.email)
-  const password = useSelector((state: RootState) => state.signup.password)
-  const phone = useSelector((state: RootState) => state.signup.phone)
-  const birthday = useSelector((state: RootState) => state.signup.birthday)
-  const address = useSelector((state: RootState) => state.signup.address)
 
   useEffect(() => {
     if (signup) {
+      setApiParams({
+        name: step2Data.name,
+        email: step1Data.email,
+        password: step1Data.password,
+        phone: step2Data.phone,
+        birthday: `${step2Data.birthday.year}/${step2Data.birthday.month}/${step2Data.birthday.day}`,
+        address: {
+          zipcode: step2Data.address.district,
+          detail: step2Data.address.detail,
+        },
+      })
+    }
+  }, [signup, step1Data, step2Data])
+
+  useEffect(() => {
+    if (signup && apiParams) {
       setApiParams(() => ({
-        name,
-        email,
-        password,
-        phone,
-        birthday,
-        address,
+        name: step2Data.name,
+        email: step1Data.email,
+        password: step1Data.password,
+        phone: step2Data.phone,
+        birthday: `${step2Data.birthday.year}/${step2Data.birthday.month}/${step2Data.birthday.day}`,
+        address: {
+          zipcode: step2Data.address.district,
+          detail: step2Data.address.detail,
+        },
       }))
 
-      handleSubmit()
+      handleSubmit(apiParams)
       setIsSingup(false)
     }
   }, [signup])
-
-  function clickSignupButton() {
-    setIsSingup(true)
-    // const name = useSelector((state: RootState) => state.signup.name)
-    // const email = useSelector((state: RootState) => state.signup.email)
-    // const password = useSelector((state: RootState) => state.signup.password)
-    // const phone = useSelector((state: RootState) => state.signup.phone)
-    // const birthday = useSelector((state: RootState) => state.signup.birthday)
-    // const address = useSelector((state: RootState) => state.signup.address)
-
-    // console.log(name, email, password, phone, birthday, address)
-    console.log(apiParams.name)
-    console.log('clickSignupButton')
-  }
 
   const fetchUrl = `user/signup`
 
@@ -101,12 +156,11 @@ function Signup() {
 
   const { trigger } = useSWRMutation(fetchUrl, submitPost)
 
-  const handleSubmit = async () => {
-    const postData: FormDataType = apiParams
-
+  const handleSubmit = async (apiParams: FormDataType) => {
     try {
-      const result = await trigger(postData)
+      const result = await trigger(apiParams)
       console.log(result)
+
       setMessage('註冊成功')
       setIsOpenNoticeModal(true)
       setTimeout(() => navigate(`/login`), 1200)
@@ -154,36 +208,6 @@ function Signup() {
               />
               <div>
                 {steps[current].content}
-                <div className="mb-4">
-                  {current < steps.length - 1 && (
-                    <Button
-                      style={{
-                        height: '56px',
-                        width: '100%',
-                        background: '#BF9D7D',
-                      }}
-                      type="primary"
-                      onClick={() => next()}
-                    >
-                      下一步
-                    </Button>
-                  )}
-                </div>
-                <div className="mb-4">
-                  {current === steps.length - 1 && (
-                    <Button
-                      style={{
-                        height: '56px',
-                        width: '100%',
-                        background: '#BF9D7D',
-                      }}
-                      type="primary"
-                      onClick={() => clickSignupButton()}
-                    >
-                      完成註冊
-                    </Button>
-                  )}
-                </div>
                 <span>已經有會員了嗎？</span>
                 <Link to="/login">立即登入</Link>
               </div>
