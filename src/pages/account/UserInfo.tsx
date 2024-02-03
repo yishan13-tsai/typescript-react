@@ -1,4 +1,4 @@
-import { Card, Col, Flex, Form } from 'antd'
+import { Button, Card, Col, Flex, Form } from 'antd'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store.ts'
 import { useEffect } from 'react'
@@ -30,6 +30,9 @@ export const UserInfo = () => {
           <Title level={5}>{email}</Title>
           <Title level={5}>密碼：</Title>
           <Title level={5}>************</Title>
+          <Button className="absolute right-4 bottom-4" type="link">
+            重設
+          </Button>
         </Card>
       </Col>
       <Col className="grow-2">
