@@ -28,6 +28,10 @@
   cursor: pointer;
 }
 
+.btn.ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
+  color: #fff;
+}
+
 .btn:hover .btn_title::after {
   background: #fff;
 }

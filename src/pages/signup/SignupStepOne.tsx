@@ -1,25 +1,16 @@
-import { Input, Form, ConfigProvider } from 'antd'
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux'
-import { getEmail, getPassword } from '@/slice/signupSlice'
+import { Input, Form, ConfigProvider, Button } from 'antd'
 
-function SignupStepOne() {
-  const dispatch = useDispatch();
-  const [form] = Form.useForm()
-  const formValues = Form.useWatch([], form)
+interface Step1Props {
+  onDataSubmit: (data: { email: string; password: string }) => void
+  next: () => void
+}
 
-  useEffect(() => {
-    form.validateFields({ validateOnly: true }).then(
-      () => {
-        dispatch(getEmail(formValues.email));
-        dispatch(getPassword(formValues.password));
-      },
-      () => {
-        // handleSubmittable(false)
-      },
-    )
-  }, [formValues])
-  
+function SignupStepOne({ onDataSubmit, next }: Step1Props) {
+  const onFinish = (values: { email: string; password: string }) => {
+    onDataSubmit(values)
+    next()
+  }
+
   return (
     <>
       <ConfigProvider
@@ -32,13 +23,13 @@ function SignupStepOne() {
         }}
       >
         <Form
-          name="basic"
+          name="step1Form"
           className="w-full"
           layout="vertical"
           initialValues={{ remember: true }}
           autoComplete="off"
           requiredMark={false}
-          form={form}
+          onFinish={onFinish}
         >
           <Form.Item
             label="電子信箱"
@@ -66,6 +57,19 @@ function SignupStepOne() {
             className="w-full font-bold"
           >
             <Input.Password placeholder="請再輸入一次密碼" />
+          </Form.Item>
+          <Form.Item>
+            <Button
+              style={{
+                height: '56px',
+                width: '100%',
+                background: '#BF9D7D',
+              }}
+              type="primary"
+              htmlType="submit"
+            >
+              下一步
+            </Button>
           </Form.Item>
         </Form>
       </ConfigProvider>

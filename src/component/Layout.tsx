@@ -8,10 +8,6 @@ const Layout = () => {
   const currentUser = useSelector((state: RootState) => state.user.currentUser)
   const isLoggedIn = useSelector((state: RootState) => state.user.isLoggedIn)
   const navigate = useNavigate()
-  const isProd = process.env.NODE_ENV === 'production'
-
-  const logoSrc =
-    window.location.origin + (isProd ? '/typescript-react' : '') + '/LOGO.png'
 
   return (
     <div className="flex flex-col min-h-[100vh]">
@@ -19,7 +15,7 @@ const Layout = () => {
         <div className="h-full">
           <Image
             className="block"
-            src={logoSrc}
+            src={import.meta.env.BASE_URL + 'LOGO.png'}
             preview={false}
             width={196}
             height={72}
@@ -60,7 +56,7 @@ const Layout = () => {
             <div>
               <Image
                 className="block"
-                src={logoSrc}
+                src={import.meta.env.BASE_URL + 'LOGO.png'}
                 preview={false}
                 width={196}
                 height={72}

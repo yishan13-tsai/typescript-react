@@ -1,5 +1,5 @@
 import arrowLeftIcon from '@/assets/icons/arrow-left.svg'
-import { Divider, Form, Button } from 'antd'
+import { Divider, Form, Button, Modal } from 'antd'
 
 import { useState, useEffect } from 'react'
 import OrderPriceCard from './OrderPriceCard'
@@ -87,8 +87,24 @@ const OrderDetail = ({
 const Order = () => {
   const navigate = useNavigate()
   const orderDetailData = useAppSelector((state: RootState) => state.room)
+  const currentUser = useAppSelector(
+    (state: RootState) => state.user.currentUser,
+  )
 
+  const [modal, contextHolder] = Modal.useModal();
   useEffect(() => {
+    if(!currentUser?._id) {
+      modal.info({
+        title: '請先登入',
+        icon: null,
+        onOk() {
+          navigate('/login')
+        },
+      });
+      return () => {
+        Modal.destroyAll();
+      }
+    }
     if (!orderDetailData?.detail?._id) {
       const interval = setInterval(() => {
         navigate('/rooms')
@@ -168,9 +184,7 @@ const Order = () => {
     }
   }
 
-  const currentUser = useAppSelector(
-    (state: RootState) => state.user.currentUser,
-  )
+
   const applyUserData = () => {
     if (currentUser?.address?.zipcode) {
       const cityData = getCityData(currentUser?.address?.zipcode)
@@ -193,6 +207,7 @@ const Order = () => {
     <>
       <main className="p-4 md:p-0 md:my-[120px] md:max-w-[1296px] mx-auto grid md:gap-x-[72px] grid-cols-12">
         {/* breadcrumb */}
+        {contextHolder}
         <div className="flex items-center font-bold col-span-12">
           <img src={arrowLeftIcon} alt="arrowicon" className="h-10 w-10" />
           <p className="font-bold leading-heading text-3xl">確認訂房資訊</p>
