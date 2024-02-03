@@ -15,7 +15,7 @@ const Layout = () => {
         <div className="h-full">
           <Image
             className="block"
-            src={window.location.origin + '/LOGO.png'}
+            src={'/LOGO.png'}
             preview={false}
             width={196}
             height={72}
@@ -56,7 +56,7 @@ const Layout = () => {
             <div>
               <Image
                 className="block"
-                src={window.location.origin + '/LOGO.png'}
+                src={'/LOGO.png'}
                 preview={false}
                 width={196}
                 height={72}
