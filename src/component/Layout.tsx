@@ -15,7 +15,7 @@ const Layout = () => {
         <div className="h-full">
           <Image
             className="block"
-            src={process.env.base + 'LOGO.png'}
+            src={import.meta.env.BASE_URL + 'LOGO.png'}
             preview={false}
             width={196}
             height={72}
@@ -56,7 +56,7 @@ const Layout = () => {
             <div>
               <Image
                 className="block"
-                src={process.env.base + 'LOGO.png'}
+                src={import.meta.env.BASE_URL + 'LOGO.png'}
                 preview={false}
                 width={196}
                 height={72}
