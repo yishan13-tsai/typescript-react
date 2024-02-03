@@ -53,7 +53,7 @@ function BookRoom() {
         </Col>
         <Col span={24} className="mb-6 mb-6">
           <div className="flex justify-between text-xl font-bold text-primary-100">
-            <span>{formatPrice(detail?.price || 0)}</span>
+            <span>{formatPrice((detail?.price || 0) * days)}</span>
           </div>
         </Col>
       </Row>
