@@ -4,15 +4,35 @@ import { createSlice } from '@reduxjs/toolkit'
 export interface UserAddress {
   zipcode: number
   detail: string
+  county: string
+  city: string
 }
+
 export interface User {
-  _id?: string
-  name?: string
-  email?: string
-  phone?: string
-  birthday?: string
-  id?: string
-  address?: UserAddress
+  _id: string
+  name: string
+  email: string
+  phone: string
+  birthday: string
+  id: string
+  address: UserAddress
+}
+
+export const defaultUser = {
+  address: {
+    zipcode: 0,
+    detail: '',
+    county: '',
+    city: '',
+  },
+  _id: '',
+  name: '',
+  email: '',
+  phone: '',
+  birthday: '',
+  createdAt: '',
+  updatedAt: '',
+  id: '',
 }
 
 export interface UserState {
