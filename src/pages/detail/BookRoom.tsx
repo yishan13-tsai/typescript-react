@@ -15,6 +15,7 @@ function BookRoom() {
   const navigate = useNavigate()
   const detail = useSelector((state: RootState) => state.room.detail);
   const days = useSelector((state: RootState) => state.room.days);
+  const people = useSelector((state: RootState) => state.room.people);
   const [isOpenNoticeModal, setIsOpenNoticeModal] = useState<boolean>(false)
   const [message, setMessage] = useState<string>('');
 
@@ -22,7 +23,7 @@ function BookRoom() {
     dispatch(dateDayStartEnd(daysSelected));
   }
   const handleOk = () => {
-    if (days) {
+    if (days && people) {
       navigate(`/order`);
     } else {
       setMessage('入住時間和退房時間是必填欄位');
