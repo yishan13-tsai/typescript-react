@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import {  RouterProvider, createHashRouter } from 'react-router-dom'
 import './index.css'
 import Home from './pages/home'
 import Login from './pages/login/login.tsx'
@@ -28,7 +28,7 @@ dayjs.updateLocale('zh-tw', {
   weekStart: 0,
 })
 
-const router = createBrowserRouter(
+const router = createHashRouter(
   [
     {
       path: '/',
