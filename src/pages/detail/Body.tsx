@@ -31,7 +31,6 @@ const area: RoomSubItemInfo[] = [
 
 export default function Body() {
   const detail = useSelector((state: RootState) => state.room.detail);
-  console.log('kao ', detail)
   return (
     <>
       <Row gutter={12}>
@@ -60,18 +59,6 @@ export default function Body() {
             房內設備
           </Typography.Title>
           <ItemsRoom
-            // items={[
-            //   '平面電視',
-            //   '吹風機',
-            //   '冰箱',
-            //   '熱水壺',
-            //   '檯燈',
-            //   '衣櫃',
-            //   '除濕機',
-            //   '浴缸',
-            //   '書桌',
-            //   '音響',
-            // ]}
             items={detail?.facilityInfo || []}
           />
         </Col>
@@ -80,17 +67,6 @@ export default function Body() {
             備品提供
           </Typography.Title>
           <ItemsRoom
-            // items={[
-            //   '衛生紙',
-            //   '拖鞋',
-            //   '沐浴用品',
-            //   '清潔用品',
-            //   '刮鬍刀',
-            //   '吊衣架',
-            //   '刷牙用品',
-            //   '罐裝水',
-            //   '梳子',
-            // ]}
             items={detail?.amenityInfo || []}
           />
         </Col>
