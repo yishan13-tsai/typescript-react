@@ -10,7 +10,6 @@ export interface RoomState {
     people: number,
     price: number,
     days: number
-
 }
 
 
@@ -35,9 +34,6 @@ export const roomSlice = createSlice({
             state.dateEnd = action.payload.timeEnd
             state.days = action.payload.days
         },
-        // dateEnd: (state, action: PayloadAction<string>) => {
-        //     state.dateEnd = action.payload
-        // },
         getRoom: (state, action: PayloadAction<RoomType>) => {
             state.detail = action.payload
         },
