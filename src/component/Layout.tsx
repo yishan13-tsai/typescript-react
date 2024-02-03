@@ -1,4 +1,4 @@
-import { Link, Outlet } from 'react-router-dom'
+import { Link, Outlet, useNavigate } from 'react-router-dom'
 import { Footer, Header } from 'antd/es/layout/layout'
 import { Button, Image } from 'antd'
 import { RootState } from '@/store.ts'
@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux'
 const Layout = () => {
   const currentUser = useSelector((state: RootState) => state.user.currentUser)
   const isLoggedIn = useSelector((state: RootState) => state.user.isLoggedIn)
+  const navigate = useNavigate()
 
   return (
     <div className="flex flex-col min-h-[100vh]">
@@ -14,7 +15,7 @@ const Layout = () => {
         <div className="h-full">
           <Image
             className="block"
-            src="./LOGO.png"
+            src={window.location.origin + '/LOGO.png'}
             preview={false}
             width={196}
             height={72}
@@ -27,7 +28,11 @@ const Layout = () => {
             </Button>
           </Link>
           {isLoggedIn ? (
-            <Button className="text-neutral-0" type="text">
+            <Button
+              className="text-neutral-0"
+              type="text"
+              onClick={() => navigate('/account')}
+            >
               {currentUser?.name}
             </Button>
           ) : (
@@ -46,12 +51,12 @@ const Layout = () => {
         <Outlet />
       </div>
       <Footer className="bg-neutral-120 py-20 px-0 text-neutral-0">
-        <div className="max-w-[70vw] mx-auto">
+        <div className="max-w-[1296px] mx-auto">
           <div className="flex justify-between mb-20">
             <div>
               <Image
                 className="block"
-                src="./LOGO.png"
+                src={window.location.origin + '/LOGO.png'}
                 preview={false}
                 width={196}
                 height={72}
