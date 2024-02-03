@@ -46,7 +46,7 @@ const Layout = () => {
         <Outlet />
       </div>
       <Footer className="bg-neutral-120 py-20 px-0 text-neutral-0">
-        <div className="max-w-[70vw] mx-auto">
+        <div className="max-w-[1296px] mx-auto">
           <div className="flex justify-between mb-20">
             <div>
               <Image
