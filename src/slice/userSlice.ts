@@ -6,17 +6,13 @@ export interface UserAddress {
   detail: string
 }
 export interface User {
-  // status?: boolean
-  // token?: string
-  // result?: {
-    _id?: string
-    name?: string
-    email?: string
-    phone?: string
-    birthday?: string
-    id?: string
-    address?: UserAddress
-  // }
+  _id?: string
+  name?: string
+  email?: string
+  phone?: string
+  birthday?: string
+  id?: string
+  address?: UserAddress
 }
 
 export interface UserState {
@@ -26,7 +22,7 @@ export interface UserState {
 
 const initialState: UserState = {
   currentUser: null,
-  isLoggedIn: false
+  isLoggedIn: false,
 }
 
 export const counterSlice = createSlice({
@@ -45,8 +41,8 @@ export const counterSlice = createSlice({
       if (state.currentUser) {
         state.currentUser = { ...state.currentUser, ...action.payload }
       }
-    }
-  }
+    },
+  },
 })
 
 // Action creators are generated for each case reducer function
