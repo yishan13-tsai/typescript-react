@@ -27,7 +27,7 @@ function BookRoom() {
     } else {
       setMessage('入住時間和退房時間是必填欄位');
       setIsOpenNoticeModal(true);
-      // setTimeout(() => setIsOpenNoticeModal(false), 1200);
+      setTimeout(() => setIsOpenNoticeModal(false), 1200);
     }
   };
   return (
