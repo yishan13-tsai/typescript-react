@@ -43,7 +43,11 @@ const router = createBrowserRouter(
         { path: '/orderSuccess', element: <OrderSuccess /> },
         { path: '/rooms', element: <Rooms /> },
         { path: '/rooms/detail/:id', element: <Detail /> },
-        { path: '/account/:tabId', element: <Account /> },
+        {
+          path: '/account/:tabId',
+          element: <Account />,
+          errorElement: <Account />,
+        },
         { path: '/account', element: <Account /> },
       ],
     },
