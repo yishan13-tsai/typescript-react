@@ -1,4 +1,4 @@
-import { Link, Outlet } from 'react-router-dom'
+import { Link, Outlet, useNavigate } from 'react-router-dom'
 import { Footer, Header } from 'antd/es/layout/layout'
 import { Button, Image } from 'antd'
 import { RootState } from '@/store.ts'
@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux'
 const Layout = () => {
   const currentUser = useSelector((state: RootState) => state.user.currentUser)
   const isLoggedIn = useSelector((state: RootState) => state.user.isLoggedIn)
+  const navigate = useNavigate()
 
   return (
     <div className="flex flex-col min-h-[100vh]">
@@ -27,7 +28,11 @@ const Layout = () => {
             </Button>
           </Link>
           {isLoggedIn ? (
-            <Button className="text-neutral-0" type="text">
+            <Button
+              className="text-neutral-0"
+              type="text"
+              onClick={() => navigate('/account')}
+            >
               {currentUser?.name}
             </Button>
           ) : (
