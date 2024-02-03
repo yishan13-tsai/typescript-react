@@ -46,8 +46,8 @@ const MultipleItems = () => {
               className="
               food_bg
               w-full h-full
-              bg-[url('./home_page/food/food_01.png')]
               bg-no-repeat object-cover bg-cover"
+              style = {{ backgroundImage: `url('${food.image}')` }}
             >
               <div className="frosted_glass text-neutral-0 p-6">
                 <div className="flex justify-between items-center">
