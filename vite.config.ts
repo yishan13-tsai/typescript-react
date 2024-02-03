@@ -5,7 +5,7 @@ import { resolve } from 'path'
 // https://vitejs.dev/config/
 const isProd = process.env.NODE_ENV === 'production'
 export default defineConfig({
-  base: isProd ? '/' : '/',
+  base: isProd ? './' : '/',
   plugins: [react()],
   resolve: {
     alias: {
