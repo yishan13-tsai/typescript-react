@@ -4,19 +4,35 @@ import { createSlice } from '@reduxjs/toolkit'
 export interface UserAddress {
   zipcode: number
   detail: string
+  county: string
+  city: string
 }
+
 export interface User {
-  // status?: boolean
-  // token?: string
-  // result?: {
-    _id?: string
-    name?: string
-    email?: string
-    phone?: string
-    birthday?: string
-    id?: string
-    address?: UserAddress
-  // }
+  _id: string
+  name: string
+  email: string
+  phone: string
+  birthday: string
+  id: string
+  address: UserAddress
+}
+
+export const defaultUser = {
+  address: {
+    zipcode: 0,
+    detail: '',
+    county: '',
+    city: '',
+  },
+  _id: '',
+  name: '',
+  email: '',
+  phone: '',
+  birthday: '',
+  createdAt: '',
+  updatedAt: '',
+  id: '',
 }
 
 export interface UserState {
@@ -26,7 +42,7 @@ export interface UserState {
 
 const initialState: UserState = {
   currentUser: null,
-  isLoggedIn: false
+  isLoggedIn: false,
 }
 
 export const counterSlice = createSlice({
@@ -45,8 +61,8 @@ export const counterSlice = createSlice({
       if (state.currentUser) {
         state.currentUser = { ...state.currentUser, ...action.payload }
       }
-    }
-  }
+    },
+  },
 })
 
 // Action creators are generated for each case reducer function
