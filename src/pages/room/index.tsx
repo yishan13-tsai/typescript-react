@@ -62,7 +62,7 @@ const Rooms = () => {
         return <Card hoverable style={cardStyle} key={index}>
           <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} >
             <Col className="gutter-row" md={15} >
-              <CarouselArrows />
+              <CarouselArrows imageUrlList={room.imageUrlList} />
             </Col>
             <Col className="gutter-row" md={9} >
               <div className="mr-5">

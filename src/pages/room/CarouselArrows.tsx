@@ -2,10 +2,6 @@ import { Carousel } from 'antd';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import { Image } from 'antd';
 import React from 'react';
-import test1 from '@/assets/test1.jpg';
-import test2 from '@/assets/test2.jpg';
-import test3 from '@/assets/test3.jpg';
-import test4 from '@/assets/test4.jpg';
 
 interface ArrowProps {
   className?: string;
@@ -28,7 +24,7 @@ const SamplePrevArrow: React.FC<ArrowProps> = ({ className, onClick }) => (
   />
 );
 
-const CarouselArrows = () => {
+const CarouselArrows = ({ imageUrlList }: { imageUrlList: string[] }) => {
   const settings = {
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />
@@ -37,18 +33,11 @@ const CarouselArrows = () => {
   return (
     <>
       <Carousel arrows {...settings}>
-        <div>
-          <Image width={'100%'} src={test1} />
-        </div>
-        <div>
-          <Image width={'100%'} src={test2} />
-        </div>
-        <div>
-          <Image width={'100%'} src={test3} />
-        </div>
-        <div>
-          <Image width={'100%'} src={test4} />
-        </div>
+        {imageUrlList.map((image: string, index: number) => {
+          return <div>
+            <Image width={'100%'} src={image} key={index} />
+          </div>
+        })}
       </Carousel>
     </>
   );
