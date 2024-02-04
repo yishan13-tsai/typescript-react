@@ -23,12 +23,15 @@ function BookRoom() {
     dispatch(dateDayStartEnd(daysSelected));
   }
   const handleOk = () => {
-    if (!days) {
-      setMessage('人數是必填欄位');
-      setIsOpenNoticeModal(true);
-      setTimeout(() => setIsOpenNoticeModal(false), 1200);
-    } else if (!people) {
-      setMessage('入住時間和退房時間是必填欄位');
+
+    if (!days || !people) {
+      let menssage = ''
+      if (!days) {
+        menssage = '入住時間和退房時間是必填欄位'
+      } else {
+        menssage = '人數是必填欄位'
+      }
+      setMessage(menssage);
       setIsOpenNoticeModal(true);
       setTimeout(() => setIsOpenNoticeModal(false), 1200);
     } else {
@@ -60,7 +63,7 @@ function BookRoom() {
       <Button type="primary" block onClick={handleOk}>
         立即預訂
       </Button>
-      <NoticeModal isOpen={isOpenNoticeModal} message={message} />
+      <NoticeModal isOpen={isOpenNoticeModal} message={message} image={false} />
     </Card>
   )
 }
