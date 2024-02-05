@@ -10,7 +10,7 @@ interface ArrowProps {
 
 const SampleNextArrow: React.FC<ArrowProps> = ({ className, onClick }) => (
   <RightOutlined
-    style={{ fontSize: "20px", color: "#fff" }}
+    style={{ fontSize: "35px", color: "#fff" }}
     className={className}
     onClick={onClick}
   />
@@ -18,7 +18,7 @@ const SampleNextArrow: React.FC<ArrowProps> = ({ className, onClick }) => (
 
 const SamplePrevArrow: React.FC<ArrowProps> = ({ className, onClick }) => (
   <LeftOutlined
-    style={{ fontSize: "20px", color: "#fff" }}
+    style={{ fontSize: "35px", color: "#fff" }}
     className={className}
     onClick={onClick}
   />
