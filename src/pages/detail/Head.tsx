@@ -3,6 +3,8 @@ import test1 from '@/assets/test1.jpg';
 import test4 from '@/assets/test4.jpg';
 import test2 from '@/assets/test2.jpg';
 import test3 from '@/assets/test3.jpg';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store';
 
 const cardStyle = {
   margin: 50,
@@ -11,6 +13,7 @@ const cardStyle = {
 const imgStyle = {
   display: 'block',
   width: '50%',
+  maxHeight: '50%'
 };
 
 const imgStyle1 = {
@@ -18,6 +21,7 @@ const imgStyle1 = {
   width: '105%',
 };
 const Head = () => {
+  const detail = useSelector((state: RootState) => state.room.detail);
   return (
     <Card
       hoverable
@@ -25,7 +29,7 @@ const Head = () => {
       bodyStyle={{ padding: 0, overflow: 'hidden' }}
     >
       <Flex justify="space-between">
-        <img alt="avatar" src={test1} style={imgStyle} />
+        <img alt="avatar" src={detail?.imageUrlList[0]} style={imgStyle} />
         <Flex style={{ width: '50%', paddingLeft: 5, paddingRight: 5 }}>
           <Row gutter={{ xs: 8, sm: 16, md: 24 }}>
             <Col className="gutter-row" md={12}>
