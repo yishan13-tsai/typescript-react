@@ -40,15 +40,17 @@ const Detail = () => {
     <>
       <div className="mb-20">
         <Head />
-        <div className="w-4/6 mx-auto">
-          <Row gutter={[16, 16]}>
-            <Col span={12} className="pl-20">
-              <Body />
-            </Col>
-            <Col span={12}>
-              <BookRoom />
-            </Col>
-          </Row>
+        <div className="container">
+          <div className="w-10/12 mx-auto">
+            <Row gutter={{ lg: 24 }} >
+              <Col lg={12}>
+                <Body />
+              </Col>
+              <Col lg={12}>
+                <BookRoom />
+              </Col>
+            </Row>
+          </div>
         </div>
       </div>
     </>

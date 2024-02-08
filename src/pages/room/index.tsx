@@ -53,18 +53,18 @@ const Rooms = () => {
   return (
     <>
       <RoomsHead />
+
       <div style={titleStyle}>
         <p className="font-medium mb-2 tracking-normal">房型選擇</p>
         <p className="font-bold m-0 text-4xl tracking-normal text-primary-100" >各種房型，任你挑選</p>
       </div>
-
       {rooms.map((room: RoomType, index: number) => {
         return <Card hoverable style={cardStyle} key={index}>
-          <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} >
-            <Col className="gutter-row" md={15} >
+          <Row gutter={{ md: 24, lg: 24 }} >
+            <Col className="gutter-row" lg={15}>
               <CarouselArrows imageUrlList={room.imageUrlList} />
             </Col>
-            <Col className="gutter-row" md={9} >
+            <Col className="gutter-row" lg={9}>
               <div className="mr-5">
                 <Typography.Title level={2}>
                   {room.name}
@@ -73,7 +73,7 @@ const Rooms = () => {
               </div>
               <BaseInformation baseInfo={{ size: room.areaInfo, bed: room.bedInfo, capacity: room.maxPeople }} />
               <Divider />
-              <div className="flex  justify-between text-primary-100 items-center">
+              <div className="flex justify-between text-primary-100 items-center">
                 <span className="text-xl">{formatPrice(room.price)}</span>
                 <Link to={`/rooms/detail/${room._id}`}>
                   <ArrowRightOutlined className="text-base mr-4" />
