@@ -31,7 +31,7 @@ function Home() {
   }, [error])
   return (
     <>
-      <div className="">
+      <div className="" style={{ overflowX: 'hidden' }}>
         <section className="w-full h-[1080px] bg-blue-800 flex justify-center">
           <div
             className="
