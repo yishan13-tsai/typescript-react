@@ -10,7 +10,7 @@ const Layout = () => {
   const navigate = useNavigate()
 
   return (
-    <div className="flex flex-col min-h-[100vh]">
+    <div className="flex flex-col min-h-[100vh] overflow-x-hidden">
       <Header className="justify-between flex py-6 px-20 h-[120px] bg-neutral-120 items-center">
         <div className="h-full">
           <Image
