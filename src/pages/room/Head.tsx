@@ -2,14 +2,14 @@
 function RoomsHead() {
     return (
         <>
-            <section className="w-full h-[1080px] bg-blue-800 flex justify-center">
+            <section className="w-full h-[1080px] bg-blue-800 flex justify-center relative">
                 <div className="
                     h-full w-full
                     bg-no-repeat object-center bg-cover
                     bg-[#00000099]
-                    bg-blend-multiply"
+                    bg-blend-multiply absolute left-0 top-0"
                     style={{ backgroundImage: `url('./home_page/hero/hero_img.jpg')` }}
-                    >
+                >
                 </div>
                 <div className="container mt-[14.75rem] p-[0.5rem] absolute top-0">
                     <div className="grid grid-cols-2 relative justify-center items-center h-[678px]">
