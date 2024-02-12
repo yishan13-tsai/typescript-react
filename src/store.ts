@@ -7,8 +7,8 @@ export const store = configureStore({
   reducer: {
     user: userReducer,
     room: roomReducer,
-    signup: signupReducer
-  }
+    signup: signupReducer,
+  },
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
