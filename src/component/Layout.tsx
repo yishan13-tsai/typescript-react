@@ -7,6 +7,7 @@ import { useEffect } from 'react'
 import useSWR from 'swr'
 import { users } from '@/fetchers'
 import { loginUser } from '@/slice/userSlice.ts'
+import { MenuOutlined } from '@ant-design/icons'
 
 const token = localStorage.getItem('token')
 const Layout = () => {
@@ -22,8 +23,8 @@ const Layout = () => {
 
   return (
     <div className="flex flex-col min-h-[100vh] overflow-x-hidden">
-      <Header className="justify-between flex py-6 px-20 h-[120px] bg-neutral-120 items-center">
-        <div className="h-full">
+      <Header className="justify-between flex px-3 md:px-20 h-[72px] md:h-[120px] bg-neutral-120 items-center">
+        <div className="h-full flex items-center">
           <Image
             className="block"
             src={import.meta.env.BASE_URL + 'LOGO.png'}
@@ -32,7 +33,7 @@ const Layout = () => {
             height={72}
           ></Image>
         </div>
-        <div className="flex h-[65px] gap-4 items-center">
+        <div className="md:flex h-[65px] gap-4 items-center hidden">
           <Link to="/rooms">
             <Button className="text-neutral-0" type="text">
               客房預約
@@ -56,6 +57,14 @@ const Layout = () => {
           <Link to="/rooms">
             <Button type="primary">立即訂房</Button>
           </Link>
+        </div>
+        <div className="flex h-[65px] gap-4 items-center md:hidden">
+          <Button
+            className="text-neutral-0"
+            type="text"
+            icon={<MenuOutlined />}
+            size="small"
+          />
         </div>
       </Header>
       <div className="grow">
