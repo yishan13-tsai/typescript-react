@@ -6,7 +6,6 @@ import { Orders } from '@/pages/account/Orders.tsx'
 import Col from 'antd/es/col'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store.ts'
-import { useEffect } from 'react'
 
 const AccountPage = () => {
   const currentUser = useSelector((state: RootState) => state.user.currentUser)
@@ -15,10 +14,6 @@ const AccountPage = () => {
     window.location.origin +
     (isProd ? '/typescript-react' : '') +
     '/account-bg.jpeg'
-
-  useEffect(() => {
-    console.log({ currentUser })
-  }, [currentUser])
 
   return (
     <Row className="bg-neutral-120" justify="center">

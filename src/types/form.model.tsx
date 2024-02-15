@@ -1,4 +1,3 @@
-
 export type FormUserInfoDataType = {
   address: {
     zipcode: number
@@ -15,4 +14,11 @@ export type FormDataType = {
   checkOutDate: string
   peopleNum: number
   userInfo: FormUserInfoDataType
+}
+
+export interface UserProfileForm extends FormUserInfoDataType {
+  userId: string
+  birthday: string
+  oldPassword: string
+  newPassword: string
 }

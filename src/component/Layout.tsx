@@ -2,12 +2,23 @@ import { Link, Outlet, useNavigate } from 'react-router-dom'
 import { Footer, Header } from 'antd/es/layout/layout'
 import { Button, Image } from 'antd'
 import { RootState } from '@/store.ts'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import useSWR from 'swr'
+import { users } from '@/fetchers'
+import { loginUser } from '@/slice/userSlice.ts'
 
+const token = localStorage.getItem('token')
 const Layout = () => {
   const currentUser = useSelector((state: RootState) => state.user.currentUser)
   const isLoggedIn = useSelector((state: RootState) => state.user.isLoggedIn)
   const navigate = useNavigate()
+  const { data: userData } = useSWR(token, users.get)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    userData && dispatch(loginUser(userData))
+  }, [userData, dispatch])
 
   return (
     <div className="flex flex-col min-h-[100vh] overflow-x-hidden">
