@@ -1,8 +1,9 @@
-import { Form, Input } from 'antd'
+import { Button, Form, Input } from 'antd'
 import AddressInput from '@/component/AddressInput'
 import { FormInstance } from 'antd/lib'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store.ts'
+import { useEffect, useState } from 'react'
 
 type UserInfoFormProps = {
   form: FormInstance
@@ -10,6 +11,20 @@ type UserInfoFormProps = {
 
 const UserInfoForm = ({ form }: UserInfoFormProps) => {
   const user = useSelector((state: RootState) => state.user.currentUser)
+  const formValues = Form.useWatch([], form)
+  const [isSubmittable, setIsSubmittable] = useState(false)
+  useEffect(() => {
+    console.log({ isSubmittable })
+    form.validateFields({ validateOnly: true }).then(
+      () => {
+        setIsSubmittable(true)
+      },
+      () => {
+        setIsSubmittable(false)
+      },
+    )
+  }, [form, formValues])
+
   return (
     <Form
       name="basic"
@@ -63,6 +78,18 @@ const UserInfoForm = ({ form }: UserInfoFormProps) => {
         <Input placeholder="電子信箱" />
       </Form.Item>
       <AddressInput form={form} />
+      <Form.Item>
+        <Button
+          type="primary"
+          htmlType="submit"
+          // disabled={!isSubmittable}
+          disabled
+          onClick={() => form.submit()}
+          className="mt-4"
+        >
+          儲存設定
+        </Button>
+      </Form.Item>
     </Form>
   )
 }
