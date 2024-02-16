@@ -19,7 +19,6 @@ const axiosGet = async (url: string) => {
 }
 const cardStyle: React.CSSProperties = {
   width: '65%',
-  height: 400,
   margin: '0 auto',
   marginBottom: 50
 };
