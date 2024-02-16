@@ -14,9 +14,19 @@ const settings = {
   dots: true,
   infinite: true,
   speed: 500,
-  slidesToShow: 3,
+  slidesToShow: 2,
   slidesToScroll: 1,
-  autoplay: true
+  autoplay: true,
+  initialSlide: 0,
+  responsive: [
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1
+      }
+    }
+  ]
 };
 const MultipleItems = () => {
   const [canFetch, setCanFetch] = useState<boolean>(false)
@@ -41,20 +51,21 @@ const MultipleItems = () => {
     <>
       <Slider {...settings}>
         {foods.map((food: FoodType, index: number) => {
-          return <div className="w-[416px] h-[calc(100vh-38vh)]" key={index}>
+          return <div className="w-[416px] h-[calc(100vh-10vh)] xl:h-[calc(100vh-38vh)]" key={index}>
             <div
               className="
               food_bg
+              rounded-lg
               w-full h-full
               bg-no-repeat object-cover bg-cover"
               style = {{ backgroundImage: `url('${food.image}')` }}
             >
-              <div className="frosted_glass text-neutral-0 p-6">
+              <div className="frosted_glass text-neutral-0 p-4 xl:p-6">
                 <div className="flex justify-between items-center">
-                  <p className="text-xl">{food.title}</p>
-                  <p className="text-base">{food.diningTime}</p>
+                  <p className="text-[24px] lg:text-xl">{food.title}</p>
+                  <p className="text-[14px] lg:text-base">{food.diningTime}</p>
                 </div>
-                <p className="text-base">{food.description}</p>
+                <p className="text-[14px] lg:text-base">{food.description}</p>
               </div>
             </div>
           </div>
