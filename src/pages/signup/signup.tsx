@@ -174,8 +174,8 @@ function Signup() {
 
   return (
     <>
-      <div className="grid grid-cols-2 p-0">
-        <div className="bg-black">
+      <div className="grid md:grid-cols-2 p-0">
+        <div className="hidden md:block bg-black">
           <img
             className="h-full w-full object-cover object-center"
             src="./Login/login_bg.png"
@@ -189,7 +189,7 @@ function Signup() {
             alt="line"
           />
           <div className="w-full flex justify-center items-center mt-32">
-            <div className="w-1/2">
+            <div className="w-full p-8 md:w-1/2 md:p-0">
               <div className="mb-8">
                 {current < steps.length - 1 && (
                   <p className="font-medium mb-2 tracking-normal text-primary-100">
