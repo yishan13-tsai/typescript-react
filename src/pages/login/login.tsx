@@ -14,7 +14,7 @@ const Login = () => {
   const [form] = Form.useForm()
   const formValues = Form.useWatch([], form)
   const navigate = useNavigate()
-  
+
   const [isOpenNoticeModal, setIsOpenNoticeModal] = useState(false)
   const [message, setMessage] = useState('');
 
@@ -59,22 +59,22 @@ const Login = () => {
 
   return (
     <>
-      <div className="grid grid-cols-2 p-0">
-        <div className="bg-black">
+      <div className="grid md:grid-cols-2 p-0">
+        <div className="hidden bg-black md:block">
           <img
             className="h-full w-full object-cover object-center"
             src="./Login/login_bg.png"
             alt="login_bg"
           />
         </div>
-        <div className="bg-neutral-120 text-neutral-0 relative">
+        <div className="h-screen bg-neutral-120 text-neutral-0 relative">
           <img
             className="h-187 w-full object-cover object-center absolute top-16"
             src="./Login/line.png"
             alt="line"
           />
-          <div className="w-full h-full flex justify-center items-center">
-            <div className="w-1/2">
+          <div className="md:pt-0 md:w-full h-full flex justify-center items-center">
+            <div className="md:w-1/2">
               <div className="mb-10">
                 <p className="font-medium mb-2 tracking-normal text-primary-100">
                   享樂酒店，誠摯歡迎
@@ -90,7 +90,7 @@ const Login = () => {
                   <Checkbox className="text-neutral-0" onChange={onChange}>
                     記住帳號
                   </Checkbox>
-                  <a href="">忘記密碼?</a>
+                  <Link to="/forgetPassword">忘記密碼</Link>
                 </div>
               </div>
               <div className="mb-10">

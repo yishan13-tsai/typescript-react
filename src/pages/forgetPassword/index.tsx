@@ -5,22 +5,22 @@ const ForgetPassword = () => {
 
   return (
     <>
-      <div className="grid grid-cols-2 p-0">
-        <div className="bg-black">
+      <div className="grid md:grid-cols-2 md:p-0">
+        <div className="hidden bg-black md:block">
           <img
             className="h-full w-full object-cover object-center"
             src="./Login/login_bg.png"
             alt="login_bg"
           />
         </div>
-        <div className="bg-neutral-120 text-neutral-0 relative">
+        <div className="h-screen bg-neutral-120 text-neutral-0 relative">
           <img
             className="h-187 w-full object-cover object-center absolute top-16"
             src="./Login/line.png"
             alt="line"
           />
-          <div className="w-full h-full flex justify-center items-center">
-            <div className="w-1/2">
+          <div className="md:pt-0 md:w-full h-full flex justify-center items-center">
+            <div className="md:w-1/2">
               <div className="mb-10">
                 <p className="font-medium mb-2 tracking-normal text-primary-100">
                   享樂酒店，誠摯歡迎
