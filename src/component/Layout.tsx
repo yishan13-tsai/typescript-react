@@ -1,16 +1,18 @@
 import { Link, Outlet, useNavigate } from 'react-router-dom'
 import { Footer, Header } from 'antd/es/layout/layout'
-import { Button, Image } from 'antd'
+import { Button, Flex, Image } from 'antd'
 import { RootState } from '@/store.ts'
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import useSWR from 'swr'
 import { users } from '@/fetchers'
 import { loginUser } from '@/slice/userSlice.ts'
-import { MenuOutlined } from '@ant-design/icons'
+import { CloseOutlined, MenuOutlined } from '@ant-design/icons'
 
 const token = localStorage.getItem('token')
+
 const Layout = () => {
+  const [isMenuVisible, setIsMenuVisible] = useState(false)
   const currentUser = useSelector((state: RootState) => state.user.currentUser)
   const isLoggedIn = useSelector((state: RootState) => state.user.isLoggedIn)
   const navigate = useNavigate()
@@ -23,6 +25,43 @@ const Layout = () => {
 
   return (
     <div className="flex flex-col min-h-[100vh] overflow-x-hidden">
+      {isMenuVisible ? (
+        <Flex
+          className="bg-neutral-120 h-full w-full fixed top-0 left-0 z-50 px-5 box-border"
+          vertical
+          justify="center"
+        >
+          <div className="fixed top-2 right-2">
+            <Button
+              type="link"
+              className="text-neutral-0"
+              icon={<CloseOutlined />}
+              onClick={() => setIsMenuVisible(false)}
+            ></Button>
+          </div>
+          <Button
+            type="text"
+            className="text-neutral-0 w-full"
+            onClick={() => setIsMenuVisible(false)}
+          >
+            <Link to="/rooms">客房預約</Link>
+          </Button>
+          <Button
+            type="text"
+            className="text-neutral-0 w-full"
+            onClick={() => setIsMenuVisible(false)}
+          >
+            <Link to="/login">會員登入</Link>
+          </Button>
+          <Button
+            type="primary"
+            className="text-neutral-0 w-full"
+            onClick={() => setIsMenuVisible(false)}
+          >
+            <Link to="/rooms">立即訂房</Link>
+          </Button>
+        </Flex>
+      ) : null}
       <Header className="justify-between flex px-3 md:px-20 h-[72px] md:h-[120px] bg-neutral-120 items-center">
         <div className="h-full flex items-center">
           <Image
@@ -64,6 +103,9 @@ const Layout = () => {
             type="text"
             icon={<MenuOutlined />}
             size="small"
+            onClick={() => {
+              setIsMenuVisible(true)
+            }}
           />
         </div>
       </Header>
