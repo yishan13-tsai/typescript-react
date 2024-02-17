@@ -82,15 +82,17 @@ const Layout = () => {
         </Flex>
       ) : null}
       <Header className="justify-between flex px-3 md:px-20 h-[72px] md:h-[120px] bg-neutral-120 items-center">
-        <div className="h-full flex items-center">
-          <Image
-            className="block"
-            src={import.meta.env.BASE_URL + 'LOGO.png'}
-            preview={false}
-            width={196}
-            height={72}
-          ></Image>
-        </div>
+        <Link to="/">
+          <div className="h-full flex items-center">
+            <Image
+              className="block"
+              src={import.meta.env.BASE_URL + 'LOGO.png'}
+              preview={false}
+              width={196}
+              height={72}
+            ></Image>
+          </div>
+        </Link>
         <div className="md:flex h-[65px] gap-4 items-center hidden">
           <Link to="/rooms">
             <Button className="text-neutral-0" type="text">
