@@ -10,7 +10,7 @@ function RoomsHead() {
             bg-blend-multiply"
                     style={{ backgroundImage: `url('./home_page/hero/hero_img.jpg')` }}
                 ></div>
-                <div className="container mt-[112px] lg:mt-[14.75rem] p-[0.5rem] absolute top-0">
+                <div className="container mt-[112px] lg:mt-[14.75rem] absolute top-0">
                     <div className="grid grid-cols-1 lg:grid-cols-2 lg:justify-center lg:items-center p-[20px] relative">
                         <div className="left_col_block h-[169px] mb-10">
                             <div className="hotel_name relative font-bold text-primary-100 text-center lg:text-left">
