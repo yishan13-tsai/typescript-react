@@ -39,27 +39,46 @@ const Layout = () => {
               onClick={() => setIsMenuVisible(false)}
             ></Button>
           </div>
-          <Button
-            type="text"
-            className="text-neutral-0 w-full"
-            onClick={() => setIsMenuVisible(false)}
-          >
-            <Link to="/rooms">客房預約</Link>
-          </Button>
-          <Button
-            type="text"
-            className="text-neutral-0 w-full"
-            onClick={() => setIsMenuVisible(false)}
-          >
-            <Link to="/login">會員登入</Link>
-          </Button>
-          <Button
-            type="primary"
-            className="text-neutral-0 w-full"
-            onClick={() => setIsMenuVisible(false)}
-          >
-            <Link to="/rooms">立即訂房</Link>
-          </Button>
+          <Link to="/rooms">
+            <Button
+              type="text"
+              className="text-neutral-0 w-full"
+              onClick={() => setIsMenuVisible(false)}
+            >
+              客房預約
+            </Button>
+          </Link>
+          {isLoggedIn ? (
+            <Link to="/account">
+              <Button
+                className="text-neutral-0 w-full"
+                type="text"
+                onClick={() => setIsMenuVisible(false)}
+              >
+                {currentUser?.name}
+              </Button>
+            </Link>
+          ) : (
+            <Link to="/login">
+              <Button
+                type="text"
+                className="text-neutral-0 w-full"
+                onClick={() => setIsMenuVisible(false)}
+              >
+                會員登入
+              </Button>
+            </Link>
+          )}
+
+          <Link to="/rooms">
+            <Button
+              type="primary"
+              className="text-neutral-0 w-full"
+              onClick={() => setIsMenuVisible(false)}
+            >
+              立即訂房
+            </Button>
+          </Link>
         </Flex>
       ) : null}
       <Header className="justify-between flex px-3 md:px-20 h-[72px] md:h-[120px] bg-neutral-120 items-center">
