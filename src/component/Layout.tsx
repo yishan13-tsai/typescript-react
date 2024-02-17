@@ -69,7 +69,6 @@ const Layout = () => {
               </Button>
             </Link>
           )}
-
           <Link to="/rooms">
             <Button
               type="primary"

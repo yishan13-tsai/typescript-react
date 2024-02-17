@@ -82,8 +82,7 @@ const UserInfoForm = ({ form }: UserInfoFormProps) => {
         <Button
           type="primary"
           htmlType="submit"
-          // disabled={!isSubmittable}
-          disabled
+          disabled={!isSubmittable}
           onClick={() => form.submit()}
           className="mt-4"
         >

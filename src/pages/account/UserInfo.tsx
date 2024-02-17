@@ -1,10 +1,11 @@
-import { Button, Card, Col, Flex, Form, Input, Typography } from 'antd'
+import { Button, Card, Col, Flex, Form, Typography } from 'antd'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store.ts'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { defaultUser, User } from '@/slice/userSlice.ts'
 import UserInfoForm from '@/pages/account/UserInfoForm.tsx'
+import { PasswordForm } from '@/pages/account/PasswordForm.tsx'
 // import { FormDataType, UserProfileForm } from '@/types/form.model.tsx'
 
 const { Title } = Typography
@@ -69,11 +70,15 @@ const UserAccountInfo = (props: UserAccountInfoParams) => (
 
 export const UserInfo = () => {
   const [isEdit, setIsEdit] = useState(false)
+  const [isPasswordEdit, setIsPasswordEdit] = useState(false)
   const currentUser = useSelector((state: RootState) => state.user.currentUser)
   const navigate = useNavigate()
   const { email } = currentUser || { email: '' }
   const [form] = Form.useForm()
+  const [passwordForm] = Form.useForm()
   const formValues = Form.useWatch([], form)
+  const passwordFormValues = Form.useWatch([], passwordForm)
+
   form.submit = () => {
     console.log('submit')
     // const postData: UserProfileForm = {
@@ -89,6 +94,10 @@ export const UserInfo = () => {
     // console.log({ postData })
   }
 
+  passwordForm.submit = () => {
+    console.log('submit', { passwordFormValues })
+  }
+
   useEffect(() => {
     const isProd = process.env.NODE_ENV === 'production'
     if (!currentUser && isProd) {
@@ -100,50 +109,17 @@ export const UserInfo = () => {
     <Flex gap="40px">
       <Col className="grow">
         <Card className="p-8">
-          {isEdit ? (
-            <Form
-              name="basic"
-              className="w-full"
-              layout="vertical"
-              requiredMark={false}
-              form={form}
-              autoComplete="off"
-            >
-              <Title level={5}>電子信箱</Title>
-              <Title level={5}>{email}</Title>
-              <Form.Item
-                label="舊密碼"
-                name="oldPassword"
-                rules={[{ required: true, message: '請輸入舊密碼' }]}
-                validateTrigger="onBlur"
-                className="w-full font-bold"
-              >
-                <Input placeholder="請輸入密碼" />
-              </Form.Item>
-              <Form.Item
-                label="新密碼"
-                name="newPassword"
-                rules={[{ required: true, message: '請輸入新密碼' }]}
-                validateTrigger="onBlur"
-                className="w-full font-bold"
-              >
-                <Input placeholder="請輸入新密碼" />
-              </Form.Item>
-              <Form.Item
-                label="確認新密碼"
-                name="confirmNewPassword"
-                rules={[{ required: true, message: '請輸入新密碼' }]}
-                validateTrigger="onBlur"
-                className="w-full font-bold"
-              >
-                <Input placeholder="請再次輸入新密碼" />
-              </Form.Item>
-            </Form>
+          {isPasswordEdit ? (
+            <PasswordForm
+              form={passwordForm}
+              email={email}
+              onClick={() => passwordForm.submit()}
+            />
           ) : (
             <UserAccountInfo
               email={email}
               onClick={() => {
-                setIsEdit(true)
+                setIsPasswordEdit(true)
               }}
             />
           )}
