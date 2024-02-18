@@ -1,23 +1,21 @@
 import { Button, Card, Col, Flex, Form, Typography } from 'antd'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@/store.ts'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { defaultUser, User } from '@/slice/userSlice.ts'
+import { defaultUser, updateUser } from '@/slice/userSlice.ts'
 import UserInfoForm from '@/pages/account/UserInfoForm.tsx'
 import PasswordForm from '@/pages/account/PasswordForm.tsx'
 import { users } from '@/fetchers'
 import NoticeModal from '@/component/NoticeModal.tsx'
+import { UserProfileForm } from '@/types/form.model.tsx'
+import zipcodes from '@/utils/zipcodes.ts'
 
 const { Title } = Typography
 
-const UserProfile = ({
-  user,
-  onEditClick,
-}: {
-  user: User
-  onEditClick: () => void
-}) => {
+const UserProfile = ({ onEditClick }: { onEditClick: () => void }) => {
+  const user =
+    useSelector((state: RootState) => state.user.currentUser) || defaultUser
   const {
     name,
     phone,
@@ -46,28 +44,31 @@ const UserProfile = ({
 }
 
 type UserAccountInfoParams = {
-  email: string
   onClick: () => void
 }
 
-const UserAccountInfo = (props: UserAccountInfoParams) => (
-  <>
-    <Title className="mt-0" level={2}>
-      修改密碼
-    </Title>
-    <Title level={5}>電子信箱</Title>
-    <Title level={5}>{props.email}</Title>
-    <Title level={5}>密碼</Title>
-    <Title level={5}>************</Title>
-    <Button
-      className="absolute right-4 bottom-4"
-      type="link"
-      onClick={props.onClick}
-    >
-      重設
-    </Button>
-  </>
-)
+const UserAccountInfo = ({ onClick }: UserAccountInfoParams) => {
+  const user = useSelector((state: RootState) => state.user.currentUser)
+  const email = user?.email
+  return (
+    <>
+      <Title className="mt-0" level={2}>
+        修改密碼
+      </Title>
+      <Title level={5}>電子信箱</Title>
+      <Title level={5}>{email}</Title>
+      <Title level={5}>密碼</Title>
+      <Title level={5}>************</Title>
+      <Button
+        className="absolute right-4 bottom-4"
+        type="link"
+        onClick={onClick}
+      >
+        重設
+      </Button>
+    </>
+  )
+}
 
 export const UserInfo = () => {
   const [isEdit, setIsEdit] = useState(false)
@@ -76,25 +77,48 @@ export const UserInfo = () => {
   const [message, setMessage] = useState('')
   const currentUser = useSelector((state: RootState) => state.user.currentUser)
   const navigate = useNavigate()
-  const { email } = currentUser || { email: '' }
   const [form] = Form.useForm()
   const [passwordForm] = Form.useForm()
   const formValues = Form.useWatch([], form)
   const passwordFormValues = Form.useWatch([], passwordForm)
+  const dispatch = useDispatch()
 
   form.submit = () => {
-    console.log('submit')
-    // const postData: UserProfileForm = {
-    //   address: {
-    //     zipcode: formValues.address.city,
-    //     detail: formValues.address.detail,
-    //   },
-    //   name: formValues.name,
-    //   phone: formValues.phone,
-    //   email: formValues.email,
-    // }
-    console.log({ formValues })
-    // console.log({ postData })
+    if (currentUser?._id && currentUser?.email) {
+      const putData: UserProfileForm = {
+        userId: currentUser._id,
+        address: {
+          zipcode:
+            zipcodes.find(
+              (item) =>
+                item.city === formValues.address.city &&
+                item.county === formValues.address.county,
+            )?.zipcode || 0,
+          city: formValues.address.city,
+          county: formValues.address.county,
+          detail: formValues.address.detail,
+        },
+        name: formValues.name,
+        phone: formValues.phone,
+        email: currentUser.email,
+        birthday: formValues.birthday.format('YYYY-MM-DD'),
+      }
+      users
+        .updateProfile(putData)
+        .then(() => {
+          setIsOpenNoticeModal(true)
+          setMessage('個人資料修改成功')
+          dispatch(updateUser(putData))
+        })
+        .catch(() => {
+          setIsOpenNoticeModal(true)
+          setMessage('個人資料修改失敗')
+        })
+        .finally(() => {
+          setIsEdit(false)
+          setTimeout(() => setIsOpenNoticeModal(false), 1200)
+        })
+    }
   }
 
   passwordForm.submit = () => {
@@ -133,14 +157,9 @@ export const UserInfo = () => {
       <Col className="grow">
         <Card className="p-8">
           {isPasswordEdit ? (
-            <PasswordForm form={passwordForm} email={email} />
+            <PasswordForm form={passwordForm} />
           ) : (
-            <UserAccountInfo
-              email={email}
-              onClick={() => {
-                setIsPasswordEdit(true)
-              }}
-            />
+            <UserAccountInfo onClick={() => setIsPasswordEdit(true)} />
           )}
         </Card>
       </Col>
@@ -149,12 +168,7 @@ export const UserInfo = () => {
           {isEdit ? (
             <UserInfoForm form={form} />
           ) : (
-            <UserProfile
-              user={currentUser || defaultUser}
-              onEditClick={() => {
-                setIsEdit(true)
-              }}
-            />
+            <UserProfile onEditClick={() => setIsEdit(true)} />
           )}
         </Card>
       </Col>

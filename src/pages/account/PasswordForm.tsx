@@ -1,16 +1,19 @@
 import { Button, Form, Input, Typography } from 'antd'
 import { FormInstance } from 'antd/lib'
 import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { RootState } from '@/store.ts'
 
 const { Title } = Typography
 
 type PasswordFormProps = {
   form: FormInstance
-  email: string
 }
 
-const PasswordForm = ({ email, form }: PasswordFormProps) => {
+const PasswordForm = ({ form }: PasswordFormProps) => {
   const [isSubmittable, setIsSubmittable] = useState(false)
+  const user = useSelector((state: RootState) => state.user.currentUser)
+  const email = user?.email
   const values = Form.useWatch([], form)
 
   useEffect(() => {

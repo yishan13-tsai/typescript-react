@@ -1,10 +1,5 @@
 import axios from '@/utils/axios.ts'
-
-type PasswordData = {
-  userId: string
-  oldPassword: string
-  newPassword: string
-}
+import { FormPassword, UserProfileForm } from '@/types/form.model.tsx'
 
 const users = {
   get: async () => {
@@ -15,7 +10,15 @@ const users = {
       return null
     }
   },
-  updatePassword: async (data: PasswordData) => {
+  updatePassword: async (data: FormPassword) => {
+    const response = await axios.put('/user', data)
+    if (response.status) {
+      return response.result
+    } else {
+      return null
+    }
+  },
+  updateProfile: async (data: UserProfileForm) => {
     const response = await axios.put('/user', data)
     if (response.status) {
       return response.result
