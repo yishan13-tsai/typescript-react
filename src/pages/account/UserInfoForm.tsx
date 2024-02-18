@@ -14,7 +14,6 @@ const UserInfoForm = ({ form }: UserInfoFormProps) => {
   const formValues = Form.useWatch([], form)
   const [isSubmittable, setIsSubmittable] = useState(false)
   useEffect(() => {
-    console.log({ isSubmittable })
     form.validateFields({ validateOnly: true }).then(
       () => {
         setIsSubmittable(true)

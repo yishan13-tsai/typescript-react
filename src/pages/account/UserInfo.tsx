@@ -5,8 +5,9 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { defaultUser, User } from '@/slice/userSlice.ts'
 import UserInfoForm from '@/pages/account/UserInfoForm.tsx'
-import { PasswordForm } from '@/pages/account/PasswordForm.tsx'
-// import { FormDataType, UserProfileForm } from '@/types/form.model.tsx'
+import PasswordForm from '@/pages/account/PasswordForm.tsx'
+import { users } from '@/fetchers'
+import NoticeModal from '@/component/NoticeModal.tsx'
 
 const { Title } = Typography
 
@@ -71,6 +72,8 @@ const UserAccountInfo = (props: UserAccountInfoParams) => (
 export const UserInfo = () => {
   const [isEdit, setIsEdit] = useState(false)
   const [isPasswordEdit, setIsPasswordEdit] = useState(false)
+  const [isOpenNoticeModal, setIsOpenNoticeModal] = useState(false)
+  const [message, setMessage] = useState('')
   const currentUser = useSelector((state: RootState) => state.user.currentUser)
   const navigate = useNavigate()
   const { email } = currentUser || { email: '' }
@@ -95,7 +98,27 @@ export const UserInfo = () => {
   }
 
   passwordForm.submit = () => {
-    console.log('submit', { passwordFormValues })
+    if (currentUser?._id) {
+      users
+        .updatePassword({
+          userId: currentUser?._id,
+          oldPassword: passwordFormValues.oldPassword,
+          newPassword: passwordFormValues.newPassword,
+        })
+        .then(() => {
+          setIsOpenNoticeModal(true)
+          setMessage('密碼修改成功')
+        })
+        .catch(() => {
+          setIsOpenNoticeModal(true)
+          setMessage('密碼修改失敗')
+        })
+        .finally(() => {
+          setIsPasswordEdit(false)
+          setTimeout(() => setIsOpenNoticeModal(false), 1200)
+          passwordForm.resetFields()
+        })
+    }
   }
 
   useEffect(() => {
@@ -110,11 +133,7 @@ export const UserInfo = () => {
       <Col className="grow">
         <Card className="p-8">
           {isPasswordEdit ? (
-            <PasswordForm
-              form={passwordForm}
-              email={email}
-              onClick={() => passwordForm.submit()}
-            />
+            <PasswordForm form={passwordForm} email={email} />
           ) : (
             <UserAccountInfo
               email={email}
@@ -139,6 +158,7 @@ export const UserInfo = () => {
           )}
         </Card>
       </Col>
+      <NoticeModal isOpen={isOpenNoticeModal} message={message} />
     </Flex>
   )
 }
