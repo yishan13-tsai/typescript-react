@@ -11,6 +11,10 @@
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
   overflow: hidden;
+
+  @media (max-width: 768px) {
+    height: 234px;
+  }
 }
 
 .ant-carousel .slick-slide h3 {

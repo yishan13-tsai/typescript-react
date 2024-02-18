@@ -63,8 +63,8 @@ const Rooms = () => {
             <Col className="gutter-row" lg={15}>
               <CarouselArrows imageUrlList={room.imageUrlList} />
             </Col>
-            <Col className="gutter-row" lg={9}>
-              <div className="mr-5">
+            <Col className="gutter-row p-5" lg={9}>
+              <div >
                 <Typography.Title level={2}>
                   {room.name}
                 </Typography.Title>
