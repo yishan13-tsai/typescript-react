@@ -153,7 +153,7 @@ export const UserInfo = () => {
   }, [currentUser, navigate])
 
   return (
-    <Flex gap="40px">
+    <Flex gap="40px" wrap="wrap">
       <Col className="grow">
         <Card className="p-8">
           {isPasswordEdit ? (
