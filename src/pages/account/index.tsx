@@ -6,14 +6,21 @@ import { Orders } from '@/pages/account/Orders.tsx'
 import Col from 'antd/es/col'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store.ts'
+import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const AccountPage = () => {
   const currentUser = useSelector((state: RootState) => state.user.currentUser)
   const isProd = process.env.NODE_ENV === 'production'
+  const navigate = useNavigate()
   const accountBgSrc =
     window.location.origin +
     (isProd ? '/typescript-react' : '') +
     '/account-bg.jpeg'
+
+  useEffect(() => {
+    currentUser || navigate('/login')
+  }, [currentUser, navigate])
 
   return (
     <Row className="bg-neutral-120" justify="center">
