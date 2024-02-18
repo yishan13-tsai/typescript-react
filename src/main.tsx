@@ -45,8 +45,20 @@ const router = createBrowserRouter(
         { path: '/orderSuccess', element: <OrderSuccess /> },
         { path: '/rooms', element: <Rooms /> },
         { path: '/rooms/detail/:id', element: <Detail /> },
-        { path: '/account/:tabId', element: <Account /> },
-        { path: '/account', element: <Account /> },
+        {
+          path: '/account/:tabId',
+          element: <Account />,
+          loader: ({ params }) => {
+            return { tabId: params?.tabId || 'profile' }
+          },
+        },
+        {
+          path: '/account',
+          element: <Account />,
+          loader: () => {
+            return { tabId: 'profile' }
+          },
+        },
       ],
     },
     { path: '*', element: <h1>Not Found</h1> },
