@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { RootState } from '@/store.ts'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { defaultUser, User } from '@/slice/userSlice.ts'
+import { defaultUser } from '@/slice/userSlice.ts'
 import UserInfoForm from '@/pages/account/UserInfoForm.tsx'
 import PasswordForm from '@/pages/account/PasswordForm.tsx'
 import { users } from '@/fetchers'
@@ -11,13 +11,9 @@ import NoticeModal from '@/component/NoticeModal.tsx'
 
 const { Title } = Typography
 
-const UserProfile = ({
-  user,
-  onEditClick,
-}: {
-  user: User
-  onEditClick: () => void
-}) => {
+const UserProfile = ({ onEditClick }: { onEditClick: () => void }) => {
+  const user =
+    useSelector((state: RootState) => state.user.currentUser) || defaultUser
   const {
     name,
     phone,
@@ -46,28 +42,31 @@ const UserProfile = ({
 }
 
 type UserAccountInfoParams = {
-  email: string
   onClick: () => void
 }
 
-const UserAccountInfo = (props: UserAccountInfoParams) => (
-  <>
-    <Title className="mt-0" level={2}>
-      修改密碼
-    </Title>
-    <Title level={5}>電子信箱</Title>
-    <Title level={5}>{props.email}</Title>
-    <Title level={5}>密碼</Title>
-    <Title level={5}>************</Title>
-    <Button
-      className="absolute right-4 bottom-4"
-      type="link"
-      onClick={props.onClick}
-    >
-      重設
-    </Button>
-  </>
-)
+const UserAccountInfo = ({ onClick }: UserAccountInfoParams) => {
+  const user = useSelector((state: RootState) => state.user.currentUser)
+  const email = user?.email
+  return (
+    <>
+      <Title className="mt-0" level={2}>
+        修改密碼
+      </Title>
+      <Title level={5}>電子信箱</Title>
+      <Title level={5}>{email}</Title>
+      <Title level={5}>密碼</Title>
+      <Title level={5}>************</Title>
+      <Button
+        className="absolute right-4 bottom-4"
+        type="link"
+        onClick={onClick}
+      >
+        重設
+      </Button>
+    </>
+  )
+}
 
 export const UserInfo = () => {
   const [isEdit, setIsEdit] = useState(false)
@@ -76,7 +75,6 @@ export const UserInfo = () => {
   const [message, setMessage] = useState('')
   const currentUser = useSelector((state: RootState) => state.user.currentUser)
   const navigate = useNavigate()
-  const { email } = currentUser || { email: '' }
   const [form] = Form.useForm()
   const [passwordForm] = Form.useForm()
   const formValues = Form.useWatch([], form)
@@ -133,14 +131,9 @@ export const UserInfo = () => {
       <Col className="grow">
         <Card className="p-8">
           {isPasswordEdit ? (
-            <PasswordForm form={passwordForm} email={email} />
+            <PasswordForm form={passwordForm} />
           ) : (
-            <UserAccountInfo
-              email={email}
-              onClick={() => {
-                setIsPasswordEdit(true)
-              }}
-            />
+            <UserAccountInfo onClick={() => setIsPasswordEdit(true)} />
           )}
         </Card>
       </Col>
@@ -149,12 +142,7 @@ export const UserInfo = () => {
           {isEdit ? (
             <UserInfoForm form={form} />
           ) : (
-            <UserProfile
-              user={currentUser || defaultUser}
-              onEditClick={() => {
-                setIsEdit(true)
-              }}
-            />
+            <UserProfile onEditClick={() => setIsEdit(true)} />
           )}
         </Card>
       </Col>

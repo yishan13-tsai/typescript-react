@@ -82,7 +82,6 @@ const UserInfoForm = ({ form }: UserInfoFormProps) => {
           type="primary"
           htmlType="submit"
           disabled={!isSubmittable}
-          onClick={() => form.submit()}
           className="mt-4"
         >
           儲存設定
