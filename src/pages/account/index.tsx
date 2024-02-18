@@ -7,12 +7,13 @@ import Col from 'antd/es/col'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store.ts'
 import { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLoaderData, useNavigate } from 'react-router-dom'
 
 const AccountPage = () => {
   const currentUser = useSelector((state: RootState) => state.user.currentUser)
   const isProd = process.env.NODE_ENV === 'production'
   const navigate = useNavigate()
+  const { tabId } = useLoaderData() as { tabId: string }
   const accountBgSrc =
     window.location.origin +
     (isProd ? '/typescript-react' : '') +
@@ -48,6 +49,7 @@ const AccountPage = () => {
             },
           ]}
           indicator={{ size: (origin) => origin - 20 }}
+          defaultActiveKey={tabId}
         />
       </Col>
     </Row>
