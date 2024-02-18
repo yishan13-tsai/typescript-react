@@ -14,7 +14,6 @@ const UserInfoForm = ({ form }: UserInfoFormProps) => {
   const formValues = Form.useWatch([], form)
   const [isSubmittable, setIsSubmittable] = useState(false)
   useEffect(() => {
-    console.log({ isSubmittable })
     form.validateFields({ validateOnly: true }).then(
       () => {
         setIsSubmittable(true)
@@ -82,8 +81,7 @@ const UserInfoForm = ({ form }: UserInfoFormProps) => {
         <Button
           type="primary"
           htmlType="submit"
-          // disabled={!isSubmittable}
-          disabled
+          disabled={!isSubmittable}
           onClick={() => form.submit()}
           className="mt-4"
         >
