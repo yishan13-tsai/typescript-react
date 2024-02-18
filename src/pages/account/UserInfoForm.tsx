@@ -1,9 +1,10 @@
-import { Button, Form, Input } from 'antd'
-import AddressInput from '@/component/AddressInput'
+import { Button, DatePicker, Form, Input } from 'antd'
+import ProfileAddressInput from '@/component/ProfileAddressInput'
 import { FormInstance } from 'antd/lib'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store.ts'
 import { useEffect, useState } from 'react'
+import dayjs from 'dayjs'
 
 type UserInfoFormProps = {
   form: FormInstance
@@ -33,9 +34,10 @@ const UserInfoForm = ({ form }: UserInfoFormProps) => {
         remember: true,
         name: user?.name,
         phone: user?.phone,
-        email: user?.email,
+        birthday: dayjs(user?.birthday),
         address: {
           city: user?.address.city,
+          county: user?.address.county,
           detail: user?.address.detail,
           district: user?.address.county,
         },
@@ -68,15 +70,14 @@ const UserInfoForm = ({ form }: UserInfoFormProps) => {
         <Input placeholder="請輸入手機號碼" />
       </Form.Item>
       <Form.Item
-        label="電子信箱"
-        name="email"
-        rules={[{ required: true, message: '請輸入電子信箱' }]}
+        label="生日"
+        name="birthday"
         validateTrigger="onBlur"
         className="w-full font-bold"
       >
-        <Input placeholder="電子信箱" />
+        <DatePicker />
       </Form.Item>
-      <AddressInput form={form} />
+      <ProfileAddressInput form={form} />
       <Form.Item>
         <Button
           type="primary"

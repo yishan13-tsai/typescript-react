@@ -1,13 +1,15 @@
 import { Button, Card, Col, Flex, Form, Typography } from 'antd'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@/store.ts'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { defaultUser } from '@/slice/userSlice.ts'
+import { defaultUser, updateUser } from '@/slice/userSlice.ts'
 import UserInfoForm from '@/pages/account/UserInfoForm.tsx'
 import PasswordForm from '@/pages/account/PasswordForm.tsx'
 import { users } from '@/fetchers'
 import NoticeModal from '@/component/NoticeModal.tsx'
+import { UserProfileForm } from '@/types/form.model.tsx'
+import zipcodes from '@/utils/zipcodes.ts'
 
 const { Title } = Typography
 
@@ -79,20 +81,44 @@ export const UserInfo = () => {
   const [passwordForm] = Form.useForm()
   const formValues = Form.useWatch([], form)
   const passwordFormValues = Form.useWatch([], passwordForm)
+  const dispatch = useDispatch()
 
   form.submit = () => {
-    console.log('submit')
-    // const postData: UserProfileForm = {
-    //   address: {
-    //     zipcode: formValues.address.city,
-    //     detail: formValues.address.detail,
-    //   },
-    //   name: formValues.name,
-    //   phone: formValues.phone,
-    //   email: formValues.email,
-    // }
-    console.log({ formValues })
-    // console.log({ postData })
+    if (currentUser?._id && currentUser?.email) {
+      const putData: UserProfileForm = {
+        userId: currentUser._id,
+        address: {
+          zipcode:
+            zipcodes.find(
+              (item) =>
+                item.city === formValues.address.city &&
+                item.county === formValues.address.county,
+            )?.zipcode || 0,
+          city: formValues.address.city,
+          county: formValues.address.county,
+          detail: formValues.address.detail,
+        },
+        name: formValues.name,
+        phone: formValues.phone,
+        email: currentUser.email,
+        birthday: formValues.birthday.format('YYYY-MM-DD'),
+      }
+      users
+        .updateProfile(putData)
+        .then(() => {
+          setIsOpenNoticeModal(true)
+          setMessage('個人資料修改成功')
+          dispatch(updateUser(putData))
+        })
+        .catch(() => {
+          setIsOpenNoticeModal(true)
+          setMessage('個人資料修改失敗')
+        })
+        .finally(() => {
+          setIsEdit(false)
+          setTimeout(() => setIsOpenNoticeModal(false), 1200)
+        })
+    }
   }
 
   passwordForm.submit = () => {
