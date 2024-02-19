@@ -17,18 +17,9 @@ const axiosGet = async (url: string) => {
     return response
   })
 }
-const cardStyle: React.CSSProperties = {
-  width: '65%',
-  margin: '0 auto',
-  marginBottom: 50
-};
-const titleStyle: React.CSSProperties = {
-  width: '65%',
-  margin: '0 auto',
-  marginBottom: 50
-};
 
 const Rooms = () => {
+  const [largura, setLargura] = useState(window.innerWidth);
   const [rooms, setRooms] = useState<RoomType[]>([]);
   const [canFetch, setCanFetch] = useState<boolean>(false);
   const { data, error } = useSWR<any>(
@@ -49,11 +40,28 @@ const Rooms = () => {
   useEffect(() => {
     if (error) console.error(error)
   }, [error])
+
+  useEffect(() => {
+    const handleResize = () => {
+      setLargura(window.innerWidth);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  const cardStyle: React.CSSProperties = {
+    width: largura >= 1024 ? '65%' : '85%',
+    margin: '0 auto',
+    marginBottom: 50
+  };
   return (
     <>
       <RoomsHead />
-
-      <div style={titleStyle}>
+      <div style={cardStyle}>
         <p className="font-medium mb-2 tracking-normal">房型選擇</p>
         <p className="font-bold m-0 text-4xl tracking-normal text-primary-100" >各種房型，任你挑選</p>
       </div>

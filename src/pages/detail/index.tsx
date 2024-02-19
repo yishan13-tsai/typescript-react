@@ -41,7 +41,7 @@ const Detail = () => {
       <div className="mb-20">
         <Head />
         <div className="container">
-          <div className="w-10/12 mx-auto">
+          <div className="w-full lg:w-10/12 mx-auto">
             <Row gutter={{ lg: 24 }} >
               <Col lg={12}>
                 <Body />
