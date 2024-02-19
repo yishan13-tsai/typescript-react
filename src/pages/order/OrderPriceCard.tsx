@@ -79,14 +79,18 @@ const OrderPriceCard = ({
         priceData.reduce((acc, cur) => {
           return acc + cur.price
         }, 0)) ||
-      0,
+        0,
     )
   }, [priceData])
 
   return (
     <Card className="p-10 md:sticky md:top-10">
       <Spin spinning={isLoading}>
-        <img src={roomInfo?.imageUrl} alt={roomInfo?.name} className="w-full" />
+        <img
+          src={roomInfo?.imageUrl}
+          alt={roomInfo?.name}
+          className="w-full rounded"
+        />
         <p className="text-2xl text-bold">價格詳情</p>
         <div className="grid gap-y-3 mb-6">
           {priceData?.length &&

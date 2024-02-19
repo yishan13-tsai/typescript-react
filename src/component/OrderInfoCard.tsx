@@ -12,12 +12,16 @@ type OrderInfoCardProps = {
 }
 
 type RoomSubItemProps = {
-  title: string;
-  items: { title: string }[];
+  title: string
+  items: { title: string }[]
   gridSize: subItemGridSizeType
-};
+}
 
-const OrderInfoCard = ({ orderData, children, subItemGridSize = 'small' }: OrderInfoCardProps) => {
+const OrderInfoCard = ({
+  orderData,
+  children,
+  subItemGridSize = 'small',
+}: OrderInfoCardProps) => {
   const [loading, setLoading] = useState(true)
   useEffect(() => {
     if (orderData) {
@@ -25,8 +29,15 @@ const OrderInfoCard = ({ orderData, children, subItemGridSize = 'small' }: Order
     }
   }, [orderData])
 
-  const roomSubItems = ({ title, items, gridSize = 'small' }: RoomSubItemProps) => {
-    let gridClass = gridSize === 'small' ? 'grid-cols-2 md:grid-cols-3' : 'grid-cols-2 md:grid-cols-5'
+  const roomSubItems = ({
+    title,
+    items,
+    gridSize = 'small',
+  }: RoomSubItemProps) => {
+    const gridClass =
+      gridSize === 'small'
+        ? 'grid-cols-2 md:grid-cols-3'
+        : 'grid-cols-2 md:grid-cols-5'
     return (
       <>
         <div className="border-[1px] rounded-lg border-solid p-4 border-neutral-40">
@@ -34,7 +45,14 @@ const OrderInfoCard = ({ orderData, children, subItemGridSize = 'small' }: Order
           <div className={`grid gap-2 ${gridClass}`}>
             {items.map((item, index) => {
               return (
-                <div key={index}><img src={CheckIcon} alt="check" className="align-bottom mr-2" />{item?.title}</div>
+                <div key={index}>
+                  <img
+                    src={CheckIcon}
+                    alt="check"
+                    className="align-bottom mr-2"
+                  />
+                  {item?.title}
+                </div>
               )
             })}
           </div>
@@ -54,7 +72,8 @@ const OrderInfoCard = ({ orderData, children, subItemGridSize = 'small' }: Order
           className="w-full"
         />
         <p className="font-bold text-lg">
-          <span>{orderData?.roomId?.name}，1晚</span> | <span>住宿人數：{orderData?.peopleNum} 位</span>
+          <span>{orderData?.roomId?.name}，1晚</span> |{' '}
+          <span>住宿人數：{orderData?.peopleNum} 位</span>
         </p>
         {/* api回應的資料沒有相關內容先用假的 */}
         <p className="title-line">入住：6 月 10 日星期四，12:00 前可入住</p>
@@ -63,11 +82,19 @@ const OrderInfoCard = ({ orderData, children, subItemGridSize = 'small' }: Order
         </p>
         <Divider />
         <div className="grid gap-y-6">
-          {roomSubItems({ title: "房內設備", items: orderData?.roomId?.facilityInfo || [], gridSize: subItemGridSize })}
-          {roomSubItems({ title: "備品提供", items: orderData?.roomId?.amenityInfo || [], gridSize: subItemGridSize })}
+          {roomSubItems({
+            title: '房內設備',
+            items: orderData?.roomId?.facilityInfo || [],
+            gridSize: subItemGridSize,
+          })}
+          {roomSubItems({
+            title: '備品提供',
+            items: orderData?.roomId?.amenityInfo || [],
+            gridSize: subItemGridSize,
+          })}
         </div>
         {children}
-      </Card >
+      </Card>
     </>
   )
 }

@@ -91,24 +91,24 @@ const Order = () => {
     (state: RootState) => state.user.currentUser,
   )
 
-  const [modal, contextHolder] = Modal.useModal();
+  const [modal, contextHolder] = Modal.useModal()
   useEffect(() => {
-    if(!currentUser?._id) {
+    if (!currentUser?._id) {
       modal.info({
         title: '請先登入',
         icon: null,
         onOk() {
           navigate('/login')
         },
-      });
+      })
       return () => {
-        Modal.destroyAll();
+        Modal.destroyAll()
       }
     }
     if (!orderDetailData?.detail?._id) {
       const interval = setInterval(() => {
         navigate('/rooms')
-      }, 1000);
+      }, 1000)
       return () => {
         clearInterval(interval)
       }
@@ -141,11 +141,9 @@ const Order = () => {
     url: string,
     { arg }: { arg: FormDataType },
   ): Promise<ApiResponse> => {
-    return axios
-      .post<ApiResponse>(url, arg)
-      .then((response) => {
-        return response
-      })
+    return axios.post<ApiResponse>(url, arg).then((response) => {
+      return response
+    })
   }
 
   const { trigger } = useSWRMutation(fetchUrl, submitPost)
@@ -183,7 +181,6 @@ const Order = () => {
       console.error(result.result)
     }
   }
-
 
   const applyUserData = () => {
     if (currentUser?.address?.zipcode) {
