@@ -24,18 +24,18 @@ export const Orders = () => {
   const navigate = useNavigate()
   const fetchUrl = '/admin/orders'
   const [canFetch, setCanFetch] = useState(false)
-  const [canDelete, setCanDelete] = useState(false)
+  // const [canDelete, setCanDelete] = useState(false)
 
   const currentUser = useAppSelector(
     (state: RootState) => state.user.currentUser,
   )
   const [orderList, setOrderList] = useState<OrderDataType[]>()
   const [incomingOrder, setIncomingOrder] = useState<OrderDataType>()
-  const { data, error, mutate } = useSWR(canFetch ? fetchUrl : null, axiosGet)
-  const { data: deleteOrderData } = useSWR(
-    canDelete ? `/admin/orders/${incomingOrder?._id}` : null,
-    axiosDelete,
-  )
+  const { data, error } = useSWR(canFetch ? fetchUrl : null, axiosGet)
+  // const { data: deleteOrderData } = useSWR(
+  //   canDelete ? `/admin/orders/${incomingOrder?._id}` : null,
+  //   axiosDelete,
+  // )
 
   useEffect(() => {
     if (currentUser?._id) {

@@ -64,7 +64,7 @@ const OrderInfoCard = ({ list }: OrderInfoCardProps) => {
         <p className="className=text-xl font-bold">歷史訂單</p>
         {list?.length &&
           list
-            .filter((el, index) => index < currentPage * 3)
+            .filter((el, index) => el && index < currentPage * 3)
             .map((el) => {
               if (!el?._id) return
               return (
