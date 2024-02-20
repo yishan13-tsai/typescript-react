@@ -10,10 +10,9 @@ interface Step2Props {
     phone: string
     address: AddressType
   }) => void
-  clickSignupButton: () => void
 }
 
-function SignupStepTwo({ onDataSubmit, clickSignupButton }: Step2Props) {
+function SignupStepTwo({ onDataSubmit }: Step2Props) {
   const onChange = (e: any) => {
     console.log(`checked = ${e.target.checked}`)
   }
@@ -27,7 +26,6 @@ function SignupStepTwo({ onDataSubmit, clickSignupButton }: Step2Props) {
     address: AddressType
   }) => {
     onDataSubmit(values)
-    clickSignupButton()
   }
 
   return (

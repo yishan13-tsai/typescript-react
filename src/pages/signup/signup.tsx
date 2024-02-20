@@ -13,7 +13,7 @@ import {
   setBirthday,
   setAddress,
 } from '@/slice/signupSlice'
-import { Step1DataType, Step2DataType, FormDataType } from './types'
+import { Step1DataType, Step2DataType, FormDataType, FormAddressType} from './types'
 import axios from '@/utils/axios'
 import useSWRMutation from 'swr/mutation'
 import NoticeModal from '@/component/NoticeModal'
@@ -46,20 +46,18 @@ function Signup() {
   const next = () => {
     setCurrent(current + 1)
   }
-  const clickSignupButton = () => {
-    setIsSingup(true)
-    console.log('step1Data', step1Data, step2Data)
-    console.log('clickSignupButton')
-  }
 
   useEffect(() => {
     dispatch(setEmail(step1Data.email))
     dispatch(setPassword(step1Data.password))
+  }, [step1Data, dispatch])
+
+  useEffect(() => {
     dispatch(setName(step2Data.name))
     dispatch(setPhone(step2Data.phone))
     dispatch(setBirthday(step2Data.birthday))
     dispatch(setAddress(step2Data.address))
-  }, [step1Data, step2Data, dispatch])
+  }, [step2Data, dispatch])
 
   const steps = [
     {
@@ -76,7 +74,6 @@ function Signup() {
       content: (
         <SignupStepTwo
           onDataSubmit={(data) => setStep2Data(data)}
-          clickSignupButton={clickSignupButton}
         />
       ),
     },
@@ -84,18 +81,16 @@ function Signup() {
 
   const [current, setCurrent] = useState(0)
   const [apiParams, setApiParams] = useState({
-    name: 'joyce',
-    email: 'ddd@gmail.com',
-    password: 'hsu1234567',
-    phone: '0978800885',
-    birthday: '1982/2/4',
+    name: '',
+    email: '',
+    password: '',
+    phone: '',
+    birthday: '',
     address: {
-      zipcode: '802',
-      detail: '文山路23號',
+      zipcode: '',
+      detail: '',
     },
   })
-
-  const [signup, setIsSingup] = useState(false)
 
   const [isOpenNoticeModal, setIsOpenNoticeModal] = useState(false)
 
@@ -104,7 +99,7 @@ function Signup() {
   const items = steps.map((item) => ({ key: item.title, title: item.title }))
 
   useEffect(() => {
-    if (signup) {
+    if (step1Data || step2Data) {
       setApiParams({
         name: step2Data.name,
         email: step1Data.email,
@@ -117,26 +112,17 @@ function Signup() {
         },
       })
     }
-  }, [signup, step1Data, step2Data])
+  }, [step1Data, step2Data])
 
   useEffect(() => {
-    if (signup && apiParams) {
-      setApiParams(() => ({
-        name: step2Data.name,
-        email: step1Data.email,
-        password: step1Data.password,
-        phone: step2Data.phone,
-        birthday: `${step2Data.birthday.year}/${step2Data.birthday.month}/${step2Data.birthday.day}`,
-        address: {
-          zipcode: step2Data.address.district,
-          detail: step2Data.address.detail,
-        },
-      }))
-
-      handleSubmit(apiParams)
-      setIsSingup(false)
+    for (const property in apiParams ) {
+      if (apiParams[property as keyof typeof apiParams] as String|FormAddressType === '') {
+        return;
+      }
     }
-  }, [signup])
+    
+    handleSubmit(apiParams)
+  }, [apiParams])
 
   const fetchUrl = `user/signup`
 

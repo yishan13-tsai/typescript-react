@@ -22,14 +22,16 @@ export type Step2DataType = {
   address: AddressType
 }
 
+export type FormAddressType = {
+  zipcode: string
+  detail: string
+}
+
 export type FormDataType = {
   name: string
   email: string
   password: string
   phone: string
   birthday: string
-  address: {
-    zipcode: string
-    detail: string
-  }
+  address: FormAddressType
 }
