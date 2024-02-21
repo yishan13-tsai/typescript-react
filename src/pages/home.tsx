@@ -7,6 +7,16 @@ import useSWR from 'swr'
 import { Link } from 'react-router-dom'
 import { Button } from 'antd'
 
+import aboutBg from '@/assets/home_page/about/about_bg.png'
+import dot from '@/assets/home_page/dot.png'
+import line from '@/assets/home_page/line.png'
+import flow from '@/assets/home_page/flow_bg.png'
+import straightLine from '@/assets/home_page/straight_line.png'
+import transportationMap from '@/assets/home_page/transportation/transportation_map.png'
+import iconCar from '@/assets/home_page/transportation/transportation_icon_car.png'
+import iconTrain from '@/assets/home_page/transportation/transportation_icon_train.png'
+import iconLuxurycar from '@/assets/home_page/transportation/transportation_icon_luxurycar.png'
+
 const axiosGet = async (url: string) => {
   return axios.get(url).then((response) => {
     return response
@@ -88,8 +98,8 @@ function Home() {
         <section className="news w-[70%] mx-auto my-[80px] lg:my-[120px] px-4 bg-primary-10 relative">
           <img
             className="absolute w-[25%] md:w-[15%] right-[30px] lg:right-[-80px] top-[-38px] lg:top-[-8px] bg-cover"
-            src="./home_page/dot.png"
-            alt=""
+            src={dot}
+            alt="dot"
           />
           <div className="-mx-4 flex flex-wrap">
             <div className="right_col w-full lg:w-2/12 flex-none mb-[60px] lg:mb-0">
@@ -119,15 +129,15 @@ function Home() {
           </div>
           <img
             className="absolute w-[25%] md:w-[15%] lg:left-[-80px] lg:bottom-[-180px] z-10 bg-cover"
-            src="./home_page/dot.png"
-            alt=""
+            src={dot}
+            alt="dot"
           />
         </section>
         <section className="about w-full h-[794px] lg:h-[992px] bg-neutral-120 relative">
           <div>
             <img
               className="w-full object-cover mt-[120px] mb-[200px]"
-              src="./home_page/about/about_bg.png"
+              src={aboutBg}
             />
             <div
               className="container h-[594px] lg:h-[672px] w-11/12 lg:w-2/3 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
@@ -167,13 +177,13 @@ function Home() {
             className="absolute 
             top-[-90px] right-[calc(100vw-140vw)] h-[12%] w-[110%]
             lg:right-[5px] lg:top-[100px] lg:w-[52%] bg-cover"
-            src="./home_page/line.png"
-            alt=""
+            src={line}
+            alt="line"
           />
           <img
             className="absolute right-[5px] bottom-[0px] w-full bg-cover"
-            src="./home_page/flow_bg.png"
-            alt=""
+            src={flow}
+            alt="flow"
           />
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
             <div className="left_col_block w-[95%] mx-auto mb-[24px] lg:w-full">
@@ -208,13 +218,13 @@ function Home() {
         <section className="food w-[95%] lg:w-[70%] mx-auto my-[120px] px-4 bg-primary-10 relative">
           <img
             className="absolute right-[-120px] top-[-146px] w-[12%] bg-cover"
-            src="./home_page/dot.png"
-            alt=""
+            src={dot}
+            alt="dot"
           />
           <img
             className="absolute left-[-220px] top-[-60px] w-[13.5%] bg-cover"
-            src="./home_page/straight_line.png"
-            alt=""
+            src={straightLine}
+            alt="straightLine"
           />
           <div className="subtitle_line_right font-bold text-5xl text-primary-100 mb-20">
             <p className="m-0 leading-[57.6px] tracking-heading">佳餚</p>
@@ -232,8 +242,8 @@ function Home() {
               <p className="text-neutral-0">台灣高雄市新興區六角路123號</p>
               <img
                 className="w-full rounded-lg h-[360px] object-cover"
-                src="./home_page/transportation/transportation_map.png"
-                alt=""
+                src={transportationMap}
+                alt="transportationMap"
               />
             </div>
             <div className="w-full grid grid-cols-1 xl:grid-cols-3 content-center gap-6">
@@ -241,8 +251,8 @@ function Home() {
                 <div className="w-[80px] h-[80px]">
                   <img
                     className="w-full object-cover"
-                    src="./home_page/transportation/transportation_icon_car.png"
-                    alt=""
+                    src={iconCar}
+                    alt="iconCar"
                   />
                 </div>
                 <div className="text-neutral-0">
@@ -256,8 +266,8 @@ function Home() {
                 <div className="w-[80px] h-[80px]">
                   <img
                     className="w-full object-cover"
-                    src="./home_page/transportation/transportation_icon_train.png"
-                    alt=""
+                    src={iconTrain}
+                    alt="iconTrain"
                   />
                 </div>
                 <div className="text-neutral-0">
@@ -271,8 +281,8 @@ function Home() {
                 <div className="w-[80px] h-[80px]">
                   <img
                     className="w-full object-cover"
-                    src="./home_page/transportation/transportation_icon_luxurycar.png"
-                    alt=""
+                    src={iconLuxurycar}
+                    alt="iconLuxurycar"
                   />
                 </div>
                 <div className="text-neutral-0">

@@ -18,6 +18,8 @@ import axios from '@/utils/axios'
 import useSWRMutation from 'swr/mutation'
 import NoticeModal from '@/component/NoticeModal'
 
+import bg from '@/assets/login/login_bg.png'
+
 function Signup() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -158,13 +160,18 @@ function Signup() {
     }
   }
 
+  const onChange = (value: number) => {
+    console.log('onChange:', value);
+    setCurrent(value);
+  };
+
   return (
     <>
       <div className="grid md:grid-cols-2 p-0">
         <div className="hidden md:block bg-black">
           <img
             className="h-full w-full object-cover object-center"
-            src="./Login/login_bg.png"
+            src={bg}
             alt="login_bg"
           />
         </div>
@@ -190,6 +197,7 @@ function Signup() {
                 className="mb-10 step_custom"
                 current={current}
                 items={items}
+                onChange={onChange}
                 labelPlacement="vertical"
               />
               <div>

@@ -9,6 +9,8 @@ import useSWRMutation from 'swr/mutation'
 import NoticeModal from '@/component/NoticeModal'
 import { useState } from 'react'
 
+import bg from '@/assets/login/login_bg.png'
+
 const Login = () => {
   const dispatch = useDispatch()
   const [form] = Form.useForm()
@@ -63,7 +65,7 @@ const Login = () => {
         <div className="hidden bg-black md:block">
           <img
             className="h-full w-full object-cover object-center"
-            src="./Login/login_bg.png"
+            src={bg}
             alt="login_bg"
           />
         </div>
